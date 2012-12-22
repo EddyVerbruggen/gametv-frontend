@@ -48,7 +48,7 @@
             '  <a rel="external" href="'+video.videourl+'">' +
             '    <img src="' + video.imageurl + '" alt="' + video.title + '"/>' +
             '    <h3>'+video.title+'</h3>' +
-            '    <p style="color:#ccc">' + date.getDate() + "-" + (date.getMonth()+1) + "-" + date.getFullYear() + '</p>' +
+            '    <p style="color:#bbb">' + date.getDate() + "-" + (date.getMonth()+1) + "-" + date.getFullYear() + '</p>' +
             '  </a>' +
             '</li>';
       });
@@ -62,7 +62,7 @@
 <!-- PAGE 1 -->
 <div data-role="page" id="videosources">
 
-  <div data-role="header">
+  <div data-role="header" data-position="fixed">
   	<h1>Video bronnen</h1>
   </div>
 
@@ -72,7 +72,7 @@
     <div class="content-primary">
       <ul id="videosourceList" data-role="listview" data-inset="false">
         <li>
-          <a href="#videos" data-transition="flow">
+          <a href="#videos" data-transition="slide">
             <img src="img/videosources/gamekings.jpg" height="84px"/>
             <h3>GameKings</h3>
             <p>Reviews, nieuws en lolligheid</p>
@@ -87,7 +87,7 @@
 <!-- PAGE 2 -->
 <div data-role="page" id="videos">
 
-  <div data-role="header">
+  <div data-role="header" data-position="fixed">
     <a href="#videosources" data-icon="arrow-l" data-direction="reverse">terug</a>
   	<h1>GameKings</h1>
   </div>
