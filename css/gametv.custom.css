@@ -5,9 +5,15 @@
 .ui-li-thumb {
   /*height: 100%;*/
   max-width: 152px;
-  max-height: none;
+  max-height: 86px;
 }
 
 .ui-li-heading {
   white-space: normal;
+}
+
+.ui-li-link-alt {
+  border: 0;
+  border-left: 0;
+  width: 60px;
 }
