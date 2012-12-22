@@ -8,3 +8,7 @@
   max-height: none;
   max-width: none;
 }
+
+.ui-li-heading {
+  white-space: normal;
+}

@@ -12,151 +12,34 @@
   <link rel="stylesheet" href="css/gametv.custom.css"/>
   <!--<link rel="stylesheet" href="css/index.css"/>-->
   <script src="js/lib/jquery.js"></script>
-  <!--<script src="js/zzp.custom.js"></script>-->
+  <script src="js/gametv.custom.js"></script>
   <script src="js/lib/jquery.mobile-1.2.0/jquery.mobile-1.2.0.min.js"></script>
   <script src="phonegap.js"></script>
   <!--<script src="js/index.js"></script>-->
   <script type="text/javascript">
-
-    /*
-    function storeUser(obj) {
-      return localStorage.setItem("user", JSON.stringify(obj));
-    }
-
-    function getUser() {
-      var usr = localStorage.getItem("user");
-      if (usr == null) {
-        return null;
-      } else {
-        return JSON.parse(usr);
-      }
-    }
-
-    function redirectToLinkedInAuth() {
-      sessionStorage.setItem('linkedInLoginAttemptInProgress', "1");
-      window.location = getServiceURL("/linkedin/auth/"+getUser().uuid);
-    }
-
-    function initUser() {
-      if (getUser() == null) {
-        createUser();
-      } else {
-        $.getJSON(getServiceURL("/user/load/"+getUser().uuid))
-            .success(function(data) {
-              if (data == null) {
-                createUser();
-              } else {
-                storeUser(data);
-                initLinkedIn();
-              }
-            })
-            .error(function(XMLHttpRequest, textStatus, errorThrown) {
-              if (XMLHttpRequest.status == 0) {
-                alert("Server onbereikbaar: " + getServiceURL(""));
-              } else {
-                alert(textStatus);
-              }
-            })
-      }
-    }
-
-    function createUser() {
-      $.getJSON(getServiceURL("/user/create"))
-          .success(function(data) {
-            storeUser(data);
-            initLinkedIn();
-          })
-          .error(function(XMLHttpRequest, textStatus, errorThrown) {
-            alert(textStatus);
-          })
-    }
-
-    function checkForLinkedInAccessToken() {
-      $.getJSON(getServiceURL("/linkedin/authorised/"+getUser().uuid))
-          .success(function(data) {
-            if (data) {
-              sessionStorage.setItem('linkedInLoginSuccessful', "1");
-              $("#linkedInTest").html('<a href="#" onclick="getLinkedInProfileDetails()">LinkedIn profile</a>');
-            } else {
-              sessionStorage.setItem('linkedInLoginSuccessful', "0");
-              $("#linkedInTest").html('<a href="#" onclick="redirectToLinkedInAuth()">LinkedIn connections</a>');
-            }
-          })
-          .error(function(XMLHttpRequest, textStatus, errorThrown) {
-            alert(textStatus);
-          })
-    }
-
-    function getLinkedInProfileDetails() {
-      $.getJSON(getServiceURL("/linkedin/profile/"+getUser().uuid))
-          .success(function(data) {
-            sessionStorage.setItem('linkedInLoginSuccessful', "1");
-
-            alert("Hoi " + data.firstName + " ;)");
-            alert("Werkend bij " + data.positions.values[0].company.name + ", of niet dan?");
-//            $.each(data, function(key, val) {
-//              alert(key + ": " + val);
-//            });
-          })
-          .error(function(XMLHttpRequest, textStatus, errorThrown) {
-            alert(textStatus);
-          })
-    }
-
-    $(window).unload(function() {}); // forces a document.ready when coming back from linkedin oauth :)
-
     $(document).ready(function() {
-      initUser();
-      loadUpdates();
+      loadVideos();
     });
 
-    function initLinkedIn() {
-      return; // disabled for now
-      if (sessionStorage.getItem('linkedInLoginSuccessful') == "1") {
-        $("#linkedInTest").html('<a href="#" onclick="getLinkedInProfileDetails()">LinkedIn profile</a>');
-      } else if (sessionStorage.getItem('linkedInLoginAttemptInProgress') == "1") {
-        sessionStorage.setItem('linkedInLoginAttemptInProgress', "0");
-        $("#linkedInTest").html('<a href="#" onclick="getLinkedInProfileDetails()">LinkedIn profile</a>');
-      } else if(sessionStorage.getItem('linkedInLoginSuccessful') == null) {
-        checkForLinkedInAccessToken();
-      } else {
-        $("#linkedInTest").html('<a href="#" onclick="redirectToLinkedInAuth()">Show connections</a>');
-      }
-    }
-
-    function loadUpdates() {
-      $.getJSON(getServiceURL("/network/updates"))//todo: add user uuid
+    function loadVideos() {
+      $.getJSON(getServiceURL("/video/all"))
           .success(function(data) {
-            $.each(data, function(idx, update) {
+            alert(1);
+            var html = '';
+            $.each(data, function(idx, video) {
               //todo: iCanHaz?
-              var html =
-                  "<li data-icon='false' class='networkUpdates'>" +
-                      "<a href='userupdate.html'>" +
-                        "<img src='" + update.user.image + "' alt='" + update.user.name + "'/>" +
-                        "<span class='networkUpdateType'>";
-
-              if (update.networkUpdateTypes) {
-                $.each(update.networkUpdateTypes, function(idx, networkUpdateType) {
-                  html += "<img class='nutIcon' data-name='" + networkUpdateType.name + "' src='" + networkUpdateType.image + "' width='12px'/>";
-                });
-              }
-
-              html += "</span>" +
-                        "<div class='date'>" + update.date + "</div>" +
-                        update.message;
-              if (update.nrOfReactions > 0) {
-                html += "<span class='ui-li-count'>" + update.nrOfReactions + "</span>";
-              }
-              html += "</a>" +
-                   "</li>";
-
-              $("#networkUpdatesContainerListView").append(html);
+              html += '' +
+                  '<li data-icon="false">' +
+                  '  <a href="'+video.videourl+'">' +
+                  '    <img src="' + video.imageurl + '" alt="' + video.title + '"/>' +
+                  '    <h3>'+video.title+'</h3>' +
+                  '  </a>' +
+                  '</li>';
             });
-
-            $("#networkUpdatesContainerListView").listview('refresh');
+            $("#videoList").append(html);
+            $("#videoList").listview('refresh');
           })
     }
-    */
   </script>
 </head>
 <body>
@@ -164,21 +47,7 @@
 
   <div data-role="content">
     <div class="content-primary">
-      <ul data-role="listview" data-inset="false">
-        <li>
-          <a href="http://stream.gamekings.tv/large/20121222_shooter.mp4">
-            <img src="http://www.gamekings.tv/wp-content/uploads/20121222_shooter_splash.jpg"/>
-            <h3>De Beste Shooter van het Jaar 2012</h3>
-            <p>Bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla..</p>
-          </a>
-        </li>
-        <li>
-          <a href="http://stream.gamekings.tv/large/20121221_EindeVanDeWereldVrijdagOehYeah.mp4">
-            <img src="http://www.gamekings.tv/wp-content/uploads/20121221_EVDWVSplash.jpg"/>
-            <h3>EvdWV met THQ, prijzen en zombies</h3>
-            <p>Bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla..</p>
-          </a>
-        </li>
+      <ul id="videoList" data-role="listview" data-inset="false">
       </ul>
     </div>
   </div>

@@ -29,11 +29,11 @@ function isIOS() {
 }
 
 function isMacBookBas() {
-  return window.location.hostname == 'zzpbas';
+  return window.location.hostname == 'gametvbas';
 }
 
 function isServerStubMode() {
-  return window.location.hostname == 'zzpbasstub'; // Bas stub mode
+  return window.location.hostname == 'gametvbasstub'; // Bas stub mode
 }
 
 
@@ -43,11 +43,11 @@ function getServiceURL(servicePath) {
     return "serverstub" + servicePath + ".json";
   } else {
     if (isAndroid() || isIOS()) {
-      return "http://www.thumbrater.com:9006" + servicePath;
+      return "http://www.thumbrater.com:9008" + servicePath;
     } else if (isMacBookBas()) {
-      return "http://localhost:9005" + servicePath;
+      return "http://localhost:9006" + servicePath;
     } else {
-      return "http://www.thumbrater.com:9005" + servicePath;
+      return "http://www.thumbrater.com:9007" + servicePath;
     }
   }
 }
