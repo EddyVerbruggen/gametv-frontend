@@ -9,8 +9,8 @@
   <!-- NOTE: jqm loads the HEAD only once per session, so we need to include all css and js on every page (not only the first, because a reload of a page need to load all css/js as well) -->
   <link rel="stylesheet" href="js/lib/jquery.mobile-1.2.0/jquery.mobile-1.2.0.min.css"/>
   <link rel="stylesheet" href="js/lib/jquery.mobile-1.2.0/jquery.mobile.theme-1.2.0.min.css"/>
-  <link rel="stylesheet" href="css/zzp.custom.css"/>
-  <link rel="stylesheet" href="css/index.css"/>
+  <link rel="stylesheet" href="css/gametv.custom.css"/>
+  <!--<link rel="stylesheet" href="css/index.css"/>-->
   <script src="js/lib/jquery.js"></script>
   <!--<script src="js/zzp.custom.js"></script>-->
   <script src="js/lib/jquery.mobile-1.2.0/jquery.mobile-1.2.0.min.js"></script>
@@ -160,20 +160,27 @@
   </script>
 </head>
 <body>
-<div id="indexPage" data-role="page">
+<div data-role="page">
 
-  <div id="content" data-role="content">
-
-      <ul id="networkUpdatesContainerListView" data-role="listview" data-inset="true" >
-        <li data-icon="false" class="filterRow">
-          <div data-role="fieldcontain">
-            <fieldset id="networkFilters" data-role="controlgroup" data-type="horizontal" data-mini="true">
-              <a href="http://stream.gamekings.tv/large/20121222_shooter.mp4"><img width="100px" src="http://www.gamekings.tv/wp-content/uploads/20121222_shooter_splash.jpg"></a>
-              Gamekings
-            </fieldset>
-          </div>
+  <div data-role="content">
+    <div class="content-primary">
+      <ul data-role="listview" data-inset="false">
+        <li>
+          <a href="http://stream.gamekings.tv/large/20121222_shooter.mp4">
+            <img src="http://www.gamekings.tv/wp-content/uploads/20121222_shooter_splash.jpg"/>
+            <h3>De Beste Shooter van het Jaar 2012</h3>
+            <p>Bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla..</p>
+          </a>
+        </li>
+        <li>
+          <a href="http://stream.gamekings.tv/large/20121221_EindeVanDeWereldVrijdagOehYeah.mp4">
+            <img src="http://www.gamekings.tv/wp-content/uploads/20121221_EVDWVSplash.jpg"/>
+            <h3>EvdWV met THQ, prijzen en zombies</h3>
+            <p>Bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla..</p>
+          </a>
         </li>
       </ul>
+    </div>
   </div>
 
   <!--div data-role="footer" data-position="fixed" data-tap-toggle="false" data-theme="a">
