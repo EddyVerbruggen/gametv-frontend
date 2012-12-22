@@ -1,12 +1,11 @@
 .ui-li-has-thumb .ui-btn-inner a.ui-link-inherit, .ui-li-static.ui-li-has-thumb {
-  padding-left: 160px;
+  padding-left: 166px;
 }
 
 .ui-li-thumb {
-  height: 100%;
-  width: auto;
+  /*height: 100%;*/
+  max-width: 152px;
   max-height: none;
-  max-width: none;
 }
 
 .ui-li-heading {

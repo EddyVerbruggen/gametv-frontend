@@ -30,9 +30,9 @@
           .error(function() {
             var cachedVideos = localStorage.getItem("videos");
             if (cachedVideos == null) {
-              $("#feedback").html("Well, there was an error loading the videos from the server. Please try again later..");
+              $(".feedback").html("Well, there was an error loading the videos from the server. Please try again later..");
             } else {
-              $("#feedback").html("Failed to fetch latest videos, showing the last known list.");
+              $(".feedback").html("Failed to fetch latest videos, showing the last known list.");
             }
             renderVideoList(JSON.parse(cachedVideos));
           })
@@ -56,12 +56,43 @@
   </script>
 </head>
 <body>
-<div data-role="page">
-  <div id="feedback"></div>
+
+<!-- PAGE 1 -->
+<div data-role="page" id="videosources">
+
+  <div data-role="header">
+  	<h1>GameKings</h1>
+  </div>
+
+  <div class="feedback"></div>
+
   <div data-role="content">
     <div class="content-primary">
-      <ul id="videoList" data-role="listview" data-inset="false">
+      <ul id="videosourceList" data-role="listview" data-inset="false">
+        <li>
+          <a href="#videos">
+            <img src="img/videosources/gamekings.jpg" height="84px"/>
+            <h3>GameKings</h3>
+            <p>Reviews, nieuws en lolligheid</p>
+          </a>
+        </li>
       </ul>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE 2 -->
+<div data-role="page" id="videos" data-add-back-btn="true">
+
+  <div data-role="header">
+  	<h1>GameKings</h1>
+  </div>
+
+  <div class="feedback"></div>
+
+  <div data-role="content">
+    <div class="content-primary">
+      <ul id="videoList" data-role="listview" data-inset="false"></ul>
     </div>
   </div>
 
