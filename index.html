@@ -48,7 +48,7 @@
             '  <a rel="external" href="'+video.videourl+'">' +
             '    <img src="' + video.imageurl + '" alt="' + video.title + '"/>' +
             '    <h3>'+video.title+'</h3>' +
-            '    <p style="color:#bbb">' + date.getDate() + "-" + (date.getMonth()+1) + "-" + date.getFullYear() + '</p>' +
+            '    <p>' + date.getDate() + "-" + (date.getMonth()+1) + "-" + date.getFullYear() + '</p>' +
             '  </a>' +
             '</li>';
       });
@@ -71,12 +71,37 @@
   <div data-role="content">
     <div class="content-primary">
       <ul id="videosourceList" data-role="listview" data-inset="true">
+        <!-- TODO from server -->
         <li>
           <a href="#videos" data-transition="slide">
-            <img src="img/videosources/gamekings.jpg" height="84px"/>
-            <h3>GameKings</h3>
-            <p>Reviews, nieuws en lolligheid</p>
+            <img src="img/videosources/gamekings.jpg"/>
+            <h3>Gamekings</h3>
+            <p>www.gamekings.tv</p>
             <span class="ui-li-count">10</span>
+          </a>
+        </li>
+        <li>
+          <a href="#videos" data-transition="slide">
+            <img src="img/videosources/power_unlimited.png"/>
+            <h3>Power Unlimited</h3>
+            <p>www.pu.nl</p>
+            <span class="ui-li-count">13</span>
+          </a>
+        </li>
+        <li>
+          <a href="#videos" data-transition="slide">
+            <img src="img/videosources/gamer.nl.png"/>
+            <h3>Gamer</h3>
+            <p>www.gamer.nl</p>
+            <span class="ui-li-count">7</span>
+          </a>
+        </li>
+        <li>
+          <a href="#videos" data-transition="slide">
+            <img src="img/videosources/gamespot.jpg"/>
+            <h3>Gamespot</h3>
+            <p>www.gamespot.com</p>
+            <span class="ui-li-count">37</span>
           </a>
         </li>
       </ul>

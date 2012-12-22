@@ -1,15 +1,15 @@
 #videosources .ui-li-thumb {
-  max-width: 74px;
-  max-height: 74px;
+  max-width: 66px;
+  max-height: 66px;
+}
+
+#videosources .ui-li-has-thumb .ui-btn-inner a.ui-link-inherit {
+  padding-left: 82px;
 }
 
 #videos .ui-li-thumb {
   max-width: 116px;
   max-height: 66px;
-}
-
-#videosources .ui-li-has-thumb .ui-btn-inner a.ui-link-inherit {
-  padding-left: 90px;
 }
 
 #videos .ui-li-has-thumb .ui-btn-inner a.ui-link-inherit {
@@ -39,4 +39,16 @@ li.ui-btn {
 
 .ui-btn-up-c, .ui-btn-hover-c, .ui-btn-down-c {
   border: 0;
+}
+
+.ui-li-thumb, .ui-listview .ui-li-icon {
+  left: 0;
+}
+
+.ui-btn-inner {
+  border-top: 0;
+}
+
+.ui-li-desc {
+  color: #bbb;
 }
