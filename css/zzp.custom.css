@@ -1,0 +1,145 @@
+.ui-content {
+  padding: 0 0 10px;
+  max-width: 640px;
+  margin: auto; /* makes the app center-aligned when > max-width */
+}
+
+.ui-content .ui-listview {
+  margin: 0;
+}
+
+.ui-li-has-count .ui-li-count {
+  font-size: 10px;
+  padding: 0.03em 0.3em;
+  font-weight: normal;
+}
+
+#header {
+  margin-top: 9px;
+  margin-left: 7px;
+  margin-right: 7px;
+}
+
+#header .ui-li-has-thumb .ui-btn-inner a.ui-link-inherit {
+  min-height: 57px;
+}
+
+#header .ui-li-thumb, #header .ui-listview .ui-li-icon {
+  left: 0;
+  max-width: 96px;
+  max-height: 96px;
+}
+
+#header .ui-li-has-thumb .ui-btn-inner a.ui-link-inherit, #header .ui-li-static.ui-li-has-thumb {
+  min-height: 74px;
+  padding-left: 107px;
+}
+
+#header .date {
+  clear: left;
+}
+
+.date {
+  font-size: 10px;
+  color: #bbb;
+}
+
+#linkedInTest {
+  margin-left: 10px;
+  font-size: 10px;
+}
+.
+ui-li-has-thumb .ui-btn-inner a.ui-link-inherit {
+  min-height: inherit;
+}
+
+.locationMarker {
+  float: left;
+  position: absolute;
+}
+
+.ui-li-has-count .locationMarker .ui-li-count {
+  right: inherit;
+}
+
+.amsterdam {
+  top: 45px;
+  left: 30px;
+}
+
+.groningen {
+  top: 26px;
+  left: 61px;
+}
+
+.enschede {
+  top: 56px;
+  left: 62px;
+}
+
+.inactive {
+  opacity: 0.5;
+}
+
+.ui-footer {
+  font-size: 11px;
+  color: #bbb;
+  margin-top: 16px;
+  /*margin-bottom: 16px;*/
+  margin-right: 2px;
+  text-align: right;
+}
+
+.ui-footer a {
+  color: #bbb;
+}
+
+.networkUpdates {
+  min-height: 50px;
+}
+
+.backButton .ui-li-has-thumb .ui-btn-inner a.ui-link-inherit, .backButton .ui-li-static.ui-li-has-thumb {
+  min-height: 18px;
+}
+
+.networkUpdates.ui-li-has-thumb .ui-btn-inner a.ui-link-inherit, .networkUpdates.ui-li-static.ui-li-has-thumb {
+  min-height: 48px;
+  padding-left: 54px;
+}
+
+.networkUpdates img.ui-li-thumb {
+  left: 1px;
+}
+
+.networkUpdates .ui-li-thumb, .networkUpdates .ui-listview .ui-li-icon {
+  max-width: 48px;
+  max-height: 48px;
+}
+
+.networkUpdates .ui-li .ui-btn-text a.ui-link-inherit {
+  font-weight: normal;
+  font-size: 11px;
+  white-space: normal;
+  line-height: 12px;
+  text-overflow: inherit;
+}
+
+.networkUpdates .ui-btn-inner a.ui-link-inherit {
+  padding-right: 2px;
+  padding-top: 1px;
+  padding-bottom: 0;
+}
+
+.networkUpdates.ui-li-has-count .ui-li-count {
+  top: 11px;
+  right: 2px;
+}
+
+.ui-li .ui-btn-inner a.ui-link-inherit, .ui-li-static.ui-li {
+  padding-left: 9px;
+  padding-right: 9px;
+}
+
+.ui-field-contain, .ui-mobile fieldset.ui-field-contain {
+  margin: 0;
+}

@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=0"/>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <title>Game TV</title>
+  <!-- NOTE: jqm loads the HEAD only once per session, so we need to include all css and js on every page (not only the first, because a reload of a page need to load all css/js as well) -->
+  <link rel="stylesheet" href="js/lib/jquery.mobile-1.2.0/jquery.mobile-1.2.0.min.css"/>
+  <link rel="stylesheet" href="js/lib/jquery.mobile-1.2.0/jquery.mobile.theme-1.2.0.min.css"/>
+  <link rel="stylesheet" href="css/zzp.custom.css"/>
+  <link rel="stylesheet" href="css/index.css"/>
+  <script src="js/lib/jquery.js"></script>
+  <!--<script src="js/zzp.custom.js"></script>-->
+  <script src="js/lib/jquery.mobile-1.2.0/jquery.mobile-1.2.0.min.js"></script>
+  <script src="phonegap.js"></script>
+  <!--<script src="js/index.js"></script>-->
+  <script type="text/javascript">
+
+    /*
+    function storeUser(obj) {
+      return localStorage.setItem("user", JSON.stringify(obj));
+    }
+
+    function getUser() {
+      var usr = localStorage.getItem("user");
+      if (usr == null) {
+        return null;
+      } else {
+        return JSON.parse(usr);
+      }
+    }
+
+    function redirectToLinkedInAuth() {
+      sessionStorage.setItem('linkedInLoginAttemptInProgress', "1");
+      window.location = getServiceURL("/linkedin/auth/"+getUser().uuid);
+    }
+
+    function initUser() {
+      if (getUser() == null) {
+        createUser();
+      } else {
+        $.getJSON(getServiceURL("/user/load/"+getUser().uuid))
+            .success(function(data) {
+              if (data == null) {
+                createUser();
+              } else {
+                storeUser(data);
+                initLinkedIn();
+              }
+            })
+            .error(function(XMLHttpRequest, textStatus, errorThrown) {
+              if (XMLHttpRequest.status == 0) {
+                alert("Server onbereikbaar: " + getServiceURL(""));
+              } else {
+                alert(textStatus);
+              }
+            })
+      }
+    }
+
+    function createUser() {
+      $.getJSON(getServiceURL("/user/create"))
+          .success(function(data) {
+            storeUser(data);
+            initLinkedIn();
+          })
+          .error(function(XMLHttpRequest, textStatus, errorThrown) {
+            alert(textStatus);
+          })
+    }
+
+    function checkForLinkedInAccessToken() {
+      $.getJSON(getServiceURL("/linkedin/authorised/"+getUser().uuid))
+          .success(function(data) {
+            if (data) {
+              sessionStorage.setItem('linkedInLoginSuccessful', "1");
+              $("#linkedInTest").html('<a href="#" onclick="getLinkedInProfileDetails()">LinkedIn profile</a>');
+            } else {
+              sessionStorage.setItem('linkedInLoginSuccessful', "0");
+              $("#linkedInTest").html('<a href="#" onclick="redirectToLinkedInAuth()">LinkedIn connections</a>');
+            }
+          })
+          .error(function(XMLHttpRequest, textStatus, errorThrown) {
+            alert(textStatus);
+          })
+    }
+
+    function getLinkedInProfileDetails() {
+      $.getJSON(getServiceURL("/linkedin/profile/"+getUser().uuid))
+          .success(function(data) {
+            sessionStorage.setItem('linkedInLoginSuccessful', "1");
+
+            alert("Hoi " + data.firstName + " ;)");
+            alert("Werkend bij " + data.positions.values[0].company.name + ", of niet dan?");
+//            $.each(data, function(key, val) {
+//              alert(key + ": " + val);
+//            });
+          })
+          .error(function(XMLHttpRequest, textStatus, errorThrown) {
+            alert(textStatus);
+          })
+    }
+
+    $(window).unload(function() {}); // forces a document.ready when coming back from linkedin oauth :)
+
+    $(document).ready(function() {
+      initUser();
+      loadUpdates();
+    });
+
+    function initLinkedIn() {
+      return; // disabled for now
+      if (sessionStorage.getItem('linkedInLoginSuccessful') == "1") {
+        $("#linkedInTest").html('<a href="#" onclick="getLinkedInProfileDetails()">LinkedIn profile</a>');
+      } else if (sessionStorage.getItem('linkedInLoginAttemptInProgress') == "1") {
+        sessionStorage.setItem('linkedInLoginAttemptInProgress', "0");
+        $("#linkedInTest").html('<a href="#" onclick="getLinkedInProfileDetails()">LinkedIn profile</a>');
+      } else if(sessionStorage.getItem('linkedInLoginSuccessful') == null) {
+        checkForLinkedInAccessToken();
+      } else {
+        $("#linkedInTest").html('<a href="#" onclick="redirectToLinkedInAuth()">Show connections</a>');
+      }
+    }
+
+    function loadUpdates() {
+      $.getJSON(getServiceURL("/network/updates"))//todo: add user uuid
+          .success(function(data) {
+            $.each(data, function(idx, update) {
+              //todo: iCanHaz?
+              var html =
+                  "<li data-icon='false' class='networkUpdates'>" +
+                      "<a href='userupdate.html'>" +
+                        "<img src='" + update.user.image + "' alt='" + update.user.name + "'/>" +
+                        "<span class='networkUpdateType'>";
+
+              if (update.networkUpdateTypes) {
+                $.each(update.networkUpdateTypes, function(idx, networkUpdateType) {
+                  html += "<img class='nutIcon' data-name='" + networkUpdateType.name + "' src='" + networkUpdateType.image + "' width='12px'/>";
+                });
+              }
+
+              html += "</span>" +
+                        "<div class='date'>" + update.date + "</div>" +
+                        update.message;
+              if (update.nrOfReactions > 0) {
+                html += "<span class='ui-li-count'>" + update.nrOfReactions + "</span>";
+              }
+              html += "</a>" +
+                   "</li>";
+
+              $("#networkUpdatesContainerListView").append(html);
+            });
+
+            $("#networkUpdatesContainerListView").listview('refresh');
+          })
+    }
+    */
+  </script>
+</head>
+<body>
+<div id="indexPage" data-role="page">
+
+  <div id="content" data-role="content">
+
+      <ul id="networkUpdatesContainerListView" data-role="listview" data-inset="true" >
+        <li data-icon="false" class="filterRow">
+          <div data-role="fieldcontain">
+            <fieldset id="networkFilters" data-role="controlgroup" data-type="horizontal" data-mini="true">
+              <a href="http://stream.gamekings.tv/large/20121222_shooter.mp4"><img width="100px" src="http://www.gamekings.tv/wp-content/uploads/20121222_shooter_splash.jpg"></a>
+            </fieldset>
+          </div>
+        </li>
+      </ul>
+  </div>
+
+  <div data-role="footer" data-position="fixed" data-tap-toggle="false" data-theme="a">
+    update app on <a data-role="none" href="https://build.phonegap.com/apps/199780/download/ios/?qr_key=w29qzNnzZifwaBwyZkig"><strong>iOS</strong></a> or <a
+      data-role="none" href="https://build.phonegap.com/apps/199780/download/android/?qr_key=w29qzNnzZifwaBwyZkig"><strong>Android</strong></a>
+  </div>
+
+</div>
+</body>
+</html>

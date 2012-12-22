@@ -1,0 +1,117 @@
+.searchButton .ui-li-has-thumb .ui-btn-inner a.ui-link-inherit, .searchButton .ui-li-static.ui-li-has-thumb {
+  padding-left: 36px;
+  min-height: inherit;
+}
+
+.searchButton img.ui-li-thumb {
+  left: 8px;
+  top: 8px;
+}
+
+.jobs.ui-li-has-thumb .ui-btn-inner a.ui-link-inherit, .jobs.ui-li-static.ui-li-has-thumb {
+  padding-left: 100px;
+}
+
+/* optimise some styles for small screens (like iPhone 4s) */
+@media (max-width: 320px) {
+  .jobs.ui-li-has-thumb .ui-btn-inner a.ui-link-inherit, .jobs.ui-li-static.ui-li-has-thumb {
+    padding-left: 88px;
+  }
+}
+
+.jobs .ui-li-thumb, .jobs .ui-listview .ui-li-icon {
+  max-width: 83px;
+  max-height: 100px;
+}
+
+.jobs {
+  min-height: 101px;
+}
+
+.jobs .place {
+  color: #888;
+}
+
+.jobs .ui-li .ui-btn-text a.ui-link-inherit {
+  font-weight: normal;
+  font-size: 11px;
+  white-space: normal;
+  line-height: 12px;
+  text-overflow: inherit;
+}
+
+#status {
+  float: left;
+  width: 94%;
+  line-height: 17px;
+}
+
+#editButton {
+  position: absolute;
+  bottom: 4px;
+  right: 6px;
+}
+
+#saveButton {
+  display: none;
+  position: absolute;
+  bottom: 4px;
+  right: 6px;
+}
+
+.camera {
+  float: left;
+  position: absolute;
+  top: 72px;
+  left: 80px;
+}
+
+.filterheader {
+  margin-bottom: 5px;
+}
+
+.filterRow .ui-field-contain, fieldset.ui-field-contain {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+.filterheader legend {
+  font-size: 0.75em;
+}
+
+.networkUpdateType {
+  position: absolute;
+  float: left;
+  top: 2px;
+  left: 0;
+  width: 12px;
+}
+
+#networkUpdatesContainer .ui-header .ui-btn-inner, #networkUpdatesContainer .ui-footer .ui-btn-inner, .ui-mini .ui-btn-inner {
+  font-size: 11px;
+  padding: 0.15em 8px 1em;
+}
+
+.ui-checkbox input, .ui-radio input {
+  left: 0;
+}
+
+.ui-controlgroup-horizontal.ui-mini .ui-btn-inner {
+  line-height: 10px;
+  text-overflow: inherit;
+}
+
+.ui-controlgroup-horizontal .km .ui-btn-text {
+  top: 3px;
+}
+
+.ui-controlgroup-horizontal .infinity .ui-btn-text {
+  top: 8px;
+  font-size: 13px;
+}
+
+#indexHeader.ui-li-has-count .ui-li-count {
+  right: 7px;
+  margin-top: -3px;
+  top: inherit;
+}

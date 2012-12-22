@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<widget xmlns="http://www.w3.org/ns/widgets"
+        xmlns:gap="http://phonegap.com/ns/1.0"
+        id="nl.x-services.gametv"
+        version="0.0.1">
+
+  <name>Game TV</name><!-- is also the name of the icon on the device -->
+
+  <description>
+    Probeersel voor videostreaming in een phonegap app, met automatische en gechachede updates vanuit een restful backend.
+  </description>
+
+  <author href="http://www.x-services.nl"
+          email="eddy@x-services.nl">
+    X-Services VOF
+  </author>
+
+  <feature name="http://api.phonegap.com/1.0/network"/>
+  <!--<feature name="http://api.phonegap.com/1.0/camera"/>-->
+  <!--<feature name="http://api.phonegap.com/1.0/contacts"/>-->
+  <!--<feature name="http://api.phonegap.com/1.0/geolocation"/>-->
+
+  <!--<preference name="phonegap-version" value="2.0.0"/>-->
+  <preference name="orientation" value="default"/><!-- both landscape and portrait-->
+  <preference name="target-device" value="universal"/>
+  <preference name="webviewbounce" value="true"/><!-- iOS rubber banding -->
+
+  <preference name="ios-statusbarstyle" value="black-opaque"/>
+  <preference name="show-splash-screen-spinner" value="true" />
+
+  <preference name="android-minSdkVersion" value="8" />
+  <preference name="android-installLocation" value="auto" /><!-- preferExternal; preferably install on SD-card -->
+
+  <preference name="stay-in-webview" value="true" /><!-- LinkedIn integration -->
+
+  <!-- allow loading any url in the webview -->
+  <access origin="*" />
+
+</widget>
