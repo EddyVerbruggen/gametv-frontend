@@ -42,13 +42,14 @@
       var html = '';
       $.each(data, function(idx, video) {
         //todo: iCanHaz?
+        var date = new Date(video.date);
         html += '' +
             '<li>' +
-            '  <a href="'+video.videourl+'">' +
+            '  <a rel="external" href="'+video.videourl+'">' +
             '    <img src="' + video.imageurl + '" alt="' + video.title + '"/>' +
             '    <h3>'+video.title+'</h3>' +
+            '    <p style="color:#ccc">' + date.getDate() + "-" + (date.getMonth()+1) + "-" + date.getFullYear() + '</p>' +
             '  </a>' +
-//            '  <a data-transition="pop" data-position-to="window" data-rel="popup" href="'+video.videourl+'">Bekijk video</a>' +
             '</li>';
       });
       $("#videoList").append(html);
@@ -71,10 +72,11 @@
     <div class="content-primary">
       <ul id="videosourceList" data-role="listview" data-inset="false">
         <li>
-          <a href="#videos">
+          <a href="#videos" data-transition="flow">
             <img src="img/videosources/gamekings.jpg" height="84px"/>
             <h3>GameKings</h3>
             <p>Reviews, nieuws en lolligheid</p>
+            <span class="ui-li-count">10 video's</span>
           </a>
         </li>
       </ul>
@@ -83,9 +85,10 @@
 </div>
 
 <!-- PAGE 2 -->
-<div data-role="page" id="videos" data-add-back-btn="true">
+<div data-role="page" id="videos">
 
   <div data-role="header">
+    <a href="#videosources" data-icon="arrow-l" data-direction="reverse">terug</a>
   	<h1>GameKings</h1>
   </div>
 
