@@ -9,11 +9,18 @@
 }
 
 #videosources .ui-li-has-thumb .ui-btn-inner a.ui-link-inherit {
-  padding-left: 94px;
+  padding-left: 90px;
 }
 
 #videos .ui-li-has-thumb .ui-btn-inner a.ui-link-inherit {
   padding-left: 130px;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+li.ui-btn {
+  min-height: 66px;
+  max-height: 66px;
 }
 
 .ui-li-heading {
@@ -30,6 +37,6 @@
   font-weight: normal;
 }
 
-.ui-btn-up-c {
+.ui-btn-up-c, .ui-btn-hover-c, .ui-btn-down-c {
   border: 0;
 }
