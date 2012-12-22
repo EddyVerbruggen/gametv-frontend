@@ -23,7 +23,7 @@
   <!--<preference name="phonegap-version" value="2.0.0"/>-->
   <preference name="orientation" value="default"/><!-- both landscape and portrait-->
   <preference name="target-device" value="universal"/>
-  <preference name="webviewbounce" value="true"/><!-- iOS rubber banding -->
+  <preference name="webviewbounce" value="false"/><!-- iOS rubber banding -->
 
   <preference name="ios-statusbarstyle" value="black-opaque"/>
   <preference name="show-splash-screen-spinner" value="true" />
