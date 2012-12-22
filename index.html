@@ -53,7 +53,7 @@
             '</li>';
       });
       $("#videoList").append(html);
-//      $("#videoList").listview('refresh');
+      $("#videoList").listview('refresh');
     }
   </script>
 </head>
@@ -70,13 +70,13 @@
 
   <div data-role="content">
     <div class="content-primary">
-      <ul id="videosourceList" data-role="listview" data-inset="false">
+      <ul id="videosourceList" data-role="listview" data-inset="true">
         <li>
           <a href="#videos" data-transition="slide">
             <img src="img/videosources/gamekings.jpg" height="84px"/>
             <h3>GameKings</h3>
             <p>Reviews, nieuws en lolligheid</p>
-            <span class="ui-li-count">10 video's</span>
+            <span class="ui-li-count">10</span>
           </a>
         </li>
       </ul>
@@ -96,7 +96,7 @@
 
   <div data-role="content">
     <div class="content-primary">
-      <ul id="videoList" data-role="listview" data-inset="false"></ul>
+      <ul id="videoList" data-role="listview" data-inset="true"></ul>
     </div>
   </div>
 
