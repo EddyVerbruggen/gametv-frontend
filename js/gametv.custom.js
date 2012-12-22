@@ -43,7 +43,7 @@ function getServiceURL(servicePath) {
     return "serverstub" + servicePath + ".json";
   } else {
     if (isAndroid() || isIOS()) {
-      return "http://www.thumbrater.com:9008" + servicePath;
+      return "http://www.thumbrater.com:9007" + servicePath; // TODO 9008 after deploy at mac server
     } else if (isMacBookBas()) {
       return "http://localhost:9006" + servicePath;
     } else {

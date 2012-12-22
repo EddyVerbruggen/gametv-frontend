@@ -24,38 +24,46 @@
     function loadVideos() {
       $.getJSON(getServiceURL("/video/all"))
           .success(function(data) {
-            alert(1);
-            var html = '';
-            $.each(data, function(idx, video) {
-              //todo: iCanHaz?
-              html += '' +
-                  '<li data-icon="false">' +
-                  '  <a href="'+video.videourl+'">' +
-                  '    <img src="' + video.imageurl + '" alt="' + video.title + '"/>' +
-                  '    <h3>'+video.title+'</h3>' +
-                  '  </a>' +
-                  '</li>';
-            });
-            $("#videoList").append(html);
-            $("#videoList").listview('refresh');
+            localStorage.setItem("videos", JSON.stringify(data));
+            renderVideoList(data);
           })
+          .error(function() {
+            var cachedVideos = localStorage.getItem("videos");
+            if (cachedVideos == null) {
+              $("#feedback").html("Well, there was an error loading the videos from the server. Please try again later..");
+            } else {
+              $("#feedback").html("Failed to fetch latest videos, showing the last known list.");
+            }
+            renderVideoList(JSON.parse(cachedVideos));
+          })
+    }
+
+    function renderVideoList(data) {
+      var html = '';
+      $.each(data, function(idx, video) {
+        //todo: iCanHaz?
+        html += '' +
+            '<li data-icon="false">' +
+            '  <a href="'+video.videourl+'">' +
+            '    <img src="' + video.imageurl + '" alt="' + video.title + '"/>' +
+            '    <h3>'+video.title+'</h3>' +
+            '  </a>' +
+            '</li>';
+      });
+      $("#videoList").append(html);
+      $("#videoList").listview('refresh');
     }
   </script>
 </head>
 <body>
 <div data-role="page">
-
+  <div id="feedback"></div>
   <div data-role="content">
     <div class="content-primary">
       <ul id="videoList" data-role="listview" data-inset="false">
       </ul>
     </div>
   </div>
-
-  <!--div data-role="footer" data-position="fixed" data-tap-toggle="false" data-theme="a">
-    update app on <a data-role="none" href="https://build.phonegap.com/apps/199780/download/ios/?qr_key=w29qzNnzZifwaBwyZkig"><strong>iOS</strong></a> or <a
-      data-role="none" href="https://build.phonegap.com/apps/199780/download/android/?qr_key=w29qzNnzZifwaBwyZkig"><strong>Android</strong></a>
-  </div-->
 
 </div>
 </body>
