@@ -36,7 +36,7 @@
 
 
       $("#popupPanel").on("popupbeforeposition", function() {
-        $("#popupPanel").css("height", $(window).height());
+        $("#popupPanel").css("height", $(document).height());
       });
 
       $("#downloadApp").attr("href", isAndroid() ? "https://build.phonegap.com/apps/267637/download/android/?qr_key=sfqjvxAqyAAjSQvtB7pu" : "https://build.phonegap.com/apps/267637/download/ios/?qr_key=sfqjvxAqyAAjSQvtB7pu");
@@ -127,31 +127,16 @@
   <div data-role="header" data-position="fixed">
     <a id="downloadApp" data-icon="gear" href="#">update app</a>
 
-    <h1>Video bronnen</h1>
+    <h1>Kies een kanaal</h1>
     <a data-icon="grid" data-iconpos="right" href="#popupPanel" data-rel="popup" data-transition="slide" data-position-to="window">menu</a>
   </div>
 
   <div data-role="popup" id="popupPanel" data-corners="false" data-theme="none" data-shadow="false" data-tolerance="0,0">
     <br/>
     <br/>
-    <button data-theme="a" data-icon="back" data-mini="true">Back</button>
-    <button data-theme="a" data-icon="grid" data-mini="true">Menu</button>
-    <button data-theme="a" data-icon="search" data-mini="true">Search</button>
-  </div>
-
-  <div data-role="popup" id="settings" data-theme="a" class="ui-corner-all">
-    <form>
-      <div style="padding:10px 20px;">
-        <h3>TODO :)</h3>
-        <label for="un" class="ui-hidden-accessible">Username:</label>
-        <input type="text" name="user" id="un" value="" placeholder="username" data-theme="a"/>
-
-        <label for="pw" class="ui-hidden-accessible">Password:</label>
-        <input type="password" name="pass" id="pw" value="" placeholder="password" data-theme="a"/>
-
-        <button type="submit" data-theme="b">Klaar</button>
-      </div>
-    </form>
+    <button data-theme="a" data-icon="search" data-mini="true">Zoeken</button>
+    <button data-theme="a" data-icon="grid" data-mini="true">Instellingen</button>
+    <button data-theme="c" data-icon="delete" data-mini="true" onclick="$('#popupPanel').popup('close');">Sluiten</button>
   </div>
 
   <div class="feedback"></div>
@@ -169,8 +154,7 @@
 
   <div data-role="header" data-position="fixed">
     <a href="#videosources" data-icon="arrow-l" data-direction="reverse">terug</a>
-
-    <h1></h1>
+    <h1><!-- filled when loaded --></h1>
   </div>
 
   <div class="feedback"></div>
