@@ -52,3 +52,7 @@ li.ui-btn {
 .ui-li-desc {
   color: #bbb;
 }
+
+.ui-content .ui-listview-inset {
+  margin:0;
+}
