@@ -13,11 +13,16 @@ $(document).bind("mobileinit", function(){
 });
 
 function getUrlParam(name){
-   if(name=(new RegExp('[?&]'+encodeURIComponent(name)+'=([^&]*)')).exec(location.search)) {
-     return decodeURIComponent(name[1]);
-   } else {
-     return null;
-   }
+  var href = window.location.href;
+  var queryUrl =href.slice(href.lastIndexOf('?') + 1);
+  var hashes = queryUrl.split('&');
+  for (var i=0; i<hashes.length; i++) {
+    var hash = hashes[i].split('=');
+    if (hash[0] == name) {
+      return hash[1];
+    }
+  }
+  return null;
 }
 
 function isAndroid() {

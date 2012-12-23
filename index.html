@@ -17,43 +17,102 @@
   <script src="phonegap.js"></script>
   <!--<script src="js/index.js"></script>-->
   <script type="text/javascript">
+    var selectedVideosource = null;
     $(document).ready(function() {
       loadVideos();
+
+      $('#videos').on('pagebeforeshow', function(e, data) {
+        var videosourceid = getUrlParam("videosourceid");
+        renderVideoList(videosourceid);
+      });
     });
 
     function loadVideos() {
-      $.getJSON(getServiceURL("/video/all"))
+//      var cachedVideos = localStorage.getItem("videos");
+//      if (cachedVideos != null) {
+//        renderVideoSourceList(JSON.parse(cachedVideos));
+//      }
+      $.getJSON(getServiceURL("/videosource/all"))
           .success(function(data) {
-            localStorage.setItem("videos", JSON.stringify(data));
-            renderVideoList(data);
+            localStorage.setItem("videosources", JSON.stringify(data));
+            renderVideoSourceList(data);
           })
           .error(function() {
-            var cachedVideos = localStorage.getItem("videos");
             if (cachedVideos == null) {
               $(".feedback").html("Well, there was an error loading the videos from the server. Please try again later..");
             } else {
               $(".feedback").html("Failed to fetch latest videos, showing the last known list.");
             }
-            renderVideoList(JSON.parse(cachedVideos));
           })
     }
 
-    function renderVideoList(data) {
-      var html = '';
-      $.each(data, function(idx, video) {
+    function renderVideoSourceList(videosources) {
+      var htmlVideosource = '';
+      var htmlVideo = '';
+      $.each(videosources, function(i, videosource) {
+
         //todo: iCanHaz?
-        var date = new Date(video.date);
-        html += '' +
+
+        htmlVideosource += '' +
             '<li>' +
-            '  <a rel="external" href="'+video.videourl+'">' +
-            '    <img src="' + video.imageurl + '" alt="' + video.title + '"/>' +
-            '    <h3>'+video.title+'</h3>' +
-            '    <p>' + date.getDate() + "-" + (date.getMonth()+1) + "-" + date.getFullYear() + '</p>' +
+            '  <a href="#videos?videosourceid='+videosource.id+'" data-transition="slide">' +
+            '    <img src="img/videosources/' + videosource.image + '" alt="' + videosource.name + '"/>' +
+            '    <h3>'+videosource.name+'</h3>' +
+            '    <p>' + videosource.website + '</p>' +
+            '    <span class="ui-li-count">' + videosource.videoList.length + '</span>' + // TODO (later): show new-count
             '  </a>' +
             '</li>';
+
+        // TODO write the entire page here, or render this when the page is linked to?
+//        $.each(videosource.videoList, function(j, video) {
+//          var date = new Date(video.date);
+//          htmlVideo += '' +
+//              '<li>' +
+//              '  <a rel="external" href="'+video.videourl+'">' +
+//              '    <img src="' + video.imageurl + '" alt="' + video.title + '"/>' +
+//              '    <h3>'+video.title+'</h3>' +
+//              '    <p>' + date.getDate() + "-" + (date.getMonth()+1) + "-" + date.getFullYear() + '</p>' +
+//              '  </a>' +
+//              '</li>';
+//        });
       });
-      $("#videoList").append(html);
-      $("#videoList").listview('refresh');
+      $("#videosourceList").html(htmlVideosource);
+      $("#videosourceList").listview('refresh');
+
+      $("#videoList").html(htmlVideo);
+//      $("#videoList").listview('refresh');
+    }
+
+    function renderVideoList(videosourceid) {
+      var cachedVideos = localStorage.getItem("videosources");
+      var videosources = JSON.parse(cachedVideos);
+
+      // find the correct videosource in the cache
+      $.each(videosources, function(i, videosource) {
+        if (videosource.id == videosourceid) {
+          // set the header
+          $("#videos h1").html(videosource.name);
+          // render the videolist
+          var htmlVideo = '';
+          $.each(videosource.videoList, function(j, video) {
+            var date = new Date(video.date);
+            htmlVideo += '' +
+                '<li>' +
+                '  <a rel="external" href="'+video.videourl+'">' +
+                '    <img src="' + video.imageurl + '" alt="' + video.title + '"/>' +
+                '    <h3>'+video.title+'</h3>' +
+                '    <p>' + date.getDate() + "-" + (date.getMonth()+1) + "-" + date.getFullYear() + '</p>' +
+                '  </a>' +
+                '</li>';
+          });
+
+          $("#videoList").html(htmlVideo);
+          $("#videoList").listview('refresh');
+
+          //  break the loop
+          return false;
+        }
+      })
     }
   </script>
 </head>
@@ -70,41 +129,7 @@
 
   <div data-role="content">
     <div class="content-primary">
-      <ul id="videosourceList" data-role="listview" data-inset="true">
-        <!-- TODO from server -->
-        <li>
-          <a href="#videos" data-transition="slide">
-            <img src="img/videosources/gamekings.jpg"/>
-            <h3>Gamekings</h3>
-            <p>www.gamekings.tv</p>
-            <span class="ui-li-count">10</span>
-          </a>
-        </li>
-        <li>
-          <a href="#videos" data-transition="slide">
-            <img src="img/videosources/power_unlimited.png"/>
-            <h3>Power Unlimited</h3>
-            <p>www.pu.nl</p>
-            <span class="ui-li-count">13</span>
-          </a>
-        </li>
-        <li>
-          <a href="#videos" data-transition="slide">
-            <img src="img/videosources/gamer.nl.png"/>
-            <h3>Gamer</h3>
-            <p>www.gamer.nl</p>
-            <span class="ui-li-count">7</span>
-          </a>
-        </li>
-        <li>
-          <a href="#videos" data-transition="slide">
-            <img src="img/videosources/gamespot.jpg"/>
-            <h3>Gamespot</h3>
-            <p>www.gamespot.com</p>
-            <span class="ui-li-count">37</span>
-          </a>
-        </li>
-      </ul>
+      <ul id="videosourceList" data-role="listview" data-inset="true"></ul>
     </div>
   </div>
 </div>
@@ -114,7 +139,7 @@
 
   <div data-role="header" data-position="fixed">
     <a href="#videosources" data-icon="arrow-l" data-direction="reverse">terug</a>
-  	<h1>GameKings</h1>
+  	<h1></h1>
   </div>
 
   <div class="feedback"></div>
