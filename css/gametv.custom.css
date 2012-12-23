@@ -16,7 +16,9 @@
 }
 
 #videos .ui-li-thumb {
+  min-width: 116px;
   max-width: 116px;
+  min-height: 66px;
   max-height: 66px;
 }
 
