@@ -70,7 +70,7 @@
         htmlVideosource += '' +
             '<li>' +
             '  <a href="#videos?videosourceid=' + videosource.id + '" data-transition="slide">' +
-            '    <img src="img/videosources/' + videosource.image + '" alt="' + videosource.name + '"/>' +
+            '    <img src="img/videosources/' + videosource.image + '" />' +
             '    <h3>' + videosource.name + '</h3>' +
             '    <p>' + videosource.website + '</p>' +
             '    <span class="ui-li-count">' + videosource.videoList.length + '</span>' + // TODO (later): show new-count
@@ -143,6 +143,7 @@
 
   <div data-role="content">
     <div class="content-primary">
+      <div class="antenna"></div>
       <ul id="videosourceList" data-role="listview" data-inset="true"></ul>
     </div>
   </div>
@@ -161,6 +162,7 @@
 
   <div data-role="content">
     <div class="content-primary">
+      <div class="antenna"></div>
       <ul id="videoList" data-role="listview" data-inset="true"></ul>
     </div>
   </div>

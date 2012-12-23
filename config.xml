@@ -46,7 +46,7 @@
   <preference name="webviewbounce" value="false"/><!-- iOS rubber banding -->
 
   <preference name="ios-statusbarstyle" value="black-opaque"/>
-  <preference name="show-splash-screen-spinner" value="true" />
+  <preference name="show-splash-screen-spinner" value="false" />
   <preference name="prerendered-icon" value="true" /> <!-- no ios gloss effect plz -->
 
   <preference name="android-minSdkVersion" value="8" />

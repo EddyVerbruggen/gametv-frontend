@@ -1,6 +1,13 @@
 #videosources .ui-li-thumb {
-  max-width: 66px;
-  max-height: 66px;
+  width: 66px;
+  height: 66px;
+  background: url('../img/videosources/_default.png');
+}
+
+@media (-webkit-min-device-pixel-ratio:2){
+  #videosources .ui-li-thumb {
+    background: url('../img/videosources/_default@2x.png');
+  }
 }
 
 #videosources .ui-li-has-thumb .ui-btn-inner a.ui-link-inherit {
@@ -77,3 +84,17 @@ li.ui-btn {
 #popupPanel .ui-btn {
   margin: 2em 15px;
 }
+
+.antenna {
+  width: 100%;
+  height: 40px;
+  background: url('../img/antenna.png') no-repeat bottom;
+  position: relative;
+}
+
+@media (-webkit-min-device-pixel-ratio:2){
+  .antenna {
+    background-image: url('../img/antenna@2x.png');
+  }
+}
+
