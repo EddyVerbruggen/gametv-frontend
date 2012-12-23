@@ -17,10 +17,13 @@
   <script src="phonegap.js"></script>
   <!--<script src="js/index.js"></script>-->
   <script type="text/javascript">
-    var selectedVideosource = null;
     $(document).ready(function() {
-      alert('hi');
-      loadVideos();
+      // if this is the first time (not returning from a video), load the list from the server
+      if (sessionStorage.getItem("videosources") == null) {
+        loadVideos();
+      }
+      var videosourceid = getUrlParam("videosourceid");
+      alert(videosourceid);
 
       $('#videos').on('pagebeforeshow', function(e, data) {
         var videosourceid = getUrlParam("videosourceid");

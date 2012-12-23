@@ -33,7 +33,7 @@
 
   <preference name="stay-in-webview" value="true" /><!-- LinkedIn integration -->
 
-  <preference name="exit-on-suspend" value="false" /><!-- stay with us! -->
+  <preference name="exit-on-suspend" value="true" /><!-- stay with us, or not? -->
 
   <!-- allow loading any url in the webview -->
   <access origin="*" />
