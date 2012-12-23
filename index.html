@@ -17,7 +17,7 @@
   <script src="phonegap.js"></script>
   <!--<script src="js/index.js"></script>-->
   <script type="text/javascript">
-    $(document).ready(function() {
+    $(document).ready(function () {
       // if this is the first time (not returning from a video), load the list from the server
       if (sessionStorage.getItem("videosources") == null) {
         loadVideos();
@@ -28,7 +28,7 @@
 //        $.mobile.changePage("#videos?videosourceid="+videosourceid);
 //      }
 
-      $('#videos').on('pagebeforeshow', function(e, data) {
+      $('#videos').on('pagebeforeshow', function (e, data) {
         var videosourceid = getUrlParam("videosourceid");
         renderVideoList(videosourceid);
       });
@@ -40,11 +40,11 @@
 //        renderVideoSourceList(JSON.parse(cachedVideos));
 //      }
       $.getJSON(getServiceURL("/videosource/all"))
-          .success(function(data) {
+          .success(function (data) {
             localStorage.setItem("videosources", JSON.stringify(data));
             renderVideoSourceList(data);
           })
-          .error(function() {
+          .error(function () {
             if (cachedVideos == null) {
               $(".feedback").html("Well, there was an error loading the videos from the server. Please try again later..");
             } else {
@@ -56,14 +56,14 @@
     function renderVideoSourceList(videosources) {
       var htmlVideosource = '';
       var htmlVideo = '';
-      $.each(videosources, function(i, videosource) {
+      $.each(videosources, function (i, videosource) {
 
         // TODO: iCanHaz?
         htmlVideosource += '' +
             '<li>' +
-            '  <a href="#videos?videosourceid='+videosource.id+'" data-transition="slide">' +
+            '  <a href="#videos?videosourceid=' + videosource.id + '" data-transition="slide">' +
             '    <img src="img/videosources/' + videosource.image + '" alt="' + videosource.name + '"/>' +
-            '    <h3>'+videosource.name+'</h3>' +
+            '    <h3>' + videosource.name + '</h3>' +
             '    <p>' + videosource.website + '</p>' +
             '    <span class="ui-li-count">' + videosource.videoList.length + '</span>' + // TODO (later): show new-count
             '  </a>' +
@@ -81,21 +81,21 @@
       var videosources = JSON.parse(cachedVideos);
 
       // find the correct videosource in the cache
-      $.each(videosources, function(i, videosource) {
+      $.each(videosources, function (i, videosource) {
         if (videosource.id == videosourceid) {
           // set the header
           $("#videos h1").html(videosource.name);
           // render the videolist
           var htmlVideo = '';
-          $.each(videosource.videoList, function(j, video) {
+          $.each(videosource.videoList, function (j, video) {
             var date = new Date(video.date);
-        // TODO: iCanHaz?
+            // TODO: iCanHaz?
             htmlVideo += '' +
                 '<li>' +
-                '  <a rel="external" href="'+video.videourl+'">' +
+                '  <a rel="external" href="' + video.videourl + '">' +
                 '    <img src="' + video.imageurl + '" alt="' + video.title + '"/>' +
-                '    <h3>'+video.title+'</h3>' +
-                '    <p>' + date.getDate() + "-" + (date.getMonth()+1) + "-" + date.getFullYear() + '</p>' +
+                '    <h3>' + video.title + '</h3>' +
+                '    <p>' + date.getDate() + "-" + (date.getMonth() + 1) + "-" + date.getFullYear() + '</p>' +
                 '  </a>' +
                 '</li>';
           });
@@ -117,8 +117,25 @@
 <div data-role="page" id="videosources">
 
   <div data-role="header" data-position="fixed">
-  	<h1>Video bronnen</h1>
     <a data-icon="gear" href="https://build.phonegap.com/apps/267637/download/ios/?qr_key=sfqjvxAqyAAjSQvtB7pu">update app</a>
+
+    <h1>Video bronnen</h1>
+    <a data-icon="grid" data-iconpos="notext" href="#settings" data-rel="popup">&nbsp;</a>
+  </div>
+
+  <div data-role="popup" id="settings" data-theme="a" class="ui-corner-all">
+    <form>
+      <div style="padding:10px 20px;">
+        <h3>TODO :)</h3>
+        <label for="un" class="ui-hidden-accessible">Username:</label>
+        <input type="text" name="user" id="un" value="" placeholder="username" data-theme="a"/>
+
+        <label for="pw" class="ui-hidden-accessible">Password:</label>
+        <input type="password" name="pass" id="pw" value="" placeholder="password" data-theme="a"/>
+
+        <button type="submit" data-theme="b">Klaar</button>
+      </div>
+    </form>
   </div>
 
   <div class="feedback"></div>
@@ -136,7 +153,8 @@
 
   <div data-role="header" data-position="fixed">
     <a href="#videosources" data-icon="arrow-l" data-direction="reverse">terug</a>
-  	<h1></h1>
+
+    <h1></h1>
   </div>
 
   <div class="feedback"></div>
