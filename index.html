@@ -67,15 +67,17 @@
       $.each(videosources, function (i, videosource) {
 
         // TODO: iCanHaz?
-        htmlVideosource += '' +
-            '<li>' +
-            '  <a href="#videos?videosourceid=' + videosource.id + '" data-transition="slide">' +
-            '    <img src="img/videosources/' + videosource.image + '" />' +
-            '    <h3>' + videosource.name + '</h3>' +
-            '    <p>' + videosource.website + '</p>' +
-            '    <span class="ui-li-count">' + videosource.videoList.length + '</span>' + // TODO (later): show new-count
-            '  </a>' +
-            '</li>';
+        if (videosource.videoList.length > 0) { // no empty channels
+          htmlVideosource += '' +
+              '<li>' +
+              '  <a href="#videos?videosourceid=' + videosource.id + '" data-transition="slide">' +
+              '    <img src="img/videosources/' + videosource.image + '" />' +
+              '    <h3>' + videosource.name + '</h3>' +
+              '    <p>' + videosource.website + '</p>' +
+              '    <span class="ui-li-count">' + videosource.videoList.length + '</span>' + // TODO (later): show new-count
+              '  </a>' +
+              '</li>';
+        }
       });
       $("#videosourceList").html(htmlVideosource);
       $("#videosourceList").listview('refresh');
