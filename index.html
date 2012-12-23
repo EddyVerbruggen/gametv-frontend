@@ -127,17 +127,18 @@
 <div data-role="page" id="videosources">
 
   <div data-role="header" data-position="fixed">
-    <a id="downloadApp" data-icon="gear" href="#">update app</a>
+    <a id="downloadApp" data-icon="refresh" href="#">update app</a>
 
-    <h1>Kies een kanaal</h1>
+    <h1>Game TV kanalen</h1>
     <a data-icon="grid" data-iconpos="right" href="#popupPanel" data-rel="popup" data-transition="slide" data-position-to="window">menu</a>
   </div>
 
   <div data-role="popup" id="popupPanel" data-corners="false" data-theme="none" data-shadow="false" data-tolerance="0,0">
     <br/>
-    <br/>
-    <button data-theme="a" data-icon="search" data-mini="true">Zoek video</button>
-    <button data-theme="a" data-icon="grid" data-mini="true">Kanelen aan / uit</button>
+    <button data-theme="a" data-icon="search" data-mini="true" onclick="alert('TODO: nodig?')">Zoek video</button>
+    <button data-theme="a" data-icon="grid" data-mini="true" onclick="alert('TODO: toon huidig scherm in edit mode, incl lijst van beschikbare kanalen')">Kanelen aan / uit</button>
+    <!--button data-theme="a" data-icon="info" data-mini="true" href="#about" data-transition="pop">Over Game TV</button-->
+    <a data-role="button" data-theme="a" data-icon="info" data-mini="true" href="#about" data-transition="flip">Over Game TV</a>
     <button data-theme="c" data-icon="delete" data-mini="true" onclick="$('#popupPanel').popup('close');">Sluiten</button>
   </div>
 
@@ -164,11 +165,40 @@
   <div data-role="content">
     <div class="content-primary">
       <div class="antenna"></div>
-      <ul id="videoList" data-role="listview" data-inset="true"><li>&nbsp;</li></ul>
+      <ul id="videoList" data-role="listview" data-inset="true"></ul>
     </div>
   </div>
 
   <div class="feedback"></div>
+
+</div>
+
+
+<!-- PAGE 3: about -->
+<div data-role="page" id="about">
+
+  <div data-role="header" data-position="fixed">
+    <a href="#videosources" data-icon="arrow-l" data-transition="flip" data-direction="reverse">terug</a>
+    <h1>Over Game TV</h1>
+  </div>
+
+  <div data-role="content">
+    <div class="content-primary">
+      <div class="antenna"></div>
+      <ul data-role="listview" data-inset="true">
+        <li>
+          <h3>Game TV is een product van X-Services.nl</h3>
+          <p>TODO: Iets over de app en de content.</p>
+        </li>
+        <li>
+          <a href="#" onclick="alert('TODO: link naar appstore')" data-icon="star">
+            <h3>Beoordeel deze app</h3>
+            <p>Geef je (on)gezouten mening in de appstore.</p>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
 
 </div>
 </body>
