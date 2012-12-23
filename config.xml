@@ -15,10 +15,25 @@
     X-Services VOF
   </author>
 
-  <icon src="icons/default2.png" gap:role="default" />
+  <!--<icon src="icons/ios/default.png" gap:role="default" />-->
+
+  <!-- iPhone / iPod Touch icons -->
+  <!--<icon src="icons/ios/icon.png" gap:platform="ios" width="57" height="57" />-->
+  <icon src="icons/ios/icon_at_2x.png" gap:platform="ios" width="114" height="114" />
+
+  <!-- iPad icons -->
+  <icon src="icons/ios/icon-72.png" gap:platform="ios" width="72" height="72" />
+  <icon src="icons/ios/icon-72_at_2x.png" gap:platform="ios" width="144" height="144" />
+
+  <!-- Android icons -->
+  <!--<icon src="icons/android/ldpi.png"  gap:platform="android" gap:density="ldpi" width="36" height="36"/>-->
+  <!--<icon src="icons/android/mdpi.png"  gap:platform="android" gap:density="mdpi" width="48" height="48"/>-->
+  <!--<icon src="icons/android/hdpi.png"  gap:platform="android" gap:density="hdpi" width="72" height="72"/>-->
+  <icon src="icons/android/xhdpi.png" gap:platform="android" gap:density="hdpi" width="96" height="96"/>
 
   <!-- iPhone splash -->
- 	<gap:splash src="splash/ios/Default_at_2x.png" width="960" height="640" />
+ 	<gap:splash src="splash/ios/Default_at_2x.png" width="640" height="960" />
+ 	<gap:splash src="splash/ios/Default_at_2x_landscape.png" width="960" height="640" />
 
   <feature name="http://api.phonegap.com/1.0/network"/>
   <!--<feature name="http://api.phonegap.com/1.0/camera"/>-->

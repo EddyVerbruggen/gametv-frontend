@@ -13,6 +13,7 @@
   <!--<link rel="stylesheet" href="css/index.css"/>-->
   <script src="js/lib/jquery.js"></script>
   <script src="js/gametv.custom.js"></script>
+  <script src="js/jqm-init.js"></script>
   <script src="js/lib/jquery.mobile-1.2.0/jquery.mobile-1.2.0.min.js"></script>
   <script src="phonegap.js"></script>
   <!--<script src="js/index.js"></script>-->
@@ -32,13 +33,20 @@
         var videosourceid = getUrlParam("videosourceid");
         renderVideoList(videosourceid);
       });
+
+
+      $("#popupPanel").on("popupbeforeposition", function() {
+        $("#popupPanel").css("height", $(window).height());
+      });
+
+      $("#downloadApp").attr("href", isAndroid() ? "https://build.phonegap.com/apps/267637/download/android/?qr_key=sfqjvxAqyAAjSQvtB7pu" : "https://build.phonegap.com/apps/267637/download/ios/?qr_key=sfqjvxAqyAAjSQvtB7pu");
     });
 
     function loadVideos() {
-//      var cachedVideos = localStorage.getItem("videos");
-//      if (cachedVideos != null) {
-//        renderVideoSourceList(JSON.parse(cachedVideos));
-//      }
+      var cachedVideos = localStorage.getItem("videosources");
+      if (cachedVideos != null) {
+        renderVideoSourceList(JSON.parse(cachedVideos));
+      }
       $.getJSON(getServiceURL("/videosource/all"))
           .success(function (data) {
             localStorage.setItem("videosources", JSON.stringify(data));
@@ -117,10 +125,18 @@
 <div data-role="page" id="videosources">
 
   <div data-role="header" data-position="fixed">
-    <a data-icon="gear" href="https://build.phonegap.com/apps/267637/download/ios/?qr_key=sfqjvxAqyAAjSQvtB7pu">update app</a>
+    <a id="downloadApp" data-icon="gear" href="#">update app</a>
 
     <h1>Video bronnen</h1>
-    <a data-icon="grid" data-iconpos="notext" href="#settings" data-rel="popup">&nbsp;</a>
+    <a data-icon="grid" data-iconpos="right" href="#popupPanel" data-rel="popup" data-transition="slide" data-position-to="window">menu</a>
+  </div>
+
+  <div data-role="popup" id="popupPanel" data-corners="false" data-theme="none" data-shadow="false" data-tolerance="0,0">
+    <br/>
+    <br/>
+    <button data-theme="a" data-icon="back" data-mini="true">Back</button>
+    <button data-theme="a" data-icon="grid" data-mini="true">Menu</button>
+    <button data-theme="a" data-icon="search" data-mini="true">Search</button>
   </div>
 
   <div data-role="popup" id="settings" data-theme="a" class="ui-corner-all">
