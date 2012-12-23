@@ -65,10 +65,6 @@ li.ui-btn {
   margin:0;
 }
 
-.ui-mobile a img {
-  border-right: 1px solid #DDDDDD;
-}
-
 #popupPanel-popup {
   right: 0 !important;
   left: auto !important;
@@ -88,14 +84,13 @@ li.ui-btn {
 
 .antenna {
   width: 100%;
-  height: 22px;
+  height: 24px;
   background: url('../img/antenna.png') no-repeat bottom;
   position: relative;
 }
 
 @media (-webkit-min-device-pixel-ratio:2){
   .antenna {
-    height: 44px;
     background-image: url('../img/antenna@2x.png');
     background-size: 36px 20px;
   }

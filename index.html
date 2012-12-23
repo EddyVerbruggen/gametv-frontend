@@ -36,7 +36,7 @@
 
 
       $("#popupPanel").on("popupbeforeposition", function() {
-        $("#popupPanel").css("height", $(document).height());
+        $("#popupPanel").css("height", $(window).height());
       });
 
       $("#downloadApp").attr("href", isAndroid() ? "https://build.phonegap.com/apps/267637/download/android/?qr_key=sfqjvxAqyAAjSQvtB7pu" : "https://build.phonegap.com/apps/267637/download/ios/?qr_key=sfqjvxAqyAAjSQvtB7pu");
