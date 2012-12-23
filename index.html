@@ -23,10 +23,10 @@
         loadVideos();
       }
       // in case we're returning from a videoplayer, we need to go to the correct details page (otherwise the videosources are shown)
-      var videosourceid = getUrlParam("videosourceid");
-      if (videosourceid != null) {
-        $.mobile.changePage("#videos?videosourceid="+videosourceid);
-      }
+//      var videosourceid = getUrlParam("videosourceid");
+//      if (videosourceid != null) {
+//        $.mobile.changePage("#videos?videosourceid="+videosourceid);
+//      }
 
       $('#videos').on('pagebeforeshow', function(e, data) {
         var videosourceid = getUrlParam("videosourceid");
