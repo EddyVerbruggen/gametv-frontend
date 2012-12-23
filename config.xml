@@ -15,7 +15,7 @@
     X-Services VOF
   </author>
 
-  <icon src="icons/default.png" gap:role="default" />
+  <icon src="icons/default2.png" gap:role="default" />
 
   <feature name="http://api.phonegap.com/1.0/network"/>
   <!--<feature name="http://api.phonegap.com/1.0/camera"/>-->
