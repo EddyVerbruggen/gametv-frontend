@@ -21,7 +21,7 @@
   <!--<feature name="http://api.phonegap.com/1.0/geolocation"/>-->
 
   <!--<preference name="phonegap-version" value="2.0.0"/>-->
-  <preference name="orientation" value="default"/><!-- both landscape and portrait-->
+  <preference name="orientation" value="landscape"/><!-- both landscape and portrait = "default" -->
   <preference name="target-device" value="universal"/>
   <preference name="webviewbounce" value="false"/><!-- iOS rubber banding -->
 
@@ -32,6 +32,8 @@
   <preference name="android-installLocation" value="auto" /><!-- preferExternal; preferably install on SD-card -->
 
   <preference name="stay-in-webview" value="true" /><!-- LinkedIn integration -->
+
+  <preference name="exit-on-suspend" value="false" /><!-- stay with us! -->
 
   <!-- allow loading any url in the webview -->
   <access origin="*" />
