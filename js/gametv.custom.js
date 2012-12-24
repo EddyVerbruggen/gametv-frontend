@@ -56,3 +56,18 @@ function getServiceURL(servicePath) {
     }
   }
 }
+
+function redirect(where) {
+  window.location = where;
+}
+
+// TODO correct links for this app
+function redirectToAppStore() {
+  if (isAndroid()) {
+    redirect("https://play.google.com/store/apps/details?id=com.triodos.ib.mobile");
+  } else if (isIOS()) {
+    redirect("itms://itunes.apple.com/nl/app/triodos-bankieren/id566268289");
+  } else {
+    alert("Voor deze browser hebben we helaas (nog) geen app.");
+  }
+}

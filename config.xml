@@ -1,17 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <widget xmlns="http://www.w3.org/ns/widgets"
         xmlns:gap="http://phonegap.com/ns/1.0"
-        id="nl.x-services.gametv"
+        id="nl.xservices.gametv"
         version="0.0.1">
 
   <name>Game TV</name><!-- is also the name of the icon on the device -->
 
-  <description>
-    Probeersel voor videostreaming in een phonegap app, met automatische en gechachede updates vanuit een restful backend.
-  </description>
+  <description>De nieuwste video's van de interessantste gamingsites uit binnen- en buitenland</description>
 
   <author href="http://www.x-services.nl"
-          email="eddy@x-services.nl">
+          email="eddyverbruggen@gmail.com">
     X-Services VOF
   </author>
 
