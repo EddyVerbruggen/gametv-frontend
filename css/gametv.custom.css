@@ -106,3 +106,7 @@ li.ui-btn {
   text-align: left;
   margin-top: 23px;
 }
+
+#videoplayer #description {
+  font-size: 0.8em;
+}
