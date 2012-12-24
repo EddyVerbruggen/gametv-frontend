@@ -144,7 +144,7 @@
               $("#videoplayer video object param:first-child").attr("value", video.videourl);
               $("#videoplayer video object embed").attr("src", video.videourl);
               $("#videoplayer #mailbody").html('Check de video "'+video.title+'": ' + video.pageurl);
-              $("#videoplayer #description").html(video.description);
+              $("#videoplayer #description").html(video.description + (video.description.length == 255 ? ".." : "")); // TODO serverfix
 
 //              var htmlPlayer = '';
 //              var date = new Date(video.date);
@@ -287,7 +287,7 @@
       	</div>
       	<div class="ui-block-b">
           <div id="description"></div>
-          <br/><a data-role="button" data-inline="true" data-icon="forward" href="#share" data-rel="popup" data-transition="flip" data-position-to="window">deel deze video</a>
+          <br/><a data-role="button" data-inline="true" data-mini="true" data-icon="forward" href="#share" data-rel="popup" data-transition="flip" data-position-to="window">deel deze video</a>
       	</div>
       </div>
     </div>
