@@ -98,3 +98,11 @@ li.ui-btn {
   }
 }
 
+#videoplayer .ui-block-a {
+  text-align: left;
+}
+
+#videoplayer .ui-block-b {
+  text-align: left;
+  margin-top: 23px;
+}

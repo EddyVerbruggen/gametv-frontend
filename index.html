@@ -35,8 +35,9 @@
       });
 
       $('#videoplayer').on('pagebeforeshow', function (e, data) {
+        var videosourceid = getUrlParam("videosourceid");
         var videoid = getUrlParam("videoid");
-//        renderVideoList(videosourceid);
+        renderVideoPlayer(videosourceid, videoid);
       });
 
       $("#popupPanel").on("popupbeforeposition", function() {
@@ -106,7 +107,7 @@
             // TODO: iCanHaz?
             htmlVideo += '' +
                 '<li>' +
-                '  <a href="#videoplayer?videoid='+video.id+'">' +
+                '  <a href="#videoplayer?videosourceid='+videosource.id+'&videoid='+video.id+'">' +
                 '    <img src="' + video.imageurl + '" alt="' + video.title + '"/>' +
                 '    <h3>' + video.title + '</h3>' +
                 '    <p>' + date.getDate() + "-" + (date.getMonth() + 1) + "-" + date.getFullYear() + '</p>' +
@@ -119,6 +120,49 @@
 
           //  break the loop
           return false;
+        }
+      })
+    }
+
+    function renderVideoPlayer(videosourceid, videoid) {
+      var cachedVideos = localStorage.getItem("videosources");
+      var videosources = JSON.parse(cachedVideos);
+
+      // find the correct videosource in the cache
+      $.each(videosources, function (i, videosource) {
+        if (videosource.id == videosourceid) {
+         // find the correct video in the cache
+          $.each(videosource.videoList, function (i, video) {
+            if (video.id == videoid) {
+
+              // set the header
+              $("#videoplayer h1").html(video.title);
+
+              // render the player
+//              $("#videoplayer video").attr("poster", video.imageurl);
+              $("#videoplayer video").attr("src", video.videourl);
+              $("#videoplayer video object param:first-child").attr("value", video.videourl);
+              $("#videoplayer video object embed").attr("src", video.videourl);
+              $("#videoplayer #mailbody").html('Check de video "'+video.title+'": ' + video.pageurl);
+              $("#videoplayer #description").html(video.description);
+
+//              var htmlPlayer = '';
+//              var date = new Date(video.date);
+
+              // TODO: iCanHaz?
+//              htmlPlayer += 'bla'; // +
+//                  '<li>' +
+//                  '  <a href="#videoplayer?videoid='+video.id+'">' +
+//                  '    <img src="' + video.imageurl + '" alt="' + video.title + '"/>' +
+//                  '    <h3>' + video.title + '</h3>' +
+//                  '    <p>' + date.getDate() + "-" + (date.getMonth() + 1) + "-" + date.getFullYear() + '</p>' +
+//                  '  </a>' +
+//                  '</li>';
+
+//              $("#videoplayer").html(htmlPlayer);
+              return false; // breaks the loop
+            }
+          })
         }
       })
     }
@@ -211,42 +255,41 @@
   <div data-role="page" id="videoplayer">
 
   <div data-role="header" data-position="fixed">
-    <a href="#videosources" data-icon="arrow-l" data-transition="flip" data-direction="reverse">terug</a>
-    <h1>Player</h1>
+    <a href="#videos" data-icon="arrow-l" data-transition="slide" data-direction="reverse">terug</a>
+    <h1><!-- filled when loaded --></h1>
   </div>
 
     <div data-role="popup" id="share" data-theme="a" class="ui-corner-all">
       <form>
         <div style="padding:10px 20px;">
           <h3>Mail een vriend</h3>
-          <label for="un" class="ui-hidden-accessible">Tekst:</label>
-          <textarea name="user" id="un" placeholder="username" data-theme="a">Check deze video 'titel' op Gamespot. Gezien op Game TV voor Android.</textarea>
-
-          <label for="van" class="ui-hidden-accessible">Van:</label>
-          <input type="email" name="van" id="van" value="" placeholder="van email@adres.com" data-theme="a"/>
-
-          <label for="aan" class="ui-hidden-accessible">Aan:</label>
-          <input type="email" name="aan" id="aan" value="" placeholder="aan email@adres.com" data-theme="a"/>
-
-          <button data-theme="b" onclick="$('#share').popup('close'); return false">Klaar</button>
+          <label for="mailbody" class="ui-hidden-accessible">Tekst:</label>
+          <textarea name="mailbody" id="mailbody" data-theme="a"></textarea>
+          <a data-icon="arrow-r" data-role="button" data-theme="b" onclick="$('#share').popup('close'); redirect('mailto:?subject=Leuke video gezien op Game TV voor Android&body='+document.getElementById('mailbody').innerHTML); return false">Naar verzenden</a>
         </div>
       </form>
     </div>
 
   <div data-role="content">
     <div class="content-primary" style="text-align: center">
-      <div class="antenna"></div>
-      <video style="border:1px solid black" width="50%" src="http://stream.gamekings.tv/large/20121221_gkafl24.mp4" type="video/mp4" autobuffer controls><!--  poster="img/back.png" -->
-        <object classid="clsid:02bf25d5-8c17-4b23-bc80-d3488abddc6b" width="50%" codebase="http://www.apple.com/qtactivex/qtplugin.cab">
-          <param value="http://stream.gamekings.tv/large/20121221_gkafl24.mp4" type="video/mp4">
-          <param value="true">
-          <param value="false">
-          <embed src="http://stream.gamekings.tv/large/20121221_gkafl24.mp4" type="video/mp4" width="50%" autoplay="true" controller="false" pluginspage="http://www.apple.com/quicktime/download/"></embed>
-        </object>
-      </video>
 
-      <br/><a data-role="button" data-inline="true" data-icon="forward" href="#share" data-rel="popup" data-transition="flip" data-position-to="window">deel deze video</a>
-
+      <div class="ui-grid-a">
+      	<div class="ui-block-a">
+          <div class="antenna"></div>
+          <video style="border:1px solid black" width="95%" src="replaced-by-videourl" type="video/mp4" autobuffer controls poster=""><!--  poster="img/back.png" -->
+            <object classid="clsid:02bf25d5-8c17-4b23-bc80-d3488abddc6b" width="50%" codebase="http://www.apple.com/qtactivex/qtplugin.cab">
+              <param value="replaced-by-videourl" type="video/mp4">
+              <param value="true">
+              <param value="false">
+              <embed src="replaced-by-videourl" type="video/mp4" width="95%" autoplay="true" controller="false" pluginspage="http://www.apple.com/quicktime/download/"></embed>
+            </object>
+          </video>
+      	</div>
+      	<div class="ui-block-b">
+          <div id="description"></div>
+          <br/><a data-role="button" data-inline="true" data-icon="forward" href="#share" data-rel="popup" data-transition="flip" data-position-to="window">deel deze video</a>
+      	</div>
+      </div>
     </div>
   </div>
 </div>
