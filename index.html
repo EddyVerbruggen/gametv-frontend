@@ -39,15 +39,6 @@
 //        renderVideoList(videosourceid);
       });
 
-
-      $('#videoplayer').on('pageshow', function (e, data) {
-        var video = document.getElementById('video');
-        video.addEventListener('click',function(){
-          video.play();
-        },false);
-      });
-
-
       $("#popupPanel").on("popupbeforeposition", function() {
         $("#popupPanel").css("height", $(window).height());
       });
