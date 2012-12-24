@@ -17,7 +17,6 @@
   <script src="js/jqm-init.js"></script>
   <script src="js/lib/jquery.mobile-1.2.0/jquery.mobile-1.2.0.min.js"></script>
   <script src="phonegap.js"></script>
-  <!--<script src="js/index.js"></script>-->
   <script type="text/javascript">
     $(document).ready(function () {
       // if this is the first time (not returning from a video), load the list from the server
@@ -145,22 +144,8 @@
               $("#videoplayer video object param:first-child").attr("value", video.videourl);
               $("#videoplayer video object embed").attr("src", video.videourl);
               $("#videoplayer #mailbody").html('Check de video "'+video.title+'": ' + video.pageurl);
-              $("#videoplayer #description").html(video.description + (video.description.length == 255 ? ".." : "")); // TODO serverfix
+              $("#videoplayer #description").html(video.description + (video.description.length == 255 ? ".." : "")); // TODO serverfix & remove any links and images!
 
-//              var htmlPlayer = '';
-//              var date = new Date(video.date);
-
-              // TODO: iCanHaz?
-//              htmlPlayer += 'bla'; // +
-//                  '<li>' +
-//                  '  <a href="#videoplayer?videoid='+video.id+'">' +
-//                  '    <img src="' + video.imageurl + '" alt="' + video.title + '"/>' +
-//                  '    <h3>' + video.title + '</h3>' +
-//                  '    <p>' + date.getDate() + "-" + (date.getMonth() + 1) + "-" + date.getFullYear() + '</p>' +
-//                  '  </a>' +
-//                  '</li>';
-
-//              $("#videoplayer").html(htmlPlayer);
               return false; // breaks the loop
             }
           })
