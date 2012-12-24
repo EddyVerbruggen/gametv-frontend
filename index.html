@@ -34,6 +34,19 @@
         renderVideoList(videosourceid);
       });
 
+      $('#videoplayer').on('pagebeforeshow', function (e, data) {
+        var videoid = getUrlParam("videoid");
+//        renderVideoList(videosourceid);
+      });
+
+
+      $('#videoplayer').on('pageshow', function (e, data) {
+        var video = document.getElementById('video');
+        video.addEventListener('click',function(){
+          video.play();
+        },false);
+      });
+
 
       $("#popupPanel").on("popupbeforeposition", function() {
         $("#popupPanel").css("height", $(window).height());
@@ -102,7 +115,7 @@
             // TODO: iCanHaz?
             htmlVideo += '' +
                 '<li>' +
-                '  <a rel="external" href="' + video.videourl + '">' +
+                '  <a href="#videoplayer?videoid='+video.id+'">' +
                 '    <img src="' + video.imageurl + '" alt="' + video.title + '"/>' +
                 '    <h3>' + video.title + '</h3>' +
                 '    <p>' + date.getDate() + "-" + (date.getMonth() + 1) + "-" + date.getFullYear() + '</p>' +
@@ -139,7 +152,7 @@
     <button data-theme="a" data-icon="grid" data-mini="true" onclick="alert('TODO: toon huidig scherm in edit mode, incl lijst van beschikbare kanalen')">Kanelen aan / uit</button>
     <!--button data-theme="a" data-icon="info" data-mini="true" href="#about" data-transition="pop">Over Game TV</button-->
     <a data-role="button" data-theme="a" data-icon="info" data-mini="true" href="#about" data-transition="flip">Over Game TV</a>
-    <button data-theme="c" data-icon="delete" data-mini="true" onclick="$('#popupPanel').popup('close');">Sluiten</button>
+    <button data-theme="c" data-icon="delete" data-mini="true" onclick="$('#popupPanel').popup('close')">Sluiten</button>
   </div>
 
   <div data-role="content">
@@ -193,13 +206,59 @@
         <li>
           <a href="#" rel="external" onclick="redirectToAppStore()" data-icon="star">
             <h3>Beoordeel deze app</h3>
-            <p>Geef je (on)gezouten mening in de appstore.</p>
+            <p>Geef je (on)gezoute mening in de appstore.</p>
           </a>
         </li>
       </ul>
     </div>
   </div>
+  </div>
 
+
+
+<!-- PAGE 4: player -->
+  <div data-role="page" id="videoplayer">
+
+  <div data-role="header" data-position="fixed">
+    <a href="#videosources" data-icon="arrow-l" data-transition="flip" data-direction="reverse">terug</a>
+    <h1>Player</h1>
+  </div>
+
+    <div data-role="popup" id="share" data-theme="a" class="ui-corner-all">
+      <form>
+        <div style="padding:10px 20px;">
+          <h3>Mail een vriend</h3>
+          <label for="un" class="ui-hidden-accessible">Tekst:</label>
+          <textarea name="user" id="un" placeholder="username" data-theme="a">Check deze video 'titel' op Gamespot. Gezien op Game TV voor Android.</textarea>
+
+          <label for="van" class="ui-hidden-accessible">Van:</label>
+          <input type="email" name="van" id="van" value="" placeholder="van email@adres.com" data-theme="a"/>
+
+          <label for="aan" class="ui-hidden-accessible">Aan:</label>
+          <input type="email" name="aan" id="aan" value="" placeholder="aan email@adres.com" data-theme="a"/>
+
+          <button data-theme="b" onclick="$('#share').popup('close'); return false">Klaar</button>
+        </div>
+      </form>
+    </div>
+
+  <div data-role="content">
+    <div class="content-primary" style="text-align: center">
+      <div class="antenna"></div>
+      <video style="border:1px solid black" width="50%" src="http://stream.gamekings.tv/large/20121221_gkafl24.mp4" type="video/mp4" autobuffer controls><!--  poster="img/back.png" -->
+        <object classid="clsid:02bf25d5-8c17-4b23-bc80-d3488abddc6b" width="50%" codebase="http://www.apple.com/qtactivex/qtplugin.cab">
+          <param value="http://stream.gamekings.tv/large/20121221_gkafl24.mp4" type="video/mp4">
+          <param value="true">
+          <param value="false">
+          <embed src="http://stream.gamekings.tv/large/20121221_gkafl24.mp4" type="video/mp4" width="50%" autoplay="true" controller="false" pluginspage="http://www.apple.com/quicktime/download/"></embed>
+        </object>
+      </video>
+
+      <br/><a data-role="button" data-inline="true" data-icon="forward" href="#share" data-rel="popup" data-transition="flip" data-position-to="window">deel deze video</a>
+
+    </div>
+  </div>
 </div>
+
 </body>
 </html>
