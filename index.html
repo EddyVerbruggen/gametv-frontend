@@ -179,7 +179,11 @@
               $("#videoplayer video object embed").attr("src", video.videourl);
 //              $("#videoplayer video object embed").attr("src", "http://youtube.googleapis.com/v/nkxCZ38lKxU");
               $("#videoplayer #mailbody").html('Check de video "'+video.title+'" @ ' + video.pageurl);
-              $("#videoplayer #description").html(video.description + (video.description.length == 255 ? ".." : "")); // TODO serverfix & remove any links and images!
+              if (video.description) {
+                $("#videoplayer #description").html(video.description + (video.description.length == 255 ? ".." : "")); // TODO serverfix & remove any links and images!
+              } else {
+                $("#videoplayer #description").html("");
+              }
 
               // add dynamically updated tweet button
               var tweetButton = '';
@@ -248,8 +252,6 @@
   </div>
 
   <div class="feedback"></div>
-
-  <iframe class="youtube-player" type="text/html" width="320" height="200" src="http://video.gamespotcdn.com/d8/gsc/2012/12/169_beat_the_pros_league_of_legends_122112_700.mp4" frameborder="0"></iframe>
 
 </div>
 
@@ -381,8 +383,7 @@
 
       	</div>
       	<div class="ui-block-b">
-          <div id="description"></div>
-          <br/>
+          <div id="description"></div><br/>
           <a id="sharebyemail" data-role="button" data-inline="true" data-mini="true" data-icon="forward" href="#share" data-rel="popup" data-transition="flip" data-position-to="window">Mail</a>
           <span id="sharebytweet"></span>
           <div id="tweetClickHijacker"></div>
