@@ -84,7 +84,7 @@ li.ui-btn {
   margin: 2em 15px;
 }
 
-#videoplayer #popupPanel {
+#share {
   width: 300px;
 }
 
@@ -113,4 +113,13 @@ li.ui-btn {
 
 #videoplayer #description {
   font-size: 0.8em;
+}
+
+#mailbody {
+  font-size: 0.9em;
+}
+
+#videoplayer #sharebyemail {
+  margin-right: 17px;
+  margin-top: -17px;
 }

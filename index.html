@@ -16,6 +16,7 @@
   <script src="js/gametv.custom.js"></script>
   <script src="js/jqm-init.js"></script>
   <script src="js/lib/jquery.mobile-1.2.0/jquery.mobile-1.2.0.min.js"></script>
+  <script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
   <script src="phonegap.js"></script>
   <script type="text/javascript">
     $(document).ready(function () {
@@ -32,6 +33,18 @@
       $('#videos').on('pagebeforeshow', function (e, data) {
         var videosourceid = getUrlParam("videosourceid");
         renderVideoList(videosourceid);
+      });
+
+      $('#videoplayer').on('pagecreate', function (e, data) {
+//        var attr = "data-url";
+//        alert($("#videoplayer #sharebytweet").attr(attr));
+//        alert("create");
+      });
+
+      $('#videoplayer').on('pageinit', function (e, data) {
+//        alert("init");
+//        var attr = "data-url";
+//        alert($("#videoplayer #sharebytweet").attr(attr));
       });
 
       $('#videoplayer').on('pagebeforeshow', function (e, data) {
@@ -143,8 +156,13 @@
               $("#videoplayer video").attr("src", video.videourl);
               $("#videoplayer video object param:first-child").attr("value", video.videourl);
               $("#videoplayer video object embed").attr("src", video.videourl);
-              $("#videoplayer #mailbody").html('Check de video "'+video.title+'": ' + video.pageurl);
+              $("#videoplayer #mailbody").html('Check de video "'+video.title+'" @ ' + video.pageurl);
               $("#videoplayer #description").html(video.description + (video.description.length == 255 ? ".." : "")); // TODO serverfix & remove any links and images!
+
+              // add dynamically updated tweet button
+              var tweetButton = '<a href="https://twitter.com/share" class="twitter-share-button" data-text="'+video.title+'" data-size="large" data-lang="nl" data-via="GameTV" data-url="'+video.pageurl+'">Tweet</a>';
+              $('#videoplayer #sharebytweet').html(tweetButton);
+              twttr.widgets.load();
 
               return false; // breaks the loop
             }
@@ -157,7 +175,7 @@
 <body>
 
 
-<!-- PAGE 1 -->
+<!-- PAGE: videosources -->
 <div data-role="page" id="videosources">
 
   <div data-role="header" data-position="fixed">
@@ -188,7 +206,7 @@
 </div>
 
 
-<!-- PAGE 2 -->
+<!-- PAGE: videos -->
 <div data-role="page" id="videos">
 
   <div data-role="header" data-position="fixed">
@@ -208,7 +226,7 @@
 </div>
 
 
-<!-- PAGE 3: about -->
+<!-- PAGE: about -->
 <div data-role="page" id="about">
 
   <div data-role="header" data-position="fixed">
@@ -237,21 +255,22 @@
 
 
 
-<!-- PAGE 4: player -->
+<!-- PAGE: videoplayer -->
   <div data-role="page" id="videoplayer">
 
   <div data-role="header" data-position="fixed">
-    <a href="#videos" data-icon="arrow-l" data-transition="slide" data-direction="reverse">terug</a>
+    <a href="#videos?back=1" data-icon="arrow-l" data-transition="slide" data-direction="reverse">terug</a>
     <h1><!-- filled when loaded --></h1>
   </div>
 
     <div data-role="popup" id="share" data-theme="a" class="ui-corner-all">
+      <a data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" onclick="$('#share').popup('close'); return false" class="ui-btn-right">Close</a>
       <form>
         <div style="padding:10px 20px;">
           <h3>Mail een vriend</h3>
           <label for="mailbody" class="ui-hidden-accessible">Tekst:</label>
           <textarea name="mailbody" id="mailbody" data-theme="a"></textarea>
-          <a data-icon="arrow-r" data-role="button" data-theme="b" onclick="$('#share').popup('close'); redirect('mailto:?subject=Leuke video gezien op Game TV voor Android&body='+document.getElementById('mailbody').innerHTML); return false">Naar verzenden</a>
+          <a data-icon="arrow-r" data-role="button" data-theme="b" data-iconpos="right" onclick="$('#share').popup('close'); redirect('mailto:?subject=Leuke video gezien op Game TV voor Android&body='+document.getElementById('mailbody').innerHTML); return false">Naar verzenden</a>
         </div>
       </form>
     </div>
@@ -273,7 +292,9 @@
       	</div>
       	<div class="ui-block-b">
           <div id="description"></div>
-          <br/><a data-role="button" data-inline="true" data-mini="true" data-icon="forward" href="#share" data-rel="popup" data-transition="flip" data-position-to="window">deel deze video</a>
+          <br/>
+          <a id="sharebyemail" data-role="button" data-inline="true" data-mini="true" data-icon="forward" href="#share" data-rel="popup" data-transition="flip" data-position-to="window">Deel via email</a>
+          <span id="sharebytweet"></span>
       	</div>
       </div>
     </div>
