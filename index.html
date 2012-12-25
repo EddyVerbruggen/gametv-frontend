@@ -17,6 +17,8 @@
   <script src="js/jqm-init.js"></script>
   <script src="js/lib/jquery.mobile-1.2.0/jquery.mobile-1.2.0.min.js"></script>
   <script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
+  <!-- Included pgbuild js libs here. NOTE: debugging in Android emulator is not possible for PG features,
+       BUT downloading the PG build APK on the emulator is! -->
   <script src="phonegap.js"></script>
   <script src="childbrowser.js"></script>
   <script type="text/javascript">
@@ -156,7 +158,6 @@
 //                var twitterWebIntentUrl = encodeURI('https://twitter.com/intent/tweet?via=GameTV&text=blaaa&url='+video.pageurl);
                 var twitterWebIntentUrl = 'https://twitter.com/intent/tweet?via=GameTV&text=blaaa&url='+video.pageurl;
                 if (isIOS() || isAndroid()) {
-                  alert("opening childbrowser");
                   // open in childbrowser, so iOS users can navigate back to the app
                   window.plugins.childBrowser.showWebPage(twitterWebIntentUrl, {
                     showLocationBar: true,
@@ -164,13 +165,13 @@
                     showNavigationBar: true
                   });
                   window.plugins.childBrowser.onClose = function () {
-                      alert('childBrowser has closed');
+//                    alert('childBrowser has closed');
                   };
                   window.plugins.childBrowser.onLocationChange = function (url) {
-                      alert('childBrowser has loaded ' + url);
+//                    alert('childBrowser has loaded ' + url);
                   };
                   window.plugins.childBrowser.onOpenExternal = function () {
-                      alert('opening Mobile Safari');
+//                    alert('opening Mobile Safari');
                   };
                 } else {
                   // childbrowser is only available for iOS and Android
@@ -309,7 +310,7 @@
           <br/>
           <a id="sharebyemail" data-role="button" data-inline="true" data-mini="true" data-icon="forward" href="#share" data-rel="popup" data-transition="flip" data-position-to="window">Mail</a>
           <span id="sharebytweet"></span>
-          <div id="tweetClickHijacker">testing..</div>
+          <div id="tweetClickHijacker"></div>
       	</div>
       </div>
     </div>

@@ -128,8 +128,8 @@ li.ui-btn {
   position: relative;
   width:122px;
   height: 30px;
-  /*margin-top:-34px;*/
-  /*margin-left: 92px;*/
+  margin-top:-34px;
+  margin-left: 92px;
   cursor: pointer;
-  border: 1px solid #ccc;
+  /*border: 1px solid #ccc;*/
 }
