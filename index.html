@@ -24,27 +24,10 @@
       if (sessionStorage.getItem("videosources") == null) {
         loadVideos();
       }
-      // in case we're returning from a videoplayer, we need to go to the correct details page (otherwise the videosources are shown)
-//      var videosourceid = getUrlParam("videosourceid");
-//      if (videosourceid != null) {
-//        $.mobile.changePage("#videos?videosourceid="+videosourceid);
-//      }
 
       $('#videos').on('pagebeforeshow', function (e, data) {
         var videosourceid = getUrlParam("videosourceid");
         renderVideoList(videosourceid);
-      });
-
-      $('#videoplayer').on('pagecreate', function (e, data) {
-//        var attr = "data-url";
-//        alert($("#videoplayer #sharebytweet").attr(attr));
-//        alert("create");
-      });
-
-      $('#videoplayer').on('pageinit', function (e, data) {
-//        alert("init");
-//        var attr = "data-url";
-//        alert($("#videoplayer #sharebytweet").attr(attr));
       });
 
       $('#videoplayer').on('pagebeforeshow', function (e, data) {
