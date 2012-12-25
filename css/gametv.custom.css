@@ -63,6 +63,10 @@ li.ui-btn {
   color: #bbb;
 }
 
+#about .ui-li-desc {
+  white-space: normal;
+}
+
 .ui-content .ui-listview-inset {
   margin:0;
 }
@@ -131,7 +135,7 @@ li.ui-btn {
   margin-top:-34px;
   margin-left: 85px;
   cursor: pointer;
-  border: 1px solid #eee;
+  /*border: 1px solid #eee;*/
 }
 
 #videoplayer .ui-content {
