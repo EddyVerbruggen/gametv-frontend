@@ -153,7 +153,7 @@
               // mask the tweet button, so we can intercept clicks and open a web intent
               $('#videoplayer #tweetClickHijacker').click(function() {
 //                var twitterWebIntentUrl = 'https://twitter.com/intent/tweet?via=GameTV-2&text='+video.title+'&url='+video.pageurl;
-                var twitterWebIntentUrl = 'https://twitter.com/intent?via=GameTV&text=blaaa&url='+encodeURI('https://mail.google.com/');
+                var twitterWebIntentUrl = 'https://twitter.com/intent?via=GameTV&text=blaaa&url='+video.pageurl;
                 if (isIOS() || isAndroid()) {
                   // open in childbrowser, so iOS users can navigate back to the app
                   window.plugins.childBrowser.showWebPage(twitterWebIntentUrl, {
