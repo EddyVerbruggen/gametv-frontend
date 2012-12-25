@@ -1,18 +1,20 @@
-#videosources .ui-li-thumb {
+.videosourcespage .ui-li-thumb {
   width: 66px;
   height: 66px;
   background: url('../img/videosources/_default.png');
 }
 
 @media (-webkit-min-device-pixel-ratio:2){
-  #videosources .ui-li-thumb {
+  .videosourcespage .ui-li-thumb {
     background: url('../img/videosources/_default@2x.png');
     background-size: 66px 66px;
   }
 }
 
-#videosources .ui-li-has-thumb .ui-btn-inner a.ui-link-inherit {
+.videosourcespage .ui-li-has-thumb .ui-btn-inner a.ui-link-inherit,
+.videosourcespage .ui-li-static {
   padding-left: 82px;
+  padding-bottom: 5px;
 }
 
 #videos .ui-li-thumb {

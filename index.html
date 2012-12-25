@@ -33,6 +33,11 @@
         renderVideoList(videosourceid);
       });
 
+      $('#editvideosources').on('pagebeforeshow', function (e, data) {
+        renderEditVideoSourceList(JSON.parse(localStorage.getItem("videosources")));
+        $('select').slider();
+      });
+
       $('#videoplayer').on('pagebeforeshow', function (e, data) {
         var videosourceid = getUrlParam("videosourceid");
         var videoid = getUrlParam("videoid");
@@ -67,10 +72,8 @@
 
     function renderVideoSourceList(videosources) {
       var htmlVideosource = '';
-      var htmlVideo = '';
       $.each(videosources, function (i, videosource) {
 
-        // TODO: iCanHaz?
         if (videosource.videoList.length > 0) { // no empty channels
           htmlVideosource += '' +
               '<li>' +
@@ -85,9 +88,37 @@
       });
       $("#videosourceList").html(htmlVideosource);
       $("#videosourceList").listview('refresh');
+    }
 
-      $("#videoList").html(htmlVideo);
-//      $("#videoList").listview('refresh');
+    function renderEditVideoSourceList(videosources) {
+      var htmlVideosource = '';
+      $.each(videosources, function (i, videosource) {
+
+        if (videosource.videoList.length > 0) { // no empty channels
+          htmlVideosource += '' +
+              '<li data-role="fieldcontain">' +
+              '  <img src="img/videosources/' + videosource.image + '" />' +
+              '  <div class="ui-grid-a">' +
+              '    <div class="ui-block-a">' +
+              '      <h3>' + videosource.name + '</h3>' +
+              '      <p>' + videosource.website + '</p>' +
+              '    </div>' +
+              '    <div class="ui-block-b" style="text-align: right; margin-top: 8px">' +
+              '      <select name="slider_'+videosource.id+'" id="slider_'+videosource.id+'" data-role="slider" data-mini="true" data-theme="c" data-track-theme="a" onchange="trackToggle('+videosource.id+', this.value)">' +
+              '        <option value="off" style="color:green">uit</option>' +
+              '        <option value="on" ' + (isEnabledForUser(videosource.id) ? 'selected' : '') + '>aan</option>' +
+              '      </select>' +
+              '    </div>' +
+              '  </div>' +
+              '</li>';
+        }
+      });
+      $("#videosourceListFull").html(htmlVideosource);
+      $("#videosourceListFull").listview('refresh');
+    }
+
+    function isEnabledForUser(videosourceid) {
+      return true;
     }
 
     function renderVideoList(videosourceid) {
@@ -103,7 +134,6 @@
           var htmlVideo = '';
           $.each(videosource.videoList, function (j, video) {
             var date = new Date(video.date);
-            // TODO: iCanHaz?
             htmlVideo += '' +
                 '<li>' +
                 '  <a href="#videoplayer?videosourceid='+videosource.id+'&videoid='+video.id+'">' +
@@ -123,6 +153,10 @@
       })
     }
 
+    function saveVideosources() {
+
+    }
+
     function renderVideoPlayer(videosourceid, videoid) {
       var cachedVideos = localStorage.getItem("videosources");
       var videosources = JSON.parse(cachedVideos);
@@ -140,8 +174,10 @@
               // render the player
               $("#videoplayer video").attr("poster", video.imageurl);
               $("#videoplayer video").attr("src", video.videourl);
+//              $("#videoplayer video").attr("src", "http://youtube.googleapis.com/v/nkxCZ38lKxU");
               $("#videoplayer video object param:first-child").attr("value", video.videourl);
               $("#videoplayer video object embed").attr("src", video.videourl);
+//              $("#videoplayer video object embed").attr("src", "http://youtube.googleapis.com/v/nkxCZ38lKxU");
               $("#videoplayer #mailbody").html('Check de video "'+video.title+'" @ ' + video.pageurl);
               $("#videoplayer #description").html(video.description + (video.description.length == 255 ? ".." : "")); // TODO serverfix & remove any links and images!
 
@@ -184,7 +220,7 @@
 
 
 <!-- PAGE: videosources -->
-<div data-role="page" id="videosources">
+<div data-role="page" id="videosources" class="videosourcespage">
 
   <div data-role="header" data-position="fixed">
     <a id="downloadApp" data-icon="refresh" href="#">update app</a>
@@ -197,7 +233,7 @@
     <br/>
     <button data-theme="a" data-icon="search" data-mini="true" onclick="alert('De app is net gelanceerd en we zijn druk bezig nieuwe functies toe te voegen. Bedankt voor het geduld!')">Binnenkort meer</button>
     <!--button data-theme="a" data-icon="search" data-mini="true" onclick="alert('TODO: nodig?')">Zoek video</button-->
-    <!--button data-theme="a" data-icon="grid" data-mini="true" onclick="alert('TODO: toon huidig scherm in edit mode, incl lijst van beschikbare kanalen')">Kanelen aan / uit</button-->
+    <a data-role="button" data-theme="a" data-icon="grid" data-mini="true" href="#editvideosources" data-transition="flip">Kanelen aan / uit</a>
     <!--button data-theme="a" data-icon="info" data-mini="true" href="#about" data-transition="pop">Over Game TV</button-->
     <a data-role="button" data-theme="a" data-icon="info" data-mini="true" href="#about" data-transition="flip">Over Game TV</a>
     <button data-theme="c" data-icon="delete" data-mini="true" onclick="$('#popupPanel').popup('close')">Sluiten</button>
@@ -207,6 +243,47 @@
     <div class="content-primary">
       <div class="antenna"></div>
       <ul id="videosourceList" data-role="listview" data-inset="true"></ul>
+    </div>
+
+  </div>
+
+  <div class="feedback"></div>
+
+  <script>
+    function getYouTubeLink(url) {
+      var isYouTube = RegExp(/\.youtube\.com.+v=([\w_\-]+)/i);
+      var r = isYouTube.exec(url);
+      if (r && r[1]) {
+        var video = 'http://www.youtube.com/v/' + url + '&hl=en&fs=1&';
+        var youtube =  '<embed src="' + video + '" type="application/x-shockwave-flash"' +
+          ' allowscriptaccess="always"' +
+          ' allowfullscreen="true" width="300" height="200"></embed>';
+        return youtube;
+      }
+    }
+  </script>
+
+  <br/><a href="http://www.youtube.com/watch?v=nkxCZ38lKxU">youtube test 1</a>
+  <br/><a href="http://www.youtube.com/v/nkxCZ38lKxU">youtube test 2</a>
+  <br/>
+  <iframe class="youtube-player" type="text/html" width="640" height="385" src="http://www.youtube.com/embed/nkxCZ38lKxU" frameborder="0"></iframe>
+</div>
+
+
+<!-- PAGE: edit videosources -->
+<div data-role="page" id="editvideosources" class="videosourcespage">
+
+  <div data-role="header" data-position="fixed">
+    <h1>Beheer kanalen</h1>
+  </div>
+
+  <div data-role="content">
+    <div class="content-primary">
+      <form>
+        <div class="antenna"></div>
+        <ul id="videosourceListFull" data-role="listview" data-inset="true"></ul>
+        <a style="float:right;margin-top: 18px; margin-right: 25px" data-icon="check" data-role="button" data-theme="b" data-iconpos="right" data-inline="true" data-mini="true" href="/" onclick="saveVideosources(); return false">Opslaan</a>
+      </form>
     </div>
   </div>
 
