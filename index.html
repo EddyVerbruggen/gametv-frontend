@@ -249,24 +249,8 @@
 
   <div class="feedback"></div>
 
-  <script>
-    function getYouTubeLink(url) {
-      var isYouTube = RegExp(/\.youtube\.com.+v=([\w_\-]+)/i);
-      var r = isYouTube.exec(url);
-      if (r && r[1]) {
-        var video = 'http://www.youtube.com/v/' + url + '&hl=en&fs=1&';
-        var youtube =  '<embed src="' + video + '" type="application/x-shockwave-flash"' +
-          ' allowscriptaccess="always"' +
-          ' allowfullscreen="true" width="300" height="200"></embed>';
-        return youtube;
-      }
-    }
-  </script>
+  <iframe class="youtube-player" type="text/html" width="320" height="200" src="http://video.gamespotcdn.com/d8/gsc/2012/12/169_beat_the_pros_league_of_legends_122112_700.mp4" frameborder="0"></iframe>
 
-  <br/><a href="http://www.youtube.com/watch?v=nkxCZ38lKxU">youtube test 1</a>
-  <br/><a href="http://www.youtube.com/v/nkxCZ38lKxU">youtube test 2</a>
-  <br/>
-  <iframe class="youtube-player" type="text/html" width="640" height="385" src="http://www.youtube.com/embed/nkxCZ38lKxU" frameborder="0"></iframe>
 </div>
 
 
@@ -382,6 +366,19 @@
               <embed src="replaced-by-videourl" type="video/mp4" width="95%" autoplay="true" controller="false" pluginspage="http://www.apple.com/quicktime/download/"></embed>
             </object>
           </video>
+
+          <!-- for YouTube, use this:
+            <script>
+              // TODO verify if this works
+              function isYouTube(url) {
+                var isYouTube = RegExp(/\.youtube\.com.+v=([\w_\-]+)/i);
+                var r = isYouTube.exec(url);
+                return r && r[1];
+              }
+            </script>
+            <iframe class="youtube-player" type="text/html" width="640" height="385" src="http://www.youtube.com/embed/nkxCZ38lKxU" frameborder="0"></iframe>
+            -->
+
       	</div>
       	<div class="ui-block-b">
           <div id="description"></div>
