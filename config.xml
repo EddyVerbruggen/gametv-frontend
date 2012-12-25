@@ -58,6 +58,8 @@
 
   <preference name="exit-on-suspend" value="true" /><!-- stay with us, or not? -->
 
+  <gap:plugin name="ChildBrowser" /> <!-- latest release -->
+
   <!-- allow loading any url in the webview -->
   <access origin="*" />
 

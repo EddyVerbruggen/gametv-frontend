@@ -18,6 +18,7 @@
   <script src="js/lib/jquery.mobile-1.2.0/jquery.mobile-1.2.0.min.js"></script>
   <script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
   <script src="phonegap.js"></script>
+  <script src="childbrowser.js"></script>
   <script type="text/javascript">
     $(document).ready(function () {
       // if this is the first time (not returning from a video), load the list from the server
@@ -143,9 +144,23 @@
               $("#videoplayer #description").html(video.description + (video.description.length == 255 ? ".." : "")); // TODO serverfix & remove any links and images!
 
               // add dynamically updated tweet button
-              var tweetButton = '<a href="https://twitter.com/share" class="twitter-share-button" data-text="'+video.title+'" data-size="large" data-lang="nl" data-via="GameTV" data-url="'+video.pageurl+'">Tweet</a>';
+              var tweetButton = '';
+              tweetButton += '<a href="https://twitter.com/share" class="twitter-share-button" data-text="'+video.title+'" data-size="large" data-lang="nl" data-via="GameTV" data-url="'+video.pageurl+'">Tweet</a>';
+//              tweetButton += '<p><a href="https://twitter.com/intent/tweet?via=GameTV-2&text='+video.title+'&url='+video.pageurl+'">Twiet</a></p>';
               $('#videoplayer #sharebytweet').html(tweetButton);
               twttr.widgets.load();
+
+              // mask the tweet button, so we can intercept clicks and open a web intent
+              $('#videoplayer #tweetClickHijacker').click(function() {
+                var twitterWebIntentUrl = 'https://twitter.com/intent/tweet?via=GameTV-2&text='+video.title+'&url='+video.pageurl;
+                if (isIOS() || isAndroid()) {
+                  // open in childbrowser, so iOS users can navigate back to the app
+                  window.plugins.childBrowser.showWebPage(twitterWebIntentUrl, { showLocationBar: true });
+                } else {
+                  // childbrowser is only available for iOS and Android
+                  window.open(twitterWebIntentUrl);
+                }
+              });
 
               return false; // breaks the loop
             }
@@ -278,6 +293,7 @@
           <br/>
           <a id="sharebyemail" data-role="button" data-inline="true" data-mini="true" data-icon="forward" href="#share" data-rel="popup" data-transition="flip" data-position-to="window">Deel via email</a>
           <span id="sharebytweet"></span>
+          <div id="tweetClickHijacker"></div>
       	</div>
       </div>
     </div>
