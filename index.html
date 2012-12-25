@@ -158,11 +158,7 @@
                 var twitterWebIntentUrl = encodeURI('https://twitter.com/intent/tweet?via=GameTV&text='+video.title+'&url='+video.pageurl);
                 if (isIOS() || isAndroid()) {
                   // open in childbrowser, so iOS users can navigate back to the app
-                  window.plugins.childBrowser.showWebPage(twitterWebIntentUrl, {
-                    showLocationBar: true,
-                    showAddress: true,
-                    showNavigationBar: true
-                  });
+                  window.plugins.childBrowser.showWebPage(twitterWebIntentUrl);
                   window.plugins.childBrowser.onClose = function () {
 //                    alert('childBrowser has closed');
                   };
