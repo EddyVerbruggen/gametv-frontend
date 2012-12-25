@@ -156,7 +156,20 @@
                 var twitterWebIntentUrl = 'https://twitter.com/intent/tweet?via=GameTV-2&text=blaaa&url=https://mail.google.com/';
                 if (isIOS() || isAndroid()) {
                   // open in childbrowser, so iOS users can navigate back to the app
-                  window.plugins.childBrowser.showWebPage(twitterWebIntentUrl, { showLocationBar: true });
+                  window.plugins.childBrowser.showWebPage(twitterWebIntentUrl, {
+                    showLocationBar: true,
+                    showAddress: true,
+                    showNavigationBar: true
+                  });
+                  window.plugins.childBrowser.onClose = function () {
+                      alert('childBrowser has closed');
+                  };
+                  window.plugins.childBrowser.onLocationChange = function (url) {
+                      alert('childBrowser has loaded ' + url);
+                  };
+                  window.plugins.childBrowser.onOpenExternal = function () {
+                      alert('opening Mobile Safari');
+                  };
                 } else {
                   // childbrowser is only available for iOS and Android
                   window.open(twitterWebIntentUrl);
