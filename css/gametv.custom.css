@@ -126,12 +126,12 @@ li.ui-btn {
 
 #videoplayer #tweetClickHijacker {
   position: relative;
-  width:116px;
+  width:120px;
   height: 30px;
   margin-top:-34px;
-  margin-left: 90px;
+  margin-left: 85px;
   cursor: pointer;
-  border: 1px solid #ccc;
+  border: 1px solid #eee;
 }
 
 #videoplayer .ui-content {

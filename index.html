@@ -158,13 +158,13 @@
                   // open in childbrowser, so iOS users can navigate back to the app
                   window.plugins.childBrowser.showWebPage(twitterWebIntentUrl);
                   window.plugins.childBrowser.onClose = function () {
-                    alert('childBrowser has closed');
+//                    alert('childBrowser has closed');
                   };
                   window.plugins.childBrowser.onLocationChange = function (url) {
-                    alert('childBrowser has loaded ' + url);
+//                    alert('childBrowser has loaded ' + url);
                   };
-                  window.plugins.childBrowser.onOpenExternal = function () {
-                    alert('opening Mobile Safari!');
+                  window.plugins.childBrowser.onOpenExternal = function () { // when the safari button (bottom right is pressed)
+//                    alert('opening Mobile Safari!');
                   };
                 } else {
                   // childbrowser is only available for iOS and Android
