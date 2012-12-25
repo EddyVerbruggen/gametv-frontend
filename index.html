@@ -147,18 +147,20 @@
 
               // add dynamically updated tweet button
               var tweetButton = '';
-              tweetButton += '<a href="https://twitter.com/share" class="twitter-share-button" data-text="'+video.title+'" data-size="large" data-lang="en" data-via="GameTV" data-url="'+video.pageurl+'">Tweet</a>';
-//              tweetButton += '<p><a href="https://twitter.com/intent/tweet?via=GameTV-2&text='+video.title+'&url='+video.pageurl+'">Twiet</a></p>';
+              tweetButton += '<a href="https://twitter.com/share" class="twitter-share-button" data-text="'+video.title+'" data-size="large" data-lang="en" data-via="_GameTV" data-url="'+video.pageurl+'">Tweet</a>';
               $('#videoplayer #sharebytweet').html(tweetButton);
               twttr.widgets.load();
 
               // mask the tweet button, so we can intercept clicks and open a web intent
               $('#videoplayer #tweetClickHijacker').click(function() {
-//                var twitterWebIntentUrl = 'https://twitter.com/intent/tweet?via=GameTV&text='+video.title+'&url='+video.pageurl;
-                var twitterWebIntentUrl = encodeURI('https://twitter.com/intent/tweet?via=GameTV&text='+video.title+'&url='+video.pageurl);
+                var twitterWebIntentUrl = encodeURI('https://twitter.com/intent/tweet?via=_GameTV&text='+video.title+'&url='+video.pageurl);
                 if (isIOS() || isAndroid()) {
                   // open in childbrowser, so iOS users can navigate back to the app
-                  window.plugins.childBrowser.showWebPage(twitterWebIntentUrl);
+                  window.plugins.childBrowser.showWebPage(twitterWebIntentUrl, {
+                    showLocationBar: false,
+                    showAddress: false,
+                    showNavigationBar: false
+                  });
                   window.plugins.childBrowser.onClose = function () {
 //                    alert('childBrowser has closed');
                   };
@@ -197,8 +199,9 @@
 
   <div data-role="popup" id="popupPanel" data-corners="false" data-theme="none" data-shadow="false" data-tolerance="0,0">
     <br/>
-    <button data-theme="a" data-icon="search" data-mini="true" onclick="alert('TODO: nodig?')">Zoek video</button>
-    <button data-theme="a" data-icon="grid" data-mini="true" onclick="alert('TODO: toon huidig scherm in edit mode, incl lijst van beschikbare kanalen')">Kanelen aan / uit</button>
+    <button data-theme="a" data-icon="search" data-mini="true" onclick="alert('De app is net gelanceerd en we zijn druk bezig nieuwe functies toe te voegen. Bedankt voor het geduld!')">Binnenkort verwacht</button>
+    <!--button data-theme="a" data-icon="search" data-mini="true" onclick="alert('TODO: nodig?')">Zoek video</button-->
+    <!--button data-theme="a" data-icon="grid" data-mini="true" onclick="alert('TODO: toon huidig scherm in edit mode, incl lijst van beschikbare kanalen')">Kanelen aan / uit</button-->
     <!--button data-theme="a" data-icon="info" data-mini="true" href="#about" data-transition="pop">Over Game TV</button-->
     <a data-role="button" data-theme="a" data-icon="info" data-mini="true" href="#about" data-transition="flip">Over Game TV</a>
     <button data-theme="c" data-icon="delete" data-mini="true" onclick="$('#popupPanel').popup('close')">Sluiten</button>
@@ -306,6 +309,7 @@
           <a id="sharebyemail" data-role="button" data-inline="true" data-mini="true" data-icon="forward" href="#share" data-rel="popup" data-transition="flip" data-position-to="window">Mail</a>
           <span id="sharebytweet"></span>
           <div id="tweetClickHijacker"></div>
+          <br/>
       	</div>
       </div>
     </div>
