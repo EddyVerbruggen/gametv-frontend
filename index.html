@@ -237,7 +237,7 @@
     <br/>
     <button data-theme="a" data-icon="search" data-mini="true" onclick="alert('De app is net gelanceerd en we zijn druk bezig nieuwe functies toe te voegen. Bedankt voor het geduld!')">Binnenkort meer</button>
     <!--button data-theme="a" data-icon="search" data-mini="true" onclick="alert('TODO: nodig?')">Zoek video</button-->
-    <a data-role="button" data-theme="a" data-icon="grid" data-mini="true" href="#editvideosources" data-transition="flip">Kanelen aan / uit</a>
+    <a data-role="button" data-theme="a" data-icon="grid" data-mini="true" href="#editvideosources" data-direction="reverse" data-transition="slide">Kanelen aan / uit</a>
     <!--button data-theme="a" data-icon="info" data-mini="true" href="#about" data-transition="pop">Over Game TV</button-->
     <a data-role="button" data-theme="a" data-icon="info" data-mini="true" href="#about" data-transition="flip">Over Game TV</a>
     <button data-theme="c" data-icon="delete" data-mini="true" onclick="$('#popupPanel').popup('close')">Sluiten</button>
@@ -261,6 +261,7 @@
 
   <div data-role="header" data-position="fixed">
     <h1>Beheer kanalen</h1>
+    <a href="#videosources" data-icon="arrow-r" data-iconpos="right" class="ui-btn-right">annuleer</a>
   </div>
 
   <div data-role="content">
@@ -268,7 +269,7 @@
       <form>
         <div class="antenna"></div>
         <ul id="videosourceListFull" data-role="listview" data-inset="true"></ul>
-        <a style="float:right;margin-top: 18px; margin-right: 25px" data-icon="check" data-role="button" data-theme="b" data-iconpos="right" data-inline="true" data-mini="true" href="/" onclick="saveVideosources(); return false">Opslaan</a>
+        <a style="margin-top: 18px" data-icon="check" data-role="button" data-theme="b" data-iconpos="right" data-inline="false" data-mini="true" href="#videosources" onclick="saveVideosources(); return false">Opslaan</a>
       </form>
     </div>
   </div>
