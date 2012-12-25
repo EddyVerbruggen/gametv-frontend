@@ -141,3 +141,8 @@ li.ui-btn {
 #videoplayer .ui-content {
   padding-right: 10px;
 }
+
+#videoplayer .ui-header .ui-title {
+  padding-left: 63px;
+  margin: 0.6em 6% 0.8em;
+}
