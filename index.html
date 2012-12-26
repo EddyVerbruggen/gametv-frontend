@@ -31,6 +31,12 @@
       $('#videos').on('pagebeforeshow', function (e, data) {
         var videosourceid = getUrlParam("videosourceid");
         renderVideoList(videosourceid);
+        // set all videos as seen for this source
+        if (nrOfNewVideos(videosourceid) >  0) {
+          sessionStorage.setItem("newVideosForSource_"+videosourceid, JSON.stringify(new Array()));
+          var cachedVideosources = JSON.parse(localStorage.getItem("videosources"));
+          renderVideoSourceList(cachedVideosources);
+        }
       });
 
       $('#editvideosources').on('pagebeforeshow', function (e, data) {
@@ -52,22 +58,56 @@
     });
 
     function loadVideos() {
-      var cachedVideos = localStorage.getItem("videosources");
-      if (cachedVideos != null) {
-        renderVideoSourceList(JSON.parse(cachedVideos));
+      var cachedVideosourcesString = localStorage.getItem("videosources");
+      var cachedVideosources = null;
+      if (cachedVideosourcesString != null) {
+        cachedVideosources = JSON.parse(cachedVideosourcesString);
+        renderVideoSourceList(cachedVideosources);
       }
       $.getJSON(getServiceURL("/videosource/all"))
-          .success(function (data) {
-            localStorage.setItem("videosources", JSON.stringify(data));
-            renderVideoSourceList(data);
+          .success(function (newVideosources) {
+            var newVideosourcesString = JSON.stringify(newVideosources);
+            if (cachedVideosources != null) {
+              // count the number of new videos per source, compared to the cachedvideos
+              $.each(newVideosources, function (i, newVideosource) {
+                $.each(cachedVideosources, function (j, cachedVideosource) {
+                  if (newVideosource.id == cachedVideosource.id) {
+                    var newVideoIDsForThisVideosource = getNewVideoIDs(cachedVideosource.videoList, newVideosource.videoList);
+                    sessionStorage.setItem("newVideosForSource_"+newVideosource.id, JSON.stringify(newVideoIDsForThisVideosource));
+                  }
+                })
+              })
+            }
+
+            localStorage.setItem("videosources", newVideosourcesString);
+            renderVideoSourceList(newVideosources);
           })
           .error(function () {
-            if (cachedVideos == null) {
+            if (cachedVideosourcesString == null) {
               $(".feedback").html("Well, there was an error loading the videos from the server. Please try again later..");
             } else {
               $(".feedback").html("Failed to fetch latest videos, showing the last known list.");
             }
           })
+    }
+
+    function getNewVideoIDs(idContainerOldList, idContainerNewList) {
+      var newList = new Array();
+//      var count = idContainerNewList.length; // at first, all videos are new
+      $.each(idContainerNewList, function (i, idContainerNew) {
+        var found = false;
+        $.each(idContainerOldList, function (j, idContainerOld) {
+          if (idContainerNew.id == idContainerOld.id) {
+            found = true;
+            // if found in the old list, subtract one from the knownCount
+//            count--;
+          }
+        });
+        if (!found) {
+          newList.push(idContainerNew.id);
+        }
+      });
+      return newList;
     }
 
     function renderVideoSourceList(videosources) {
@@ -80,8 +120,12 @@
               '  <a href="#videos?videosourceid=' + videosource.id + '" data-transition="slide">' +
               '    <img src="img/videosources/' + videosource.image + '" />' +
               '    <h3>' + videosource.name + '</h3>' +
-              '    <p>' + videosource.website + '</p>' +
-              '    <span class="ui-li-count">' + videosource.videoList.length + '</span>' + // TODO (later): show new-count
+              '    <p>' + videosource.website + '</p>';
+          if (nrOfNewVideos(videosource.id) > 0) {
+            htmlVideosource +=
+                '    <span class="ui-li-count">' + nrOfNewVideos(videosource.id) + '</span>';
+          }
+          htmlVideosource +=
               '  </a>' +
               '</li>';
         }
@@ -117,6 +161,11 @@
       $("#videosourceListFull").listview('refresh');
     }
 
+    function nrOfNewVideos(videosourceid) {
+      var items = sessionStorage.getItem("newVideosForSource_"+videosourceid);
+      return items == null ? 0 : JSON.parse(items).length;
+    }
+
     function isEnabledForUser(videosourceid) {
       return true;
     }
@@ -132,14 +181,23 @@
           $("#videos h1").html(videosource.name);
           // render the videolist
           var htmlVideo = '';
+          var sourceHasNewVideos = nrOfNewVideos(videosource.id) > 0;
           $.each(videosource.videoList, function (j, video) {
             var date = new Date(video.date);
             htmlVideo += '' +
                 '<li>' +
                 '  <a href="#videoplayer?videosourceid='+videosource.id+'&videoid='+video.id+'">' +
-                '    <img src="' + video.imageurl + '" alt="' + video.title + '"/>' +
+                '    <img src="' + video.imageurl + '" />' +
                 '    <h3>' + video.title + '</h3>' +
-                '    <p>' + date.getDate() + "-" + (date.getMonth() + 1) + "-" + date.getFullYear() + '</p>' +
+                '    <p>' + date.getDate() + "-" + (date.getMonth() + 1) + "-" + date.getFullYear() + '</p>';
+              if (sourceHasNewVideos) {
+                var newVideoIDs = JSON.parse(sessionStorage.getItem("newVideosForSource_"+videosource.id));
+                if ($.inArray(video.id, newVideoIDs) > -1) {
+                  htmlVideo +=
+                      '    <span class="ui-li-count">nieuw</span>';
+                }
+              }
+            htmlVideo +=
                 '  </a>' +
                 '</li>';
           });

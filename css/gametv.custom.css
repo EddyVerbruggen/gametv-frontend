@@ -148,3 +148,9 @@ li.ui-btn {
   padding-left: 14px;
   margin: 0.6em 15% 0.8em;
 }
+
+.ui-li-has-arrow.ui-li-has-count .ui-li-count {
+  background: none repeat scroll 0 0 #FF0000;
+  border: 2px solid white;
+  color: #FFFFFF;
+}
