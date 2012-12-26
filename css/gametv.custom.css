@@ -153,4 +153,7 @@ li.ui-btn {
   background: none repeat scroll 0 0 #FF0000;
   border: 2px solid white;
   color: #FFFFFF;
+  padding-top: 3px;
+  text-shadow: none;
+  font-weight: normal;
 }
