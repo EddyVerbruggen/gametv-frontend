@@ -45,8 +45,29 @@ li.ui-btn {
 }
 
 .ui-li-heading {
-  font-size: 14px;
+  font-size: 13px;
   font-weight: normal;
+}
+
+@media (min-width: 500px) {
+  .ui-li-heading {
+    font-size: 14px;
+    margin-top: 0.6em;
+  }
+}
+
+@media (min-width: 600px) {
+  .ui-li-heading {
+    font-size: 15px;
+    margin-top: 0.5em;
+  }
+}
+
+@media (min-width: 700px) {
+  .ui-li-heading {
+    font-size: 16px;
+    margin-top: 0.4em;
+  }
 }
 
 .ui-btn-up-c, .ui-btn-hover-c, .ui-btn-down-c {
