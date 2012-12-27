@@ -24,13 +24,13 @@
   <script type="text/javascript">
     function addEventListeners() {
       // handle the backbutton event (only fired on Android), which can be overridden for page-specific behaviour
-      document.addEventListener("backbutton", onBackButtonPressed, true);
+//      document.addEventListener("backbutton", onBackButtonPressed, true);
     }
 
     function onBackButtonPressed(e) {
-      alert("backbutton pressed");
-      e.preventDefault();
-      navigator.app.backHistory();
+//      alert("backbutton pressed");
+//      e.preventDefault();
+//      navigator.app.backHistory();
     }
 
     function isYouTube(url) {
@@ -38,7 +38,7 @@
     }
 
     $(document).ready(function () {
-      document.addEventListener("deviceready", addEventListeners, false);
+//      document.addEventListener("deviceready", addEventListeners, false);
 
       // if this is the first time (not returning from a video), load the list from the server
       if (sessionStorage.getItem("videosources") == null) {
@@ -228,7 +228,7 @@
                 var newVideoIDs = JSON.parse(sessionStorage.getItem("newVideosForSource_"+videosource.id));
                 if ($.inArray(video.id, newVideoIDs) > -1) {
                   htmlVideo +=
-                      '    <span class="ui-li-count">nieuw</span>';
+                      '    <span class="ui-li-count">new</span>';
                 }
               }
             htmlVideo +=
@@ -342,9 +342,9 @@
 
   <div data-role="popup" id="popupPanel" data-corners="false" data-theme="none" data-shadow="false" data-tolerance="0,0">
     <br/>
+    <a data-role="button" data-theme="a" data-icon="grid" data-mini="true" href="#editvideosources" data-direction="reverse" data-transition="slide">Kanelen aan / uit</a>
     <button data-theme="a" data-icon="search" data-mini="true" onclick="alert('De app is net gelanceerd en we zijn druk bezig nieuwe functies toe te voegen. Bedankt voor het geduld!')">Binnenkort meer</button>
     <!--button data-theme="a" data-icon="search" data-mini="true" onclick="alert('TODO: nodig?')">Zoek video</button-->
-    <a data-role="button" data-theme="a" data-icon="grid" data-mini="true" href="#editvideosources" data-direction="reverse" data-transition="slide">Kanelen aan / uit</a>
     <!--button data-theme="a" data-icon="info" data-mini="true" href="#about" data-transition="pop">Over Game TV</button-->
     <a data-role="button" data-theme="a" data-icon="info" data-mini="true" href="#about" data-transition="flip">Over Game TV</a>
     <button data-theme="c" data-icon="delete" data-mini="true" onclick="$('#popupPanel').popup('close')">Sluiten</button>
