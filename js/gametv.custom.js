@@ -52,7 +52,7 @@ function getServiceURL(servicePath) {
     } else if (isMacBookBas()) {
       return "http://localhost:9006" + servicePath;
     } else {
-      return "http://www.thumbrater.com:9007" + servicePath;
+      return "http://127.0.0.1:9007" + servicePath;
     }
   }
 }
