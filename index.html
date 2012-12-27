@@ -268,14 +268,14 @@
 
               width = "100%";
               if (isYouTube(video.videourl)) {
-                $("#videocontainer").html('<iframe width="'+width+'" height="'+height+'" type="text/html" src="'+video.videourl+'" frameborder="0"></iframe>');
+                $("#videocontainer").html('<iframe width="'+width+'" height="'+height+'" type="text/html" src="'+video.videourl+'?hd=1" frameborder="0" allowfullscreen></iframe>');
               } else {
                 if (isIOS()) {
                   width = "95%";
                   height = "";
                 }
                 $("#videocontainer").html('\
-                    <video style="z-index:1008" width="'+width+'" height="'+height+'" src="'+video.videourl+'" type="video/mp4" autobuffer poster="'+video.imageurl+'">\
+                    <video style="z-index:1008" width="'+width+'" height="'+height+'" src="'+video.videourl+'" type="video/mp4" autobuffer controls poster="'+video.imageurl+'">\
                       <object classid="clsid:02bf25d5-8c17-4b23-bc80-d3488abddc6b" width="'+width+'" height="'+height+'" codebase="http://www.apple.com/qtactivex/qtplugin.cab">\
                         <param value="'+video.videourl+'" type="video/mp4">\
                         <param value="true">\
