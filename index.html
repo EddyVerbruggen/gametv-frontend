@@ -262,20 +262,25 @@
               // render the player
               $("#videoplayer video").attr("poster", video.imageurl);
 
+              var totalWidth = $("body").width();
+              var width = (totalWidth / 2) - 30;
+              var height = (totalWidth / 3) - 30;
+
+              width = "100%";
               if (isYouTube(video.videourl)) {
-                var totalWidth = $("body").width();
-                var width = (totalWidth / 2) - 30;
-                var height = (totalWidth / 3) - 50;
                 $("#videocontainer").html('<iframe width="'+width+'" height="'+height+'" type="text/html" src="'+video.videourl+'" frameborder="0"></iframe>');
               } else {
-                // TODO poster (onyl 4 ios?)
+                if (isIOS()) {
+                  width = "95%";
+                  height = "";
+                }
                 $("#videocontainer").html('\
-                    <video style="z-index:1008; border:1px solid black" width="90%" src="'+video.videourl+'" type="video/mp4" autobuffer poster="'+video.imageurl+'">\
-                      <object classid="clsid:02bf25d5-8c17-4b23-bc80-d3488abddc6b" width="90%" codebase="http://www.apple.com/qtactivex/qtplugin.cab">\
+                    <video style="z-index:1008" width="'+width+'" height="'+height+'" src="'+video.videourl+'" type="video/mp4" autobuffer poster="'+video.imageurl+'">\
+                      <object classid="clsid:02bf25d5-8c17-4b23-bc80-d3488abddc6b" width="'+width+'" height="'+height+'" codebase="http://www.apple.com/qtactivex/qtplugin.cab">\
                         <param value="'+video.videourl+'" type="video/mp4">\
                         <param value="true">\
                         <param value="false">\
-                        <embed src="'+video.videourl+'" type="video/mp4" width="90%" autoplay="true" controller="false" pluginspage="http://www.apple.com/quicktime/download/"></embed>\
+                        <embed src="'+video.videourl+'" type="video/mp4" width="'+width+'" height="'+height+'" autoplay="true" controller="false" pluginspage="http://www.apple.com/quicktime/download/"></embed>\
                       </object>\
                     </video>');
               }
