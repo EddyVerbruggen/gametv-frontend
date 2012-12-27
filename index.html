@@ -260,39 +260,24 @@
               $("#videoplayer h1").html(video.title);
 
               // render the player
-              if (isIOS()) { // poster fucks up the layout on Android TODO find out why
-//                $("#videoplayer video").attr("poster", video.imageurl);
-              }
+              $("#videoplayer video").attr("poster", video.imageurl);
 
               if (isYouTube(video.videourl)) {
-                $("#videocontainer").html('<iframe type="text/html" src="replaced-by-videourl" frameborder="0"></iframe>');
+                var totalWidth = $("body").width();
+                var width = (totalWidth / 2) - 30;
+                var height = (totalWidth / 3) - 50;
+                $("#videocontainer").html('<iframe width="'+width+'" height="'+height+'" type="text/html" src="'+video.videourl+'" frameborder="0"></iframe>');
               } else {
                 $("#videocontainer").html('\
-                    <video style="border:1px solid black" width="95%" src="replaced-by-videourl" type="video/mp4" autobuffer controls poster="">\
+                    <video style="border:1px solid black" width="95%" src="'+video.videourl+'" type="video/mp4" autobuffer controls poster="">\
                       <object classid="clsid:02bf25d5-8c17-4b23-bc80-d3488abddc6b" width="95%" codebase="http://www.apple.com/qtactivex/qtplugin.cab">\
-                        <param value="replaced-by-videourl" type="video/mp4">\
+                        <param value="'+video.videourl+'" type="video/mp4">\
                         <param value="true">\
                         <param value="false">\
-                        <embed src="replaced-by-videourl" type="video/mp4" width="95%" autoplay="true" controller="false" pluginspage="http://www.apple.com/quicktime/download/"></embed>\
+                        <embed src="'+video.videourl+'" type="video/mp4" width="95%" autoplay="true" controller="false" pluginspage="http://www.apple.com/quicktime/download/"></embed>\
                       </object>\
                     </video>');
-
               }
-              $("#videoplayer iframe").attr("src", video.videourl);
-              var totalWidth = $("body").width();
-              $("#videoplayer iframe").attr("width", (totalWidth / 2) - 30);
-              $("#videoplayer iframe").attr("height", (totalWidth / 3) - 30);
-
-              $("#videoplayer video").attr("src", video.videourl);
-//              $("#videoplayer video").attr("src", "http://youtube.googleapis.com/v/nkxCZ38lKxU");
-              $("#videoplayer video object param:first-child").attr("value", video.videourl);
-              $("#videoplayer video object embed").attr("src", video.videourl);
-//              $("#videoplayer video object embed").attr("src", "http://youtube.googleapis.com/v/nkxCZ38lKxU");
-
-              // now show the video
-              setTimeout(function() {
-                $("#videocontainer").css({"visibility": "visible"});
-              }, 500);
 
               $("#videoplayer #mailbody").html('Check de video "'+video.title+'" @ ' + video.pageurl);
               if (video.description) {
@@ -477,7 +462,7 @@
       <div class="ui-grid-a">
       	<div class="ui-block-a">
           <div class="antenna"></div>
-          <div id="videocontainer" style="visibility: hidden"></div>
+          <div id="videocontainer"></div>
       	</div>
       	<div class="ui-block-b">
           <div id="description"></div><br/>
