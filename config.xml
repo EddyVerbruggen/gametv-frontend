@@ -32,10 +32,14 @@
   <!-- iPhone / iPod Touch splash -->
  	<gap:splash src="splash/ios/Default_at_2x.png" width="640" height="960" />
  	<gap:splash src="splash/ios/Default_at_2x_landscape.png" width="960" height="640" />
+ 	<gap:splash src="splash/ios/Default_iphone5.png" width="640" height="1136" />
+ 	<gap:splash src="splash/ios/Default_iphone5_landscape.png" width="1136" height="640" />
 
   <!-- Android splash -->
-  <gap:splash src="splash/android/hdpi.png" gap:platform="android" gap:density="hdpi" />
-  <gap:splash src="splash/android/xhdpi.png" gap:platform="android" gap:density="xhdpi" />
+  <gap:splash src="splash/android/hdpi.png" gap:platform="android" gap:density="hdpi" width="480" height="760" />
+  <gap:splash src="splash/android/hdpi_landscape.png" gap:platform="android" gap:density="hdpi" width="760" height="480" />
+  <gap:splash src="splash/android/xhdpi.png" gap:platform="android" gap:density="xhdpi" width="720" height="1140" />
+  <gap:splash src="splash/android/xhdpi_landscape.png" gap:platform="android" gap:density="xhdpi" width="1140" height="720" />
 
   <feature name="http://api.phonegap.com/1.0/network"/>
   <!--<feature name="http://api.phonegap.com/1.0/camera"/>-->

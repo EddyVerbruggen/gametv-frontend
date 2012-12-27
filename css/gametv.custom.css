@@ -25,9 +25,15 @@
 }
 
 #videos .ui-li-has-thumb .ui-btn-inner a.ui-link-inherit {
-  padding-left: 130px;
+  padding-left: 124px;
   padding-top: 0;
   padding-bottom: 0;
+}
+
+@media (min-width: 360px) {
+  #videos .ui-li-has-thumb .ui-btn-inner a.ui-link-inherit {
+    padding-left: 130px;
+  }
 }
 
 li.ui-btn {
