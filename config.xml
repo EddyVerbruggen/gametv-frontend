@@ -43,15 +43,15 @@
   <!--<feature name="http://api.phonegap.com/1.0/geolocation"/>-->
 
   <!--<preference name="phonegap-version" value="2.0.0"/>-->
-  <preference name="orientation" value="landscape"/><!-- both landscape and portrait = "default" -->
+  <preference name="orientation" value="default"/><!-- both landscape and portrait = "default" -->
   <preference name="target-device" value="universal"/>
-  <preference name="webviewbounce" value="false"/><!-- iOS rubber banding -->
+  <preference name="webviewbounce" value="true"/><!-- iOS rubber banding -->
 
   <preference name="ios-statusbarstyle" value="black-opaque"/>
   <preference name="show-splash-screen-spinner" value="false" />
   <preference name="prerendered-icon" value="true" /> <!-- no ios gloss effect plz -->
 
-  <preference name="android-minSdkVersion" value="8" />
+  <preference name="android-minSdkVersion" value="16" /><!-- 8=2.2, 14=4.0, 16=4.1, 17=4.2 -->
   <preference name="android-installLocation" value="auto" /><!-- preferExternal; preferably install on SD-card -->
 
   <preference name="stay-in-webview" value="true" /><!-- LinkedIn integration -->
