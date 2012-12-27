@@ -35,8 +35,27 @@
  	<gap:splash src="splash/ios/Default_iphone5.png" width="640" height="1136" />
  	<gap:splash src="splash/ios/Default_iphone5_landscape.png" width="1136" height="640" />
 
+  <!-- iPad splash -->
+ 	<gap:splash src="splash/ios/Default_ipad.png" width="768" height="1004" />
+ 	<gap:splash src="splash/ios/Default_ipad_landscape.png" width="1024" height="748" />
+
+  <!--
+  LDPI:
+  Portrait: 200x320px
+  Landscape: 320x200px
+  MDPI:
+  Portrait: 320x480px
+  Landscape: 480x320px
+  HDPI:
+  Portrait: 480x800px
+  Landscape: 800x480px
+  XHDPI:
+  Portrait: 720px1280px
+  Landscape: 1280x720px
+  -->
+
   <!-- Android splash -->
-  <gap:splash src="splash/android/hdpi.png" gap:role="default" gap:platform="android" gap:density="hdpi" width="480" height="760" />
+  <gap:splash src="splash/android/hdpi.png" gap:platform="android" gap:density="hdpi" width="480" height="760" />
   <gap:splash src="splash/android/hdpi_landscape.png" gap:platform="android" gap:density="hdpi" width="760" height="480" />
   <gap:splash src="splash/android/xhdpi.png" gap:platform="android" gap:density="xhdpi" width="720" height="1140" />
   <gap:splash src="splash/android/xhdpi_landscape.png" gap:platform="android" gap:density="xhdpi" width="1140" height="720" />
