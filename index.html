@@ -47,12 +47,14 @@
 
       $('#videos').on('pagebeforeshow', function (e, data) {
         var videosourceid = getUrlParam("videosourceid");
-        renderVideoList(videosourceid);
-        // set all videos as seen for this source
-        if (nrOfNewVideos(videosourceid) >  0) {
-          sessionStorage.setItem("newVideosForSource_"+videosourceid, JSON.stringify(new Array()));
-          var cachedVideosources = JSON.parse(localStorage.getItem("videosources"));
-          renderVideoSourceList(cachedVideosources);
+        if (videosourceid != null) {
+          renderVideoList(videosourceid);
+          // set all videos as seen for this source
+          if (nrOfNewVideos(videosourceid) >  0) {
+            sessionStorage.setItem("newVideosForSource_"+videosourceid, JSON.stringify(new Array()));
+            var cachedVideosources = JSON.parse(localStorage.getItem("videosources"));
+            renderVideoSourceList(cachedVideosources);
+          }
         }
       });
 
@@ -65,6 +67,11 @@
         var videosourceid = getUrlParam("videosourceid");
         var videoid = getUrlParam("videoid");
         renderVideoPlayer(videosourceid, videoid);
+      });
+
+      $('#videoplayer').on('pagebeforehide', function (e, data) {
+        // force the video to stop playing
+        $("#videocontainer").html("");
       });
 
       $("#popupPanel").on("popupbeforeposition", function() {
