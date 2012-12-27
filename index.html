@@ -93,14 +93,11 @@
 
     function getNewVideoIDs(idContainerOldList, idContainerNewList) {
       var newList = new Array();
-//      var count = idContainerNewList.length; // at first, all videos are new
       $.each(idContainerNewList, function (i, idContainerNew) {
         var found = false;
         $.each(idContainerOldList, function (j, idContainerOld) {
           if (idContainerNew.id == idContainerOld.id) {
             found = true;
-            // if found in the old list, subtract one from the knownCount
-//            count--;
           }
         });
         if (!found) {
@@ -114,7 +111,7 @@
       var htmlVideosource = '';
       $.each(videosources, function (i, videosource) {
 
-        if (videosource.videoList.length > 0) { // no empty channels
+        if (videosource.videoList.length > 0 && isEnabledForUser(videosource.id)) { // no empty channels and only active sources
           htmlVideosource += '' +
               '<li>' +
               '  <a href="#videos?videosourceid=' + videosource.id + '" data-transition="slide">' +
@@ -167,7 +164,27 @@
     }
 
     function isEnabledForUser(videosourceid) {
-      return true;
+      var disabledVideosources = localStorage.getItem("disabledVideosources");
+      if (disabledVideosources == null) {
+        return true;
+      } else {
+        return $.inArray(videosourceid, JSON.parse(disabledVideosources)) == -1;
+      }
+    }
+
+    function saveVideosources() {
+      var disabledVideosources = new Array();
+      var videosources = JSON.parse(localStorage.getItem("videosources"));
+      $.each(videosources, function (i, videosource) {
+        var sliderElementID = "#editvideosourcesForm #slider_"+videosource.id;
+        var setting = $(sliderElementID).val();
+        if (setting == "off") {
+          disabledVideosources.push(videosource.id);
+        }
+      });
+      localStorage.setItem("disabledVideosources", JSON.stringify(disabledVideosources));
+      // re-render the list
+      renderVideoSourceList(videosources);
     }
 
     function renderVideoList(videosourceid) {
@@ -209,10 +226,6 @@
           return false;
         }
       })
-    }
-
-    function saveVideosources() {
-
     }
 
     function renderVideoPlayer(videosourceid, videoid) {
@@ -324,7 +337,7 @@
 
   <div data-role="content">
     <div class="content-primary">
-      <form>
+      <form id="editvideosourcesForm">
         <div class="antenna"></div>
         <ul id="videosourceListFull" data-role="listview" data-inset="true"></ul>
         <a style="margin-top: 18px" data-icon="check" data-role="button" data-theme="b" data-iconpos="right" data-inline="false" data-mini="true" href="#videosources" onclick="saveVideosources(); return false">Opslaan</a>
