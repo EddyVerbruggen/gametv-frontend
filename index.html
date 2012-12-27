@@ -22,7 +22,24 @@
   <script src="phonegap.js"></script>
   <script src="childbrowser.js"></script>
   <script type="text/javascript">
+    function addEventListeners() {
+      // handle the backbutton event (only fired on Android), which can be overridden for page-specific behaviour
+      document.addEventListener("backbutton", onBackButtonPressed, true);
+    }
+
+    function onBackButtonPressed(e) {
+      alert("backbutton pressed");
+      e.preventDefault();
+      navigator.app.backHistory();
+    }
+
+    function isYouTube(url) {
+      return url.indexOf("youtube") > -1;
+    }
+
     $(document).ready(function () {
+      document.addEventListener("deviceready", addEventListeners, false);
+
       // if this is the first time (not returning from a video), load the list from the server
       if (sessionStorage.getItem("videosources") == null) {
         loadVideos();
@@ -243,12 +260,40 @@
               $("#videoplayer h1").html(video.title);
 
               // render the player
-              $("#videoplayer video").attr("poster", video.imageurl);
+              if (isIOS()) { // poster fucks up the layout on Android TODO find out why
+//                $("#videoplayer video").attr("poster", video.imageurl);
+              }
+
+              if (isYouTube(video.videourl)) {
+                $("#videocontainer").html('<iframe type="text/html" src="replaced-by-videourl" frameborder="0"></iframe>');
+              } else {
+                $("#videocontainer").html('\
+                    <video style="border:1px solid black" width="95%" src="replaced-by-videourl" type="video/mp4" autobuffer controls poster="">\
+                      <object classid="clsid:02bf25d5-8c17-4b23-bc80-d3488abddc6b" width="95%" codebase="http://www.apple.com/qtactivex/qtplugin.cab">\
+                        <param value="replaced-by-videourl" type="video/mp4">\
+                        <param value="true">\
+                        <param value="false">\
+                        <embed src="replaced-by-videourl" type="video/mp4" width="95%" autoplay="true" controller="false" pluginspage="http://www.apple.com/quicktime/download/"></embed>\
+                      </object>\
+                    </video>');
+
+              }
+              $("#videoplayer iframe").attr("src", video.videourl);
+              var totalWidth = $("body").width();
+              $("#videoplayer iframe").attr("width", (totalWidth / 2) - 30);
+              $("#videoplayer iframe").attr("height", (totalWidth / 3) - 30);
+
               $("#videoplayer video").attr("src", video.videourl);
 //              $("#videoplayer video").attr("src", "http://youtube.googleapis.com/v/nkxCZ38lKxU");
               $("#videoplayer video object param:first-child").attr("value", video.videourl);
               $("#videoplayer video object embed").attr("src", video.videourl);
 //              $("#videoplayer video object embed").attr("src", "http://youtube.googleapis.com/v/nkxCZ38lKxU");
+
+              // now show the video
+              setTimeout(function() {
+                $("#videocontainer").css({"visibility": "visible"});
+              }, 500);
+
               $("#videoplayer #mailbody").html('Check de video "'+video.title+'" @ ' + video.pageurl);
               if (video.description) {
                 $("#videoplayer #description").html(video.description + (video.description.length == 255 ? ".." : "")); // TODO serverfix & remove any links and images!
@@ -432,27 +477,7 @@
       <div class="ui-grid-a">
       	<div class="ui-block-a">
           <div class="antenna"></div>
-          <video style="border:1px solid black" width="95%" src="replaced-by-videourl" type="video/mp4" autobuffer controls poster=""><!--  poster="img/back.png" -->
-            <object classid="clsid:02bf25d5-8c17-4b23-bc80-d3488abddc6b" width="50%" codebase="http://www.apple.com/qtactivex/qtplugin.cab">
-              <param value="replaced-by-videourl" type="video/mp4">
-              <param value="true">
-              <param value="false">
-              <embed src="replaced-by-videourl" type="video/mp4" width="95%" autoplay="true" controller="false" pluginspage="http://www.apple.com/quicktime/download/"></embed>
-            </object>
-          </video>
-
-          <!-- for YouTube, use this:
-            <script>
-              // TODO verify if this works
-              function isYouTube(url) {
-                var isYouTube = RegExp(/\.youtube\.com.+v=([\w_\-]+)/i);
-                var r = isYouTube.exec(url);
-                return r && r[1];
-              }
-            </script>
-            <iframe class="youtube-player" type="text/html" width="640" height="385" src="http://www.youtube.com/embed/nkxCZ38lKxU" frameborder="0"></iframe>
-            -->
-
+          <div id="videocontainer" style="visibility: hidden"></div>
       	</div>
       	<div class="ui-block-b">
           <div id="description"></div><br/>
