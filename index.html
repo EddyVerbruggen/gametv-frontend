@@ -263,8 +263,9 @@
               $("#videoplayer video").attr("poster", video.imageurl);
 
               var totalWidth = $("body").width();
-              var width = (totalWidth / 2) - 30;
-              var height = (totalWidth / 3) - 30;
+              // when body is smaller than 480, the video is shown without content on the sides
+//              var width = (totalWidth / (totalWidth < 480 ? 1 : 2)) - 30;
+              var height = (totalWidth / (totalWidth < 480 ? 2 : 3)) - 30;
 
               width = "100%";
               if (isYouTube(video.videourl)) {

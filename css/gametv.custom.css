@@ -183,8 +183,8 @@ li.ui-btn {
     width: 100%;
   }
   #videocontainer {
-    width: 50%;
-    margin-left: 25%;
+    width: 80%;
+    margin-left: 10%;
   }
 }
 
@@ -218,16 +218,21 @@ li.ui-btn {
   margin-top:-34px;
   margin-left: 85px;
   cursor: pointer;
-  border: 1px solid red;
+  /*border: 1px solid red;*/
 }
 
 #videoplayer .ui-content {
   padding-right: 10px;
 }
 
+#videosources .ui-header .ui-title {
+  margin-left: 25%;
+}
+
+#videos .ui-header .ui-title,
 #videoplayer .ui-header .ui-title {
-  padding-left: 14px;
-  margin: 0.6em 15% 0.8em;
+  padding-left: 75px;
+  margin: 0.6em 3% 0.8em;
 }
 
 .ui-li-has-arrow.ui-li-has-count .ui-li-count {
