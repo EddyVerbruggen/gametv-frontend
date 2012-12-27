@@ -175,6 +175,7 @@ li.ui-btn {
 #videocontainer {
   background-color: #000;
   width: 95%;
+  text-align: center;
 }
 
 /* for devices of max 479px, we want the content not to be side by side */
