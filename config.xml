@@ -74,14 +74,14 @@
   <preference name="show-splash-screen-spinner" value="false" />
   <preference name="prerendered-icon" value="true" /> <!-- no ios gloss effect plz -->
 
-  <preference name="android-minSdkVersion" value="17" /><!-- 8=2.2, 14=4.0, 16=4.1 (heeft een bug met de videoplayer en backknop), 17=4.2 -->
+  <preference name="android-minSdkVersion" value="12" /><!-- 8=2.2, 14=4.0, 16=4.1 (heeft een bug met de videoplayer en backknop), 17=4.2 -->
   <preference name="android-installLocation" value="auto" /><!-- preferExternal; preferably install on SD-card -->
 
   <preference name="stay-in-webview" value="true" /><!-- LinkedIn integration -->
 
   <preference name="exit-on-suspend" value="true" /><!-- stay with us, or not? -->
 
-  <preference name="splash-screen-duration" value="2500" /> <!-- default 5000 -->
+  <preference name="splash-screen-duration" value="3500" /> <!-- default 5000 -->
 
   <gap:plugin name="ChildBrowser" /> <!-- latest release -->
 
