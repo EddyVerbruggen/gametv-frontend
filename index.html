@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=0"/>
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-capable" content="yes"/>
+  <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+  <meta name="format-detection" content ="telephone=no" />
 
   <title>Game TV</title>
   <!-- NOTE: jqm loads the HEAD only once per session, so we need to include all css and js on every page (not only the first, because a reload of a page need to load all css/js as well) -->
@@ -270,10 +271,8 @@
               $("#videoplayer video").attr("poster", video.imageurl);
 
               var totalWidth = $("body").width();
-              // when body is smaller than 480, the video is shown without content on the sides
-//              var width = (totalWidth / (totalWidth < 480 ? 1 : 2)) - 30;
-              var height = (totalWidth / (totalWidth < 480 ? 2 : 3)) - 30;
-
+              var totalHeight = $("body").height();
+              var height = (totalWidth / (totalWidth < totalHeight ? 2 : 3)) - 30;
               width = "100%";
               if (isYouTube(video.videourl)) {
                 $("#videocontainer").html('<iframe width="'+width+'" height="'+height+'" type="text/html" src="'+video.videourl+'?hd=1" frameborder="0" allowfullscreen></iframe>');

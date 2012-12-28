@@ -179,7 +179,7 @@ li.ui-btn {
 }
 
 /* for devices of max 479px, we want the content not to be side by side */
-@media all and (max-width: 479px) {
+@media all and (orientation:portrait) {
   #videoplayer .ui-block-a, #videoplayer .ui-block-b {
     width: 100%;
   }
