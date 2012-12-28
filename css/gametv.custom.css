@@ -256,3 +256,10 @@ li.ui-btn {
   top: 51%;
   box-shadow: 0 0 3px rgba(0, 0, 0, 0.6);
 }
+
+@media (min-width: 400px) {
+  .ui-li-has-arrow.ui-li-has-count .ui-li-count {
+    margin-right: 14px;
+  }
+}
+
