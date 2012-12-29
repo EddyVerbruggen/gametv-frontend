@@ -301,13 +301,12 @@
                 videourl = videourl.replace('%2F', '/');
                 videourl = videourl.replace('%2F', '/');
                 videourl = videourl.replace('%2F', '/');
+//              <video style="z-index:1008" width="'+width+'" height="'+height+'" src="'+videourl+'" type="video/mp4" autobuffer controls poster="'+video.imageurl+'">\
                 $("#videocontainer").html('\
-                    <video style="z-index:1008" width="'+width+'" height="'+height+'" src="'+videourl+'" type="video/mp4" autobuffer controls poster="'+video.imageurl+'">\
+                    <video style="z-index:1008" width="'+width+'" height="'+height+'" src="'+videourl+'" type="video/mp4" controls>\
                       <object classid="clsid:02bf25d5-8c17-4b23-bc80-d3488abddc6b" width="'+width+'" height="'+height+'" codebase="http://www.apple.com/qtactivex/qtplugin.cab">\
                         <param value="'+videourl+'" type="video/mp4">\
-                        <param value="true">\
-                        <param value="false">\
-                        <embed src="'+videourl+'" type="video/mp4" width="'+width+'" height="'+height+'" autoplay="true" controller="false" pluginspage="http://www.apple.com/quicktime/download/"></embed>\
+                        <embed src="'+videourl+'" type="video/mp4" width="'+width+'" height="'+height+'" controller="false" pluginspage="http://www.apple.com/quicktime/download/"></embed>\
                       </object>\
                     </video>');
               }
