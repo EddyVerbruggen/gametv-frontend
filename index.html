@@ -133,7 +133,8 @@
     }
 
     function renderVideoSourceList(videosources) {
-      var htmlVideosource = '';
+      var htmlVideosource = '' +
+          '<li data-role="list-divider">Kies een recent geupdate kanaal</li>';
       $.each(videosources, function (i, videosource) {
 
         if (videosource.videoList.length > 0 && isEnabledForUser(videosource.id)) { // no empty channels and only active sources
@@ -224,14 +225,22 @@
           // render the videolist
           var htmlVideo = '';
           var sourceHasNewVideos = nrOfNewVideos(videosource.id) > 0;
+          var previousDateString = null;
           $.each(videosource.videoList, function (j, video) {
             var date = new Date(video.date);
+            var dateString = date.getDate() + "-" + (date.getMonth() + 1) + "-" + date.getFullYear();
+            if (previousDateString == null || dateString != previousDateString) {
+              htmlVideo += '' +
+                  '<li data-role="list-divider">' + dateString + '</li>';
+            }
             htmlVideo += '' +
                 '<li>' +
                 '  <a href="#videoplayer?videosourceid='+videosource.id+'&videoid='+video.id+'">' +
                 '    <img src="' + video.imageurl + '" />' +
-                '    <h3>' + video.title + '</h3>' +
-                '    <p>' + date.getDate() + "-" + (date.getMonth() + 1) + "-" + date.getFullYear() + '</p>';
+                '    <h3>' + video.title + '</h3>';
+            if (video.description !== undefined) {
+              htmlVideo += '    <p>' + video.description + '</p>';
+            }
               if (sourceHasNewVideos) {
                 var newVideoIDs = JSON.parse(sessionStorage.getItem("newVideosForSource_"+videosource.id));
                 if ($.inArray(video.id, newVideoIDs) > -1) {
@@ -242,6 +251,7 @@
             htmlVideo +=
                 '  </a>' +
                 '</li>';
+            previousDateString = dateString;
           });
 
           $("#videoList").html(htmlVideo);
@@ -343,7 +353,7 @@
 
   <div data-role="header" data-position="fixed">
     <!--a id="downloadApp" data-icon="refresh" href="#">update app</a-->
-    <h1>Game TV kanalen</h1>
+    <h1>Game TV</h1>
     <a data-icon="grid" data-iconpos="right" href="#popupPanel" data-rel="popup" data-transition="slide" data-position-to="window" class="ui-btn-right">menu</a>
   </div>
 
@@ -360,7 +370,7 @@
   <div data-role="content">
     <div class="content-primary">
       <div class="antenna"></div>
-      <ul id="videosourceList" data-role="listview" data-inset="true"></ul>
+      <ul id="videosourceList" data-role="listview" data-inset="true" data-inset="true" data-divider-theme="d"></ul>
     </div>
 
   </div>
@@ -404,7 +414,7 @@
   <div data-role="content">
     <div class="content-primary">
       <div class="antenna"></div>
-      <ul id="videoList" data-role="listview" data-inset="true"></ul>
+      <ul id="videoList" data-role="listview" data-inset="true" data-divider-theme="d"></ul>
     </div>
   </div>
 

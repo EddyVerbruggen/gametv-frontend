@@ -248,9 +248,7 @@ li.ui-btn {
   );
   border: 2px solid white;
   color: #FFFFFF;
-  padding-top: 2px;
-  padding-bottom: 1px;
-  padding-left: 5px;
+  padding: 2px 5px;
   text-shadow: none;
   font-weight: normal;
   top: 51%;
