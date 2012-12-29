@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=0"/>
-  <meta name="apple-mobile-web-app-capable" content="yes"/>
-  <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
-  <meta name="format-detection" content ="telephone=no" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=0">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no">
 
   <title>Game TV</title>
   <!-- NOTE: jqm loads the HEAD only once per session, so we need to include all css and js on every page (not only the first, because a reload of a page need to load all css/js as well) -->
@@ -140,7 +140,7 @@
         if (videosource.videoList.length > 0 && isEnabledForUser(videosource.id)) { // no empty channels and only active sources
           htmlVideosource += '' +
               '<li>' +
-              '  <a href="#videos?videosourceid=' + videosource.id + '" data-transition="slide">' +
+              '  <a href="#videos?videosourceid=' + videosource.id + '" data-transition="slidefade">' +
               '    <img src="img/videosources/' + videosource.image + '" />' +
               '    <h3>' + videosource.name + '</h3>' +
               '    <p>' + videosource.website + '</p>';
@@ -294,16 +294,8 @@
                   width = "95%";
 //                  height = "";
                 }
-                // TODO clean up this mess, fi: only replace uri comp after '://'
-                videourl = encodeURIComponent(videourl);
-                videourl = videourl.replace('%3A%2F%2F', '://');
-                videourl = videourl.replace('%2F', '/');
-                videourl = videourl.replace('%2F', '/');
-                videourl = videourl.replace('%2F', '/');
-                videourl = videourl.replace('%2F', '/');
-//              <video style="z-index:1008" width="'+width+'" height="'+height+'" src="'+videourl+'" type="video/mp4" autobuffer controls poster="'+video.imageurl+'">\
                 $("#videocontainer").html('\
-                    <video style="z-index:1008" width="'+width+'" height="'+height+'" src="'+videourl+'" type="video/mp4" controls>\
+                    <video style="z-index:1008" width="'+width+'" height="'+height+'" src="'+videourl+'" type="video/mp4" autobuffer controls poster="'+video.imageurl+'">\
                       <object classid="clsid:02bf25d5-8c17-4b23-bc80-d3488abddc6b" width="'+width+'" height="'+height+'" codebase="http://www.apple.com/qtactivex/qtplugin.cab">\
                         <param value="'+videourl+'" type="video/mp4">\
                         <embed src="'+videourl+'" type="video/mp4" width="'+width+'" height="'+height+'" controller="false" pluginspage="http://www.apple.com/quicktime/download/"></embed>\
@@ -363,12 +355,12 @@
   <div data-role="header" data-position="fixed">
     <!--a id="downloadApp" data-icon="refresh" href="#">update app</a-->
     <h1>Game TV</h1>
-    <a data-icon="grid" data-iconpos="right" href="#popupPanel" data-rel="popup" data-transition="slide" data-position-to="window" class="ui-btn-right">menu</a>
+    <a data-icon="grid" data-iconpos="right" href="#popupPanel" data-rel="popup" data-transition="slidefade" data-position-to="window" class="ui-btn-right">menu</a>
   </div>
 
   <div data-role="popup" id="popupPanel" data-corners="false" data-theme="none" data-shadow="false" data-tolerance="0,0">
     <br/>
-    <a data-role="button" data-theme="a" data-icon="grid" data-mini="true" href="#editvideosources" data-direction="reverse" data-transition="slide">Kanelen aan / uit</a>
+    <a data-role="button" data-theme="a" data-icon="grid" data-mini="true" href="#editvideosources" data-direction="reverse" data-transition="slidefade">Kanelen aan / uit</a>
     <button data-theme="a" data-icon="search" data-mini="true" onclick="alert('De app is net gelanceerd en we zijn druk bezig nieuwe functies toe te voegen. Bedankt voor het geduld!')">Binnenkort meer</button>
     <!--button data-theme="a" data-icon="search" data-mini="true" onclick="alert('TODO: nodig?')">Zoek video</button-->
     <!--button data-theme="a" data-icon="info" data-mini="true" href="#about" data-transition="pop">Over Game TV</button-->
@@ -477,7 +469,7 @@
   <div data-role="page" id="videoplayer">
 
   <div data-role="header" data-position="fixed">
-    <a href="#videos?back=1" data-icon="arrow-l" data-transition="slide" data-direction="reverse">terug</a>
+    <a href="#videos?back=1" data-icon="arrow-l" data-transition="slidefade" data-direction="reverse">terug</a>
     <h1><!-- filled when loaded --></h1>
   </div>
 
