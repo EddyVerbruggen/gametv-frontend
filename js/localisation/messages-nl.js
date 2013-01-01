@@ -1,5 +1,8 @@
 button_back = 'terug';
 
+page_home_button_refresh = 'ververs';
+page_home_button_menu = 'menu';
+
 menu_option_editvideosources = 'Kanalen aan / uit';
 menu_option_about = 'Over Game TV';
 menu_option_close = 'Sluiten';
