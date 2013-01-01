@@ -16,6 +16,7 @@
   <script src="js/lib/jquery.js"></script>
   <script src="js/gametv.custom.js"></script>
   <script src="js/jqm-init.js"></script>
+  <script src="js/lib/jquery.localisation.min.js"></script>
   <script src="js/lib/jquery.mobile-1.2.0/jquery.mobile-1.2.0.min.js"></script>
   <script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
   <!-- Included pgbuild js libs here. NOTE: debugging in Android emulator is not possible for PG features,
@@ -38,7 +39,11 @@
       return url.indexOf("youtube") > -1;
     }
 
+    var lang = $.localise.defaultLanguage;
+    alert(lang);
+
     $(document).ready(function () {
+
 //      document.addEventListener("deviceready", addEventListeners, false);
 
       // if this is the first time (not returning from a video), load the list from the server
