@@ -34,11 +34,7 @@
     $.localise('js/localisation/messages', {language: lang, loadBase: true});
 
     $('#videosources').live('pagebeforeshow', function(e, data) {
-      // if this is the first time (not returning from a video), load the list from the server
-      if (sessionStorage.getItem("videosources") == null) {
-        loadVideos();
-      }
-
+      loadVideos();
       $("#menu_title .ui-btn-text").html(menu_title);
       $("#menu_option_editvideosources .ui-btn-text").html(menu_option_editvideosources);
       $("#menu_option_about .ui-btn-text").html(menu_option_about);
@@ -99,6 +95,11 @@
         cachedVideosources = JSON.parse(cachedVideosourcesString);
         renderVideoSourceList(cachedVideosources);
       }
+      // if this is the first time (not returning from a video), load the list from the server
+      if (sessionStorage.getItem("videosources") != null && cachedVideosourcesString != null) {
+        return;
+      }
+
       $.getJSON(getServiceURL("/videosource/all"))
           .success(function (newVideosources) {
             var newVideosourcesString = JSON.stringify(newVideosources);
@@ -114,6 +115,7 @@
               })
             }
 
+            sessionStorage.setItem("videosources", newVideosourcesString);
             localStorage.setItem("videosources", newVideosourcesString);
             renderVideoSourceList(newVideosources);
           })
@@ -319,7 +321,7 @@
               if (video.description) {
                 $("#videoplayer #description").html(video.description + (video.description.length == 255 ? ".." : "")); // TODO serverfix & remove any links and images!
               } else {
-                $("#videoplayer #description").html("");
+                $("#videoplayer #description").html(video.title);
               }
 
               // add dynamically updated tweet button
