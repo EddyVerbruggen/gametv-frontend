@@ -79,7 +79,7 @@
 
   <preference name="stay-in-webview" value="true" /><!-- LinkedIn integration -->
 
-  <preference name="exit-on-suspend" value="true" /><!-- stay with us, or not? -->
+  <preference name="exit-on-suspend" value="false" /><!-- stay with us, or not? -->
 
   <preference name="splash-screen-duration" value="2500" /> <!-- default 5000 -->
 
