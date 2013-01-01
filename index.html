@@ -24,68 +24,73 @@
   <script src="phonegap.js"></script>
   <script src="childbrowser.js"></script>
   <script type="text/javascript">
-    function addEventListeners() {
-      // handle the backbutton event (only fired on Android), which can be overridden for page-specific behaviour
-//      document.addEventListener("backbutton", onBackButtonPressed, true);
-    }
-
-    function onBackButtonPressed(e) {
-//      alert("backbutton pressed");
-//      e.preventDefault();
-//      navigator.app.backHistory();
-    }
 
     function isYouTube(url) {
       return url.indexOf("youtube") > -1;
     }
 
+    // kick off localisation
     var lang = $.localise.defaultLanguage;
-    alert(lang);
+    $.localise('js/localisation/messages', {language: lang, loadBase: true});
 
-    $(document).ready(function () {
-
-//      document.addEventListener("deviceready", addEventListeners, false);
-
+    $('#videosources').live('pagebeforeshow', function(e, data) {
       // if this is the first time (not returning from a video), load the list from the server
       if (sessionStorage.getItem("videosources") == null) {
         loadVideos();
       }
 
-      $('#videos').on('pagebeforeshow', function (e, data) {
-        var videosourceid = getUrlParam("videosourceid");
-        if (videosourceid != null) {
-          renderVideoList(videosourceid);
-          // set all videos as seen for this source
-          if (nrOfNewVideos(videosourceid) >  0) {
-            sessionStorage.setItem("newVideosForSource_"+videosourceid, JSON.stringify(new Array()));
-            var cachedVideosources = JSON.parse(localStorage.getItem("videosources"));
-            renderVideoSourceList(cachedVideosources);
-          }
-        }
-      });
-
-      $('#editvideosources').on('pagebeforeshow', function (e, data) {
-        renderEditVideoSourceList(JSON.parse(localStorage.getItem("videosources")));
-        $('select').slider();
-      });
-
-      $('#videoplayer').on('pagebeforeshow', function (e, data) {
-        var videosourceid = getUrlParam("videosourceid");
-        var videoid = getUrlParam("videoid");
-        renderVideoPlayer(videosourceid, videoid);
-      });
-
-      $('#videoplayer').on('pagebeforehide', function (e, data) {
-        // force the video to stop playing
-        $("#videocontainer").html("");
-      });
-
-      $("#popupPanel").on("popupbeforeposition", function() {
-        $("#popupPanel").css("height", $(window).height());
-      });
-
-//      $("#downloadApp").attr("href", isAndroid() ? "https://build.phonegap.com/apps/267637/download/android/?qr_key=sfqjvxAqyAAjSQvtB7pu" : "https://build.phonegap.com/apps/267637/download/ios/?qr_key=sfqjvxAqyAAjSQvtB7pu");
+      $("#menu_title .ui-btn-text").html(menu_title);
+      $("#menu_option_editvideosources .ui-btn-text").html(menu_option_editvideosources);
+      $("#menu_option_about .ui-btn-text").html(menu_option_about);
+      $("#menu_option_close .ui-btn-text").html(menu_option_close);
     });
+
+    $('#editvideosources').live('pagebeforeshow', function (e, data) {
+      renderEditVideoSourceList(JSON.parse(localStorage.getItem("videosources")));
+      $('select').slider();
+      $("#page_editvideosources_button_cancel .ui-btn-text").html(page_editvideosources_button_cancel);
+      $("#page_editvideosources_button_save .ui-btn-text").html(page_editvideosources_button_save);
+      $(".ui-block-b .ui-slider-label-a").html(page_editvideosources_switch_on);
+      $(".ui-block-b .ui-slider-label-b").html(page_editvideosources_switch_off);
+    });
+
+    $('#videos').live('pagebeforeshow', function (e, data) {
+      var videosourceid = getUrlParam("videosourceid");
+      if (videosourceid != null) {
+        renderVideoList(videosourceid);
+        // set all videos as seen for this source
+        if (nrOfNewVideos(videosourceid) > 0) {
+          sessionStorage.setItem("newVideosForSource_"+videosourceid, JSON.stringify(new Array()));
+          var cachedVideosources = JSON.parse(localStorage.getItem("videosources"));
+          renderVideoSourceList(cachedVideosources);
+        }
+      }
+      $(".button_back .ui-btn-text").html(button_back);
+    });
+
+    $('#about').live('pagebeforeshow', function (e, data) {
+      $(".button_back .ui-btn-text").html(button_back);
+    });
+
+    $('#videoplayer').live('pagebeforeshow', function (e, data) {
+      $(".button_back .ui-btn-text").html(button_back);
+      $("#share h3").html(page_share_title);
+      $("#share #page_share_button .ui-btn-text").html(page_share_button);
+      var videosourceid = getUrlParam("videosourceid");
+      var videoid = getUrlParam("videoid");
+      renderVideoPlayer(videosourceid, videoid);
+    });
+
+    $('#videoplayer').live('pagebeforehide', function (e, data) {
+      // force the video to stop playing
+      $("#videocontainer").html("");
+    });
+
+    $("#popupPanel").live("popupbeforeposition", function() {
+      $("#popupPanel").css("height", $(window).height());
+    });
+
+//    $("#downloadApp").attr("href", isAndroid() ? "https://build.phonegap.com/apps/267637/download/android/?qr_key=sfqjvxAqyAAjSQvtB7pu" : "https://build.phonegap.com/apps/267637/download/ios/?qr_key=sfqjvxAqyAAjSQvtB7pu");
 
     function loadVideos() {
       var cachedVideosourcesString = localStorage.getItem("videosources");
@@ -126,12 +131,13 @@
       $.each(idContainerNewList, function (i, idContainerNew) {
         var found = false;
         $.each(idContainerOldList, function (j, idContainerOld) {
-          if (idContainerNew.id == idContainerOld.id) {
+          // compare the unique pageurls, so counts are ok when the server restarts
+          if (idContainerNew.pageurl == idContainerOld.pageurl) {
             found = true;
           }
         });
         if (!found) {
-          newList.push(idContainerNew.id);
+          newList.push(idContainerNew.pageurl);
         }
       });
       return newList;
@@ -139,7 +145,7 @@
 
     function renderVideoSourceList(videosources) {
       var htmlVideosource = '' +
-          '<li data-role="list-divider">Kies een recent geupdate kanaal</li>';
+          '<li data-role="list-divider" id="page_home_channellist_header"></li>';
       $.each(videosources, function (i, videosource) {
 
         if (videosource.videoList.length > 0 && isEnabledForUser(videosource.id)) { // no empty channels and only active sources
@@ -147,8 +153,8 @@
               '<li>' +
               '  <a href="#videos?videosourceid=' + videosource.id + '">' +
               '    <img src="img/videosources/' + videosource.image + '" />' +
-              '    <h3>' + videosource.name + '</h3>' +
-              '    <p>' + videosource.website + '</p>';
+              '    <h3>' + videosource.name +'</h3>' +
+              '    <p><img src="img/flags/' + videosource.country + '.png" width="11px"/>&nbsp;&nbsp;&nbsp;' + videosource.website + '</p>';
           if (nrOfNewVideos(videosource.id) > 0) {
             htmlVideosource +=
                 '    <span class="ui-li-count">' + nrOfNewVideos(videosource.id) + '</span>';
@@ -159,6 +165,7 @@
         }
       });
       $("#videosourceList").html(htmlVideosource);
+      $("#page_home_channellist_header").html(page_home_channellist_header);
       $("#videosourceList").listview('refresh');
     }
 
@@ -176,9 +183,9 @@
               '      <p>' + videosource.website + '</p>' +
               '    </div>' +
               '    <div class="ui-block-b" style="text-align: right; margin-top: 8px">' +
-              '      <select name="slider_'+videosource.id+'" id="slider_'+videosource.id+'" data-role="slider" data-mini="true" data-theme="c" data-track-theme="a" onchange="trackToggle('+videosource.id+', this.value)">' +
-              '        <option value="off" style="color:green">uit</option>' +
-              '        <option value="on" ' + (isEnabledForUser(videosource.id) ? 'selected' : '') + '>aan</option>' +
+              '      <select name="slider_'+videosource.id+'" id="slider_'+videosource.id+'" data-role="slider" data-mini="true" data-theme="c" data-track-theme="a">' +
+              '        <option value="off" style="color:green"></option>' +
+              '        <option value="on" ' + (isEnabledForUser(videosource.id) ? 'selected' : '') + '></option>' +
               '      </select>' +
               '    </div>' +
               '  </div>' +
@@ -248,7 +255,7 @@
             }
               if (sourceHasNewVideos) {
                 var newVideoIDs = JSON.parse(sessionStorage.getItem("newVideosForSource_"+videosource.id));
-                if ($.inArray(video.id, newVideoIDs) > -1) {
+                if ($.inArray(video.pageurl, newVideoIDs) > -1) {
                   htmlVideo +=
                       '    <span class="ui-li-count">new</span>';
                 }
@@ -308,7 +315,7 @@
                     </video>');
               }
 
-              $("#videoplayer #mailbody").html('Check de video "'+video.title+'" @ ' + video.pageurl);
+              $("#videoplayer #mailbody").html('Check "'+video.title+'" @ ' + video.pageurl);
               if (video.description) {
                 $("#videoplayer #description").html(video.description + (video.description.length == 255 ? ".." : "")); // TODO serverfix & remove any links and images!
               } else {
@@ -360,17 +367,17 @@
   <div data-role="header" data-position="fixed">
     <!--a id="downloadApp" data-icon="refresh" href="#">update app</a-->
     <h1>Game TV</h1>
-    <a data-icon="grid" data-iconpos="right" href="#popupPanel" data-rel="popup" data-transition="slide" data-position-to="window" class="ui-btn-right">menu</a>
+    <a data-icon="grid" data-iconpos="right" href="#popupPanel" data-rel="popup" data-transition="slide" data-position-to="window" class="ui-btn-right" id="menu_title"></a>
   </div>
 
   <div data-role="popup" id="popupPanel" data-corners="false" data-theme="none" data-shadow="false" data-tolerance="0,0">
     <br/>
-    <a data-role="button" data-theme="a" data-icon="grid" data-mini="true" href="#editvideosources" data-direction="reverse">Kanelen aan / uit</a>
-    <button data-theme="a" data-icon="search" data-mini="true" onclick="alert('De app is net gelanceerd en we zijn druk bezig nieuwe functies toe te voegen. Bedankt voor het geduld!')">Binnenkort meer</button>
+    <a data-role="button" data-theme="a" data-icon="grid" data-mini="true" href="#editvideosources" data-direction="reverse" id="menu_option_editvideosources"></a>
+    <!--button data-theme="a" data-icon="search" data-mini="true" onclick="alert('De app is net gelanceerd en we zijn druk bezig nieuwe functies toe te voegen. Bedankt voor het geduld!')">Binnenkort meer</button-->
     <!--button data-theme="a" data-icon="search" data-mini="true" onclick="alert('TODO: nodig?')">Zoek video</button-->
     <!--button data-theme="a" data-icon="info" data-mini="true" href="#about" data-transition="pop">Over Game TV</button-->
-    <a data-role="button" data-theme="a" data-icon="info" data-mini="true" href="#about" data-transition="flip">Over Game TV</a>
-    <button data-theme="c" data-icon="delete" data-mini="true" onclick="$('#popupPanel').popup('close')">Sluiten</button>
+    <a data-role="button" data-theme="a" data-icon="info" data-mini="true" href="#about" data-transition="flip" id="menu_option_about"></a>
+    <a data-role="button" data-theme="c" data-icon="delete" data-mini="true" onclick="$('#popupPanel').popup('close')" id="menu_option_close">x</a>
   </div>
 
   <div data-role="content">
@@ -391,7 +398,7 @@
 
   <div data-role="header" data-position="fixed">
     <h1>Beheer kanalen</h1>
-    <a href="#videosources" data-icon="arrow-r" data-iconpos="right" class="ui-btn-right">annuleer</a>
+    <a href="#videosources" data-icon="arrow-r" data-iconpos="right" class="ui-btn-right" id="page_editvideosources_button_cancel"></a>
   </div>
 
   <div data-role="content">
@@ -399,7 +406,7 @@
       <form id="editvideosourcesForm">
         <div class="antenna"></div>
         <ul id="videosourceListFull" data-role="listview" data-inset="true"></ul>
-        <a style="margin-top: 18px" data-icon="check" data-role="button" data-theme="b" data-iconpos="right" data-inline="false" data-mini="true" href="#videosources" onclick="saveVideosources(); return false">Opslaan</a>
+        <a style="margin-top: 18px" data-icon="check" data-role="button" data-theme="b" data-iconpos="right" data-inline="false" data-mini="true" href="#videosources" onclick="saveVideosources(); return false" id="page_editvideosources_button_save">Opslaan</a>
       </form>
     </div>
   </div>
@@ -413,7 +420,7 @@
 <div data-role="page" id="videos">
 
   <div data-role="header" data-position="fixed">
-    <a href="#videosources" data-icon="arrow-l" data-direction="reverse">terug</a>
+    <a href="#videosources" data-icon="arrow-l" data-direction="reverse" class="button_back"></a>
     <h1><!-- filled when loaded --></h1>
   </div>
 
@@ -433,7 +440,7 @@
 <div data-role="page" id="about">
 
   <div data-role="header" data-position="fixed">
-    <a href="#videosources" data-icon="arrow-l" data-transition="flip" data-direction="reverse">terug</a>
+    <a href="#videosources" data-icon="arrow-l" data-transition="flip" data-direction="reverse" class="button_back"></a>
     <h1>Over Game TV</h1>
   </div>
 
@@ -474,7 +481,7 @@
   <div data-role="page" id="videoplayer">
 
   <div data-role="header" data-position="fixed">
-    <a href="#videos?back=1" data-icon="arrow-l" data-direction="reverse">terug</a>
+    <a href="#videos?back=1" data-icon="arrow-l" data-direction="reverse" class="button_back"></a>
     <h1><!-- filled when loaded --></h1>
   </div>
 
@@ -482,10 +489,10 @@
       <a data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" onclick="$('#share').popup('close'); return false" class="ui-btn-right">Close</a>
       <form>
         <div style="padding:10px 20px;">
-          <h3>Mail een vriend</h3>
+          <h3></h3>
           <label for="mailbody" class="ui-hidden-accessible">Tekst:</label>
           <textarea name="mailbody" id="mailbody" data-theme="a"></textarea>
-          <a data-icon="arrow-r" data-role="button" data-theme="b" data-iconpos="right" onclick="$('#share').popup('close'); redirect('mailto:?subject=Leuke video gezien op Game TV voor Android&body='+document.getElementById('mailbody').innerHTML); return false">Naar verzenden</a>
+          <a data-icon="arrow-r" data-role="button" data-theme="b" data-iconpos="right" onclick="$('#share').popup('close'); redirect('mailto:?subject=Leuke video gezien op Game TV voor Android&body='+document.getElementById('mailbody').innerHTML); return false" id="page_share_button"></a>
         </div>
       </form>
     </div>
