@@ -158,12 +158,14 @@
       $.each(videosources, function (i, videosource) {
 
         if (videosource.videoList.length > 0 && isEnabledForUser(videosource.id)) { // no empty channels and only active sources
+
           htmlVideosource += '' +
               '<li>' +
               '  <a href="#videos?videosourceid=' + videosource.id + '">' +
               '    <img src="img/videosources/' + videosource.image + '" />' +
               '    <h3>' + videosource.name +'</h3>' +
-              '    <p><img src="img/flags/' + videosource.country + '.png" width="11px"/>&nbsp;&nbsp;&nbsp;' + videosource.website + '</p>';
+//              '    <p><img src="img/flags/' + videosource.country + '.png" width="11px"/>&nbsp;&nbsp;&nbsp;' + videosource.website + '</p>';
+              '    <p><img src="img/flags/' + videosource.country + '.png" width="11px"/>&nbsp;&nbsp;&nbsp;' + getDateString(videosource.videoList[0].date, lang) + '</p>';
           if (nrOfNewVideos(videosource.id) > 0) {
             htmlVideosource +=
                 '    <span class="ui-li-count">' + nrOfNewVideos(videosource.id) + '</span>';
@@ -269,8 +271,7 @@
           var sourceHasNewVideos = nrOfNewVideos(videosource.id) > 0;
           var previousDateString = null;
           $.each(videosource.videoList, function (j, video) {
-            var date = new Date(video.date);
-            var dateString = date.getDate() + "-" + (date.getMonth() + 1) + "-" + date.getFullYear();
+            var dateString = getDateString(video.date, lang);
             if (previousDateString == null || dateString != previousDateString) {
               htmlVideo += '' +
                   '<li data-role="list-divider">' + dateString + '</li>';
@@ -298,6 +299,7 @@
 
           $("#videoList").html(htmlVideo);
           $("#videoList").listview('refresh');
+          $("#website").html("&copy; " + videosource.website);
 
           //  break the loop
           return false;
@@ -459,6 +461,7 @@
       <div class="antenna"></div>
       <ul id="videoList" data-role="listview" data-inset="true" data-divider-theme="d"></ul>
     </div>
+    <div id="website"></div>
   </div>
 
   <div class="feedback"></div>

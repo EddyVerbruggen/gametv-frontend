@@ -285,3 +285,9 @@ li.ui-btn {
   top: 6px;
   right: 14px;
 }
+
+#website {
+  margin-top: 18px;
+  color: #bbb;
+  font-size: 0.8em;
+}

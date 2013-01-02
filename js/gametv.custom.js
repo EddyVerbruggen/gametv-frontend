@@ -41,6 +41,14 @@ function isServerStubMode() {
   return window.location.hostname == 'gametvbasstub'; // Bas stub mode
 }
 
+function getDateString(javaDateString) {
+  var date = new Date(javaDateString);
+  var d = date.getDate();
+  var m = date.getMonth()+1;
+  var month = eval("month_" + m); // NOTE: this depends on localised js properties like 'month_<nr>'
+  var y = date.getFullYear();
+  return d + ' ' + month + ' ' + y;
+}
 
 function getServiceURL(servicePath) {
   // on a device, connect to the testserver, otherwise to the dev machine

@@ -7,6 +7,19 @@ country_be = 'Belgium';
 country_gb = 'Great Britain';
 country_us = 'U.S.A.';
 
+month_1 = 'jan';
+month_2 = 'feb';
+month_3 = 'mar';
+month_4 = 'apr';
+month_5 = 'may';
+month_6 = 'jun';
+month_7 = 'jul';
+month_8 = 'aug';
+month_9 = 'sep';
+month_10 = 'okt';
+month_11 = 'nov';
+month_12 = 'dec';
+
 page_home_button_refresh = 'refresh';
 page_home_button_menu = 'channels';
 

@@ -5,6 +5,9 @@ country_be = 'Belgie';
 country_gb = 'Engeland';
 country_us = 'Amerika';
 
+month_3 = 'maa';
+month_5 = 'mei';
+
 page_home_button_refresh = 'ververs';
 page_home_button_menu = 'kanalen';
 
