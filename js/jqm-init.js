@@ -2,5 +2,6 @@
 $(document).bind("mobileinit", function(){
   $.mobile.page.prototype.options.domCache = true;
   $.mobile.pushStateEnabled = false;
-  $.mobile.defaultPageTransition = isAndroid() ? "slidefade" : "slide";
+//  $.mobile.defaultPageTransition = isAndroid() ? "slidefade" : "slide";
+  $.mobile.defaultPageTransition = isAndroid() ? "fade" : "slide";
 });

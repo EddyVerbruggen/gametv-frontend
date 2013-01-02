@@ -45,10 +45,15 @@
     $('#editvideosources').live('pagebeforeshow', function (e, data) {
       renderEditVideoSourceList(JSON.parse(localStorage.getItem("videosources")));
       $('select').slider();
+      $("#editvideosources h1").html(page_editvideosources_title);
       $("#page_editvideosources_button_cancel .ui-btn-text").html(page_editvideosources_button_cancel);
       $("#page_editvideosources_button_save .ui-btn-text").html(page_editvideosources_button_save);
       $(".ui-block-b .ui-slider-label-a").html(page_editvideosources_switch_on);
       $(".ui-block-b .ui-slider-label-b").html(page_editvideosources_switch_off);
+      $("#editvideosources .country_name").each(function(index, elem) {
+        var countryCode = $(elem).html();
+        $(elem).html(eval("country_"+countryCode));
+      });
     });
 
     $('#videos').live('pagebeforeshow', function (e, data) {
@@ -175,26 +180,47 @@
 
     function renderEditVideoSourceList(videosources) {
       var htmlVideosource = '';
-      $.each(videosources, function (i, videosource) {
+      var previousCountry = null;
 
-        if (videosource.videoList.length > 0) { // no empty channels
-          htmlVideosource += '' +
-              '<li data-role="fieldcontain">' +
-              '  <img src="img/videosources/' + videosource.image + '" />' +
-              '  <div class="ui-grid-a">' +
-              '    <div class="ui-block-a">' +
-              '      <h3>' + videosource.name + '</h3>' +
-              '      <p>' + videosource.website + '</p>' +
-              '    </div>' +
-              '    <div class="ui-block-b" style="text-align: right; margin-top: 8px">' +
-              '      <select name="slider_'+videosource.id+'" id="slider_'+videosource.id+'" data-role="slider" data-mini="true" data-theme="c" data-track-theme="a">' +
-              '        <option value="off" style="color:green"></option>' +
-              '        <option value="on" ' + (isEnabledForUser(videosource.id) ? 'selected' : '') + '></option>' +
-              '      </select>' +
-              '    </div>' +
-              '  </div>' +
-              '</li>';
+
+      // first sort by country, done by creating an associative array of arrays
+      var sortedVideosources = {};
+      $.each(videosources, function (i, videosource) {
+        var country = videosource.country;
+        var channelsInCountry = sortedVideosources[country];
+//        alert(channelsInCountry);
+        if (channelsInCountry === undefined) {
+          sortedVideosources[country] = new Array();
         }
+        var x = sortedVideosources[country];
+        x.push(videosource);
+        sortedVideosources[country] = x;
+      });
+
+      // and now render the list
+      $.each(sortedVideosources, function (i, videosourcesForCountry) {
+        htmlVideosource += '<li data-role="list-divider"><span><img src="img/flags/' + i + '.png" width="22px"/>&nbsp;&nbsp;&nbsp;<span class="country_name">' + i + '</span></span></li>';
+
+        $.each(videosourcesForCountry, function (j, videosource) {
+          if (videosource.videoList.length > 0) { // no empty channels
+            htmlVideosource += '' +
+                '<li data-role="fieldcontain">' +
+                '  <img src="img/videosources/' + videosource.image + '" />' +
+                '  <div class="ui-grid-a">' +
+                '    <div class="ui-block-a">' +
+                '      <h3>' + videosource.name + '</h3>' +
+                '      <p>' + videosource.website + '</p>' +
+                '    </div>' +
+                '    <div class="ui-block-b" style="text-align: right; margin-top: 8px">' +
+                '      <select name="slider_'+videosource.id+'" id="slider_'+videosource.id+'" data-role="slider" data-mini="true" data-theme="c" data-track-theme="a">' +
+                '        <option value="off" style="color:green"></option>' +
+                '        <option value="on" ' + (isEnabledForUser(videosource.id) ? 'selected' : '') + '></option>' +
+                '      </select>' +
+                '    </div>' +
+                '  </div>' +
+                '</li>';
+          }
+        });
       });
       $("#videosourceListFull").html(htmlVideosource);
       $("#videosourceListFull").listview('refresh');
@@ -372,15 +398,14 @@
     <!--a id="downloadApp" data-icon="refresh" href="#">update app</a-->
     <a data-icon="refresh" href="#" onclick="$.mobile.loading('show'); setTimeout(function(){loadVideos(true); $.mobile.loading('hide');},750)" id="refresh_title">refresh</a>
     <h1>Game TV</h1>
-    <a data-icon="grid" data-iconpos="right" href="#popupPanel" data-rel="popup" data-transition="slide" data-position-to="window" class="ui-btn-right" id="menu_title"></a>
+    <a data-icon="grid" data-iconpos="right" href="#editvideosources" data-role="button" data-direction="reverse" class="ui-btn-right" id="menu_title"></a>
+    <!--a data-icon="grid" data-iconpos="right" href="#popupPanel" data-rel="popup" data-transition="slide" data-position-to="window" class="ui-btn-right" id="menu_title"></a-->
   </div>
 
   <div data-role="popup" id="popupPanel" data-corners="false" data-theme="none" data-shadow="false" data-tolerance="0,0">
     <br/>
     <a data-role="button" data-theme="a" data-icon="grid" data-mini="true" href="#editvideosources" data-direction="reverse" id="menu_option_editvideosources"></a>
-    <!--button data-theme="a" data-icon="search" data-mini="true" onclick="alert('De app is net gelanceerd en we zijn druk bezig nieuwe functies toe te voegen. Bedankt voor het geduld!')">Binnenkort meer</button-->
-    <!--button data-theme="a" data-icon="search" data-mini="true" onclick="alert('TODO: nodig?')">Zoek video</button-->
-    <!--button data-theme="a" data-icon="info" data-mini="true" href="#about" data-transition="pop">Over Game TV</button-->
+    <!--button data-theme="a" data-icon="search" data-mini="true">Zoek video</button-->
     <a data-role="button" data-theme="a" data-icon="info" data-mini="true" href="#about" data-transition="flip" id="menu_option_about"></a>
     <a data-role="button" data-theme="c" data-icon="delete" data-mini="true" onclick="$('#popupPanel').popup('close')" id="menu_option_close">x</a>
   </div>
@@ -402,16 +427,16 @@
 <div data-role="page" id="editvideosources" class="videosourcespage">
 
   <div data-role="header" data-position="fixed">
+    <a href="#videosources" data-icon="delete" id="page_editvideosources_button_cancel"></a>
     <h1>Beheer kanalen</h1>
-    <a href="#videosources" data-icon="arrow-r" data-iconpos="right" class="ui-btn-right" id="page_editvideosources_button_cancel"></a>
+    <a data-icon="check" data-role="button" class="ui-btn-right"  data-iconpos="right" href="#videosources" onclick="saveVideosources(); return false" id="page_editvideosources_button_save"></a>
   </div>
 
   <div data-role="content">
     <div class="content-primary">
       <form id="editvideosourcesForm">
         <div class="antenna"></div>
-        <ul id="videosourceListFull" data-role="listview" data-inset="true"></ul>
-        <a style="margin-top: 18px" data-icon="check" data-role="button" data-theme="b" data-iconpos="right" data-inline="false" data-mini="true" href="#videosources" onclick="saveVideosources(); return false" id="page_editvideosources_button_save">Opslaan</a>
+        <ul id="videosourceListFull" data-role="listview" data-inset="true" data-divider-theme="d"></ul>
       </form>
     </div>
   </div>

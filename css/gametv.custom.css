@@ -263,6 +263,7 @@ li.ui-btn {
 
 .ui-header .ui-icon {
   background-color: #ff594f;
+  padding-left: 1px;
 }
 
 .ui-header .ui-btn-inner {

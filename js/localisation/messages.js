@@ -2,8 +2,13 @@
 
 button_back = 'back';
 
+country_nl = 'The Netherlands';
+country_be = 'Belgium';
+country_gb = 'Great Britain';
+country_us = 'U.S.A.';
+
 page_home_button_refresh = 'refresh';
-page_home_button_menu = 'menu';
+page_home_button_menu = 'channels';
 
 menu_option_editvideosources = 'Channels on / off';
 menu_option_about = 'About Game TV';
@@ -11,9 +16,9 @@ menu_option_close = 'Close';
 
 page_home_channellist_header = 'Browse a recently updated channel';
 
-page_editvideosources_title = 'Manage channels';
+page_editvideosources_title = 'Choose channels';
 page_editvideosources_button_cancel = 'cancel';
-page_editvideosources_button_save = 'Save';
+page_editvideosources_button_save = 'save';
 page_editvideosources_switch_on = 'on';
 page_editvideosources_switch_off = 'off';
 
