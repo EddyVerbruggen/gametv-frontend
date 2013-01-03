@@ -262,7 +262,8 @@ li.ui-btn {
 }
 
 .ui-header {
-  border-color: transparent;
+  border: none;
+  /*border-color: transparent;*/
 }
 
 .ui-header .ui-icon {
