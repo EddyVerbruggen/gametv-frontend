@@ -396,7 +396,7 @@
 <!-- PAGE: videosources -->
 <div data-role="page" id="videosources" class="videosourcespage">
 
-  <div data-role="header" data-position="fixed">
+  <div data-role="header" data-tap-toggle="false" data-position="fixed">
     <!--a id="downloadApp" data-icon="refresh" href="#">update app</a-->
     <a data-icon="refresh" href="#" onclick="$.mobile.loading('show'); setTimeout(function(){loadVideos(true); $.mobile.loading('hide');},750)" id="refresh_title">refresh</a>
     <h1>Game TV</h1>
@@ -428,7 +428,7 @@
 <!-- PAGE: edit videosources -->
 <div data-role="page" id="editvideosources" class="videosourcespage">
 
-  <div data-role="header" data-position="fixed">
+  <div data-role="header" data-tap-toggle="false" data-position="fixed">
     <a href="#videosources" data-icon="delete" id="page_editvideosources_button_cancel"></a>
     <h1>Beheer kanalen</h1>
     <a data-icon="check" data-role="button" class="ui-btn-right"  data-iconpos="right" href="#videosources" onclick="saveVideosources(); return false" id="page_editvideosources_button_save"></a>
@@ -451,7 +451,7 @@
 <!-- PAGE: videos -->
 <div data-role="page" id="videos">
 
-  <div data-role="header" data-position="fixed">
+  <div data-role="header" data-tap-toggle="false" data-position="fixed">
     <a href="#videosources" data-icon="arrow-l" data-direction="reverse" class="button_back"></a>
     <h1><!-- filled when loaded --></h1>
   </div>
@@ -472,7 +472,7 @@
 <!-- PAGE: about -->
 <div data-role="page" id="about">
 
-  <div data-role="header" data-position="fixed">
+  <div data-role="header" data-tap-toggle="false" data-position="fixed">
     <a href="#videosources" data-icon="arrow-l" data-transition="flip" data-direction="reverse" class="button_back"></a>
     <h1>Over Game TV</h1>
   </div>
@@ -513,7 +513,7 @@
 <!-- PAGE: videoplayer -->
   <div data-role="page" id="videoplayer">
 
-  <div data-role="header" data-position="fixed">
+  <div data-role="header" data-tap-toggle="false" data-position="fixed">
     <a href="#videos?back=1" data-icon="arrow-l" data-direction="reverse" class="button_back"></a>
     <h1><!-- filled when loaded --></h1>
   </div>

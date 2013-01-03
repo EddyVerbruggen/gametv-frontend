@@ -261,6 +261,10 @@ li.ui-btn {
   }
 }
 
+.ui-header {
+  border-color: transparent;
+}
+
 .ui-header .ui-icon {
   background-color: #ff594f;
   padding-left: 1px;
