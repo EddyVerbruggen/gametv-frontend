@@ -1,3 +1,8 @@
+.ui-page {
+  /* anti-flicker test */
+   -webkit-backface-visibility: hidden;
+ }
+
 .videosourcespage .ui-li-thumb {
   width: 66px;
   height: 66px;
@@ -262,8 +267,7 @@ li.ui-btn {
 }
 
 .ui-header {
-  border: none;
-  /*border-color: transparent;*/
+  border-color: transparent;
 }
 
 .ui-header .ui-icon {

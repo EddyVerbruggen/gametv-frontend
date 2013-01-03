@@ -2,7 +2,7 @@
 <widget xmlns="http://www.w3.org/ns/widgets"
         xmlns:gap="http://phonegap.com/ns/1.0"
         id="nl.x-services.gametv"
-        version="0.0.1">
+        version="0.0.2">
 
   <name>Game TV</name><!-- is also the name of the icon on the device -->
 
@@ -81,7 +81,7 @@
 
   <preference name="exit-on-suspend" value="false" /><!-- stay with us, or not? -->
 
-  <preference name="splash-screen-duration" value="2500" /> <!-- default 5000 -->
+  <preference name="splash-screen-duration" value="2000" /> <!-- default 5000 -->
 
   <gap:plugin name="ChildBrowser" /> <!-- latest release -->
 
