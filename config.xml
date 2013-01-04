@@ -81,7 +81,7 @@
 
   <preference name="exit-on-suspend" value="false" /><!-- stay with us, or not? -->
 
-  <preference name="splash-screen-duration" value="1500" /> <!-- default 5000 -->
+  <preference name="splash-screen-duration" value="2000" /> <!-- default 5000 -->
 
   <gap:plugin name="ChildBrowser" /> <!-- latest release -->
 
