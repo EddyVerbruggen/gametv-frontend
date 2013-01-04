@@ -71,7 +71,7 @@
   <preference name="webviewbounce" value="true"/><!-- iOS rubber banding -->
 
   <preference name="ios-statusbarstyle" value="black-opaque"/>
-  <preference name="show-splash-screen-spinner" value="true" />
+  <preference name="show-splash-screen-spinner" value="false" />
   <preference name="prerendered-icon" value="true" /> <!-- no ios gloss effect plz -->
 
   <preference name="android-minSdkVersion" value="12" /><!-- 8=2.2, 14=4.0, 16=4.1 (heeft een bug met de videoplayer en backknop), 17=4.2 -->
@@ -81,7 +81,7 @@
 
   <preference name="exit-on-suspend" value="false" /><!-- stay with us, or not? -->
 
-  <!--preference name="splash-screen-duration" value="2000" /--> <!-- default 5000 -->
+  <preference name="splash-screen-duration" value="1500" /> <!-- default 5000 -->
 
   <gap:plugin name="ChildBrowser" /> <!-- latest release -->
 
