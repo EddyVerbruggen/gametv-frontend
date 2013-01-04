@@ -29,6 +29,13 @@
       return url.indexOf("youtube") > -1;
     }
 
+    // for Android 4.2 (and higher, but that's for a later day, set a css property for smooth animations
+    $(document).ready(function() {
+      if (window.navigator.userAgent.indexOf("Android 4.2") > -1) {
+        $("div[data-role='page']").css({"-webkit-backface-visibility": "hidden"});
+      }
+    });
+
     // kick off localisation
     var lang = $.localise.defaultLanguage;
     $.localise('js/localisation/messages', {language: lang, loadBase: true});
