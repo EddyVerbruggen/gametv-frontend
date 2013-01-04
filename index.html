@@ -395,6 +395,40 @@
 <body>
 
 
+
+<!-- PAGE: videosources -->
+<div data-role="page" id="videosources" class="videosourcespage">
+
+  <div data-role="header" data-tap-toggle="false" data-position="fixed">
+    <!--a id="downloadApp" data-icon="refresh" href="#">update app</a-->
+    <a data-icon="refresh" href="#" onclick="$.mobile.loading('show'); setTimeout(function(){loadVideos(true); $.mobile.loading('hide');},750)" id="refresh_title">refresh</a>
+    <h1>Game TV</h1>
+    <a data-icon="grid" data-iconpos="right" href="#editvideosources" data-role="button" data-direction="reverse" class="ui-btn-right" id="menu_title"></a>
+    <!--a data-icon="grid" data-iconpos="right" href="#popupPanel" data-rel="popup" data-transition="slide" data-position-to="window" class="ui-btn-right" id="menu_title"></a-->
+  </div>
+
+  <div data-role="popup" id="popupPanel" data-corners="false" data-theme="none" data-shadow="false" data-tolerance="0,0">
+    <br/>
+    <a data-role="button" data-theme="a" data-icon="grid" data-mini="true" href="#editvideosources" data-direction="reverse" id="menu_option_editvideosources"></a>
+    <!--button data-theme="a" data-icon="search" data-mini="true">Zoek video</button-->
+    <a data-role="button" data-theme="a" data-icon="info" data-mini="true" href="#about" data-transition="flip" id="menu_option_about"></a>
+    <a data-role="button" data-theme="c" data-icon="delete" data-mini="true" onclick="$('#popupPanel').popup('close')" id="menu_option_close">x</a>
+  </div>
+
+  <div data-role="content">
+    <div class="content-primary">
+      <div class="antenna"></div>
+      <ul id="videosourceList" data-role="listview" data-inset="true" data-inset="true" data-divider-theme="d"></ul>
+    </div>
+
+  </div>
+
+  <div class="feedback"></div>
+
+</div>
+
+
+
 <!-- PAGE: videotest -->
 <div data-role="page" id="videotest">
 
@@ -429,38 +463,6 @@
       <!--iframe id="player_object" src="http://www.uitzendinggemist.nl/player/NPS_1216307"/-->
       <!--object data='data:application/x-silverlight-2,' type='application/x-silverlight-2' width='400' height='226'><param name='source' value='http://embed.player.omroep.nl/sle/ugslplayer.xap'/><param name='enablehtmlaccess' value='true'/><param name='initParams' value='version=sl.1.9.9,episodeID=NPS_1216307,playlistEnabled=no,playMode=play,volume=100,seekTime=00:00:44,subtitlesEnabled=false' /><embed source='http://embed.player.omroep.nl/sle/ugslplayer.xap' type='application/x-silverlight-2' enablehtmlaccess='true' width='400' height='226' seekTime='00:00:44' initParams='version=sl.1.9.9,episodeID=NPS_1216307,playlistEnabled=no,playMode=play,volume=100,seekTime=00:00:44,subtitlesEnabled=false'><a href='http://go.microsoft.com/fwlink/?LinkID=124807' style='text-decoration: none;'><img src='http://embed.player.omroep.nl/sle/downloadsilverlight.jpg' alt='Get Microsoft Silverlight' style='border-style: none'/></a> <br /> <a href='http://player.omroep.nl/?aflID=NPS_1216307'>Bekijk de video in andere formaten.</a> </embed> </object-->
     </div>
-  </div>
-
-  <div class="feedback"></div>
-
-</div>
-
-
-<!-- PAGE: videosources -->
-<div data-role="page" id="videosources" class="videosourcespage">
-
-  <div data-role="header" data-tap-toggle="false" data-position="fixed">
-    <!--a id="downloadApp" data-icon="refresh" href="#">update app</a-->
-    <a data-icon="refresh" href="#" onclick="$.mobile.loading('show'); setTimeout(function(){loadVideos(true); $.mobile.loading('hide');},750)" id="refresh_title">refresh</a>
-    <h1>Game TV</h1>
-    <a data-icon="grid" data-iconpos="right" href="#editvideosources" data-role="button" data-direction="reverse" class="ui-btn-right" id="menu_title"></a>
-    <!--a data-icon="grid" data-iconpos="right" href="#popupPanel" data-rel="popup" data-transition="slide" data-position-to="window" class="ui-btn-right" id="menu_title"></a-->
-  </div>
-
-  <div data-role="popup" id="popupPanel" data-corners="false" data-theme="none" data-shadow="false" data-tolerance="0,0">
-    <br/>
-    <a data-role="button" data-theme="a" data-icon="grid" data-mini="true" href="#editvideosources" data-direction="reverse" id="menu_option_editvideosources"></a>
-    <!--button data-theme="a" data-icon="search" data-mini="true">Zoek video</button-->
-    <a data-role="button" data-theme="a" data-icon="info" data-mini="true" href="#about" data-transition="flip" id="menu_option_about"></a>
-    <a data-role="button" data-theme="c" data-icon="delete" data-mini="true" onclick="$('#popupPanel').popup('close')" id="menu_option_close">x</a>
-  </div>
-
-  <div data-role="content">
-    <div class="content-primary">
-      <div class="antenna"></div>
-      <ul id="videosourceList" data-role="listview" data-inset="true" data-inset="true" data-divider-theme="d"></ul>
-    </div>
-
   </div>
 
   <div class="feedback"></div>

@@ -2,7 +2,7 @@
 <widget xmlns="http://www.w3.org/ns/widgets"
         xmlns:gap="http://phonegap.com/ns/1.0"
         id="nl.x-services.gametv"
-        version="0.0.2">
+        version="0.0.3">
 
   <name>Game TV</name><!-- is also the name of the icon on the device -->
 
@@ -30,14 +30,14 @@
   <icon src="icons/android/xhdpi.png" gap:platform="android" gap:density="hdpi" width="96" height="96"/>
 
   <!-- iPhone / iPod Touch splash -->
- 	<gap:splash src="splash/ios/Default_at_2x.png" width="640" height="960" />
+ 	<!--gap:splash src="splash/ios/Default_at_2x.png" width="640" height="960" />
  	<gap:splash src="splash/ios/Default_at_2x_landscape.png" width="960" height="640" />
  	<gap:splash src="splash/ios/Default_iphone5.png" width="640" height="1136" />
- 	<gap:splash src="splash/ios/Default_iphone5_landscape.png" width="1136" height="640" />
+ 	<gap:splash src="splash/ios/Default_iphone5_landscape.png" width="1136" height="640" /-->
 
   <!-- iPad splash -->
- 	<gap:splash src="splash/ios/Default_ipad.png" width="768" height="1004" />
- 	<gap:splash src="splash/ios/Default_ipad_landscape.png" width="1024" height="748" />
+ 	<!--gap:splash src="splash/ios/Default_ipad.png" width="768" height="1004" />
+ 	<gap:splash src="splash/ios/Default_ipad_landscape.png" width="1024" height="748" /-->
 
   <!--
   LDPI:
@@ -55,10 +55,10 @@
   -->
 
   <!-- Android splash -->
-  <gap:splash src="splash/android/hdpi.png" gap:platform="android" gap:density="hdpi" width="480" height="800" />
+  <!--gap:splash src="splash/android/hdpi.png" gap:platform="android" gap:density="hdpi" width="480" height="800" />
   <gap:splash src="splash/android/hdpi_landscape.png" gap:platform="android" gap:density="hdpi" width="800" height="480" />
   <gap:splash src="splash/android/xhdpi.png" gap:platform="android" gap:density="xhdpi" width="720" height="1280" />
-  <gap:splash src="splash/android/xhdpi_landscape.png" gap:platform="android" gap:density="xhdpi" width="1280" height="720" />
+  <gap:splash src="splash/android/xhdpi_landscape.png" gap:platform="android" gap:density="xhdpi" width="1280" height="720" /-->
 
   <feature name="http://api.phonegap.com/1.0/network"/>
   <!--<feature name="http://api.phonegap.com/1.0/camera"/>-->
@@ -71,7 +71,7 @@
   <preference name="webviewbounce" value="true"/><!-- iOS rubber banding -->
 
   <preference name="ios-statusbarstyle" value="black-opaque"/>
-  <preference name="show-splash-screen-spinner" value="false" />
+  <preference name="show-splash-screen-spinner" value="true" />
   <preference name="prerendered-icon" value="true" /> <!-- no ios gloss effect plz -->
 
   <preference name="android-minSdkVersion" value="12" /><!-- 8=2.2, 14=4.0, 16=4.1 (heeft een bug met de videoplayer en backknop), 17=4.2 -->
@@ -81,7 +81,7 @@
 
   <preference name="exit-on-suspend" value="false" /><!-- stay with us, or not? -->
 
-  <preference name="splash-screen-duration" value="2000" /> <!-- default 5000 -->
+  <!--preference name="splash-screen-duration" value="2000" /--> <!-- default 5000 -->
 
   <gap:plugin name="ChildBrowser" /> <!-- latest release -->
 
