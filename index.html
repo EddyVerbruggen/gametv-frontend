@@ -421,11 +421,12 @@
         iframe {
           width: 200px !important;
           height: 200px !important;
+          visibility: hidden !important;
+          position: relative;
+          left: -100px;
         }
       </style>
-      <div style="position: relative; left: -100px; width: 300px; height: 200px; border: 1px solid red">
-        <iframe id="x" style="width: 130px; height: 90px" width="40px" height="30px" type="text/html" src="" frameborder="0" allowfullscreen></iframe>
-      </div>
+      <iframe id="x" type="text/html" src="" frameborder="0" allowfullscreen></iframe>
       <!--iframe width="310px" height="175px" type="text/html" src="http://www.uitzendinggemist.nl/player/NPS_1216307" frameborder="0" allowfullscreen></iframe-->
 
       <!--iframe id="player_object" src="http://www.uitzendinggemist.nl/player/NPS_1216307"/-->
