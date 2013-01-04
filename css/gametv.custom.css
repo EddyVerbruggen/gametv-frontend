@@ -1,7 +1,6 @@
 .ui-page {
-  /* without this first line, Android pages flicker after slide transitions --> disabled, as Tims device shows an empty list.. */
+  /* without this, Android pages flicker after slide transitions --> disabled, as Tims device shows an empty list.. */
    /*-webkit-backface-visibility: hidden;*/
-   -webkit-transform: translate3d(0, 0, 0);
  }
 
 .videosourcespage .ui-li-thumb {
