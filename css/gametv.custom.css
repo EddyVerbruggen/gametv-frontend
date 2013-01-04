@@ -1,5 +1,5 @@
 .ui-page {
-  /* anti-flicker test */
+  /* without this, Android pages flicker after slide transitions */
    -webkit-backface-visibility: hidden;
  }
 
