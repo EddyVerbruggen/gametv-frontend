@@ -84,11 +84,11 @@ li.ui-btn {
 }
 
 .ui-li-desc {
-  color: #bbb;
+  color: #999;
 }
 
 .ui-li-heading {
-  font-size: 11px;
+  font-size: 12px;
   font-weight: normal;
 }
 
@@ -106,8 +106,8 @@ li.ui-btn {
 
 @media (min-width: 400px) {
   .ui-li-heading {
-    font-size: 12px;
-    margin-top: 0.7em;
+    font-size: 13px;
+    margin-top: 0.5em;
   }
   #videos .ui-li-desc {
     font-size: 11px;
@@ -119,8 +119,8 @@ li.ui-btn {
 
 @media (min-width: 500px) {
   .ui-li-heading {
-    font-size: 13px;
-    margin-top: 0.6em;
+    font-size: 14px;
+    margin-top: 0.4em;
   }
   #videos .ui-li-desc {
     font-size: 12px;
@@ -132,8 +132,8 @@ li.ui-btn {
 
 @media (min-width: 600px) {
   .ui-li-heading {
-    font-size: 14px;
-    margin-top: 0.5em;
+    font-size: 15px;
+    margin-top: 0.3em;
   }
   #videoplayer #description {
     font-size: 1em;
@@ -142,8 +142,8 @@ li.ui-btn {
 
 @media (min-width: 700px) {
   .ui-li-heading {
-    font-size: 15px;
-    margin-top: 0.4em;
+    font-size: 16px;
+    margin-top: 0.2em;
   }
 }
 
