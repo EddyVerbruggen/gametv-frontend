@@ -1,3 +1,5 @@
+"use strict";
+
 // generic catch for errors
 window.onerror = function(message, file, line) {
 //  alert('Error gevangen: ' + file + ':' + line + '\n' + message);
@@ -39,6 +41,10 @@ function isMacBookBas() {
 
 function isServerStubMode() {
   return window.location.hostname == 'gametvbasstub'; // Bas stub mode
+}
+
+function isYouTube(url) {
+  return url.indexOf("youtube") > -1;
 }
 
 function getDateString(javaDateString) {

@@ -3,7 +3,9 @@ button_back = 'terug';
 country_nl = 'Nederland';
 country_be = 'Belgie';
 country_gb = 'Engeland';
-country_us = 'Amerika';
+country_us = 'Verenigde Staten';
+country_fi = 'Finland';
+country_se = 'Zweden';
 
 month_3 = 'maa';
 month_5 = 'mei';

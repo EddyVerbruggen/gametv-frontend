@@ -6,6 +6,8 @@ country_nl = 'The Netherlands';
 country_be = 'Belgium';
 country_gb = 'Great Britain';
 country_us = 'U.S.A.';
+country_fi = 'Finland';
+country_se = 'Sweden';
 
 month_1 = 'jan';
 month_2 = 'feb';
