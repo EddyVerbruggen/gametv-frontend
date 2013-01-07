@@ -13,7 +13,7 @@
     X-Services VOF
   </author>
 
-  <icon src="icon.png" gap:role="default"/>
+  <icon src="icon.png"/>
 
   <!-- iPhone / iPod Touch icons -->
   <icon src="icons/ios/icon.png" width="57" height="57" />
