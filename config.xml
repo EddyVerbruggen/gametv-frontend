@@ -37,8 +37,8 @@
  	<!--gap:splash src="splash/ios/Default_iphone5_landscape.png" gap:platform="ios" width="1136" height="640" /-->
 
   <!-- iPad splash -->
- 	<gap:splash src="splash/ios/Default_Portrait_ipad.png"  gap:platform="ios" width="768"  height="1004" />
- 	<gap:splash src="splash/ios/Default_Landscape_ipad.png" gap:platform="ios" width="1024" height="748" />
+ 	<gap:splash src="splash/ios/Default_Portrait_ipad.png"  gap:platform="ios" width="768"  height="1024" />
+ 	<gap:splash src="splash/ios/Default_Landscape_ipad.png" gap:platform="ios" width="1024" height="768" />
 
   <!-- Android splash -->
   <gap:splash src="splash/android/hdpi.png" gap:platform="android" gap:density="hdpi" width="480" height="800" />
