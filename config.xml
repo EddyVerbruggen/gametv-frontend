@@ -30,14 +30,15 @@
   <icon src="icons/android/xhdpi.png" gap:platform="android" gap:density="hdpi" width="96" height="96"/>
 
   <!-- iPhone / iPod Touch splash -->
+  <gap:splash src="splash/ios/Default.png" gap:platform="ios" width="320" height="480" />
  	<gap:splash src="splash/ios/Default_at_2x.png" gap:platform="ios" width="640" height="960" />
  	<gap:splash src="splash/ios/Default_at_2x_landscape.png" gap:platform="ios" width="960" height="640" />
  	<gap:splash src="splash/ios/Default_iphone5.png" gap:platform="ios" width="640" height="1136" />
  	<gap:splash src="splash/ios/Default_iphone5_landscape.png" gap:platform="ios" width="1136" height="640" />
 
   <!-- iPad splash -->
- 	<gap:splash src="splash/ios/Default_ipad.png" gap:platform="ios" width="768" height="1004" />
- 	<gap:splash src="splash/ios/Default_ipad_landscape.png" gap:platform="ios" width="1024" height="748" />
+ 	<gap:splash src="splash/ios/Default-Portrait.png"  width="768"  height="1004" />
+ 	<gap:splash src="splash/ios/Default-Landscape.png" width="1024" height="748" />
 
   <!-- Android splash -->
   <gap:splash src="splash/android/hdpi.png" gap:platform="android" gap:density="hdpi" width="480" height="800" />
