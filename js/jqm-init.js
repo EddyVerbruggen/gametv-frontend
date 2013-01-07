@@ -5,4 +5,5 @@ $(document).bind("mobileinit", function(){
 //  $.mobile.defaultPageTransition = isAndroid() ? "slidefade" : "slide";
 //  $.mobile.defaultPageTransition = isAndroid() ? "fade" : "slide";
   $.mobile.defaultPageTransition = "slide";
+  $.event.special.swipe.horizontalDistanceThreshold = 60; // default is 30, but swipe is triggered too often for my taste
 });

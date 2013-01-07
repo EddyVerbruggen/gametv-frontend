@@ -25,19 +25,17 @@
   <script src="childbrowser.js"></script>
   <script type="text/javascript">
 
-    $('#videos').bind('swiperight', function() {
-      $.mobile.changePage($("#videosources"), {reverse:true});
-    });
-
-    $('#videoplayer').bind('swiperight', function() {
-      $.mobile.changePage($("#videos"), {reverse:true});
-    });
-
     // for Android 4.2 (and higher, but that's for a later day), set a css property for smooth animations
     $(document).ready(function() {
       if (window.navigator.userAgent.indexOf("Android 4.2") > -1) {
         $("div[data-role='page']").css({"-webkit-backface-visibility": "hidden"});
       }
+      $('#videos').bind('swiperight', function() {
+        $.mobile.changePage($("#videosources"), {reverse:true});
+      });
+      $('#videoplayer').bind('swiperight', function() {
+        $.mobile.changePage($("#videos"), {reverse:true});
+      });
     });
 
     // kick off localisation
@@ -121,7 +119,7 @@
         return;
       }
 
-      $.getJSON(getServiceURL("/videosource/all"))
+      $.getJSON(getServiceURL("/videosource/client/gametv"))
           .success(function (newVideosources) {
             var newVideosourcesString = JSON.stringify(newVideosources);
             if (cachedVideosources != null) {
