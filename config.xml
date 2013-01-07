@@ -13,10 +13,10 @@
     X-Services VOF
   </author>
 
-  <icon src="icon.png" gap:role="default" />
+  <icon src="icon.png" gap:role="default" width="72" height="72" />
 
   <!-- iPhone / iPod Touch icons -->
-  <icon src="icons/ios/icon.png" width="57" height="57" />
+  <icon src="icons/ios/icon.png" gap:platform="ios" width="57" height="57" />
   <icon src="icons/ios/icon_at_2x.png" width="114" height="114" />
 
   <!-- iPad icons -->
@@ -68,7 +68,7 @@
   <!--<preference name="phonegap-version" value="2.0.0"/>-->
   <preference name="orientation" value="default"/><!-- both landscape and portrait = "default" -->
   <preference name="target-device" value="universal"/>
-  <preference name="webviewbounce" value="false"/><!-- iOS rubber banding -->
+  <preference name="webviewbounce" value="false"/><!-- ios rubber banding -->
 
   <preference name="ios-statusbarstyle" value="black-opaque"/>
   <preference name="show-splash-screen-spinner" value="false" />
