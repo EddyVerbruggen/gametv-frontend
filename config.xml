@@ -16,12 +16,12 @@
   <icon src="icon.png" gap:role="default" width="72" height="72" />
 
   <!-- iPhone / iPod Touch icons -->
-  <icon src="icons/ios/icon.png" gap:platform="ios" width="57" height="57" />
+  <icon src="icons/ios/icon.png" width="57" height="57" />
   <icon src="icons/ios/icon_at_2x.png" width="114" height="114" />
 
   <!-- iPad icons -->
-  <icon src="icons/ios/icon-72.png" width="72" height="72" />
-  <icon src="icons/ios/icon-72_at_2x.png" width="144" height="144" />
+  <icon src="icons/ios/icon-72.png" gap:platform="ios" width="72" height="72" />
+  <icon src="icons/ios/icon-72_at_2x.png" gap:platform="ios" width="144" height="144" />
 
   <!-- Android icons -->
   <icon src="icons/android/ldpi.png"  gap:platform="android" gap:density="ldpi" width="36" height="36"/>
