@@ -92,6 +92,10 @@ li.ui-btn {
   font-weight: normal;
 }
 
+.ui-li-heading-unseen {
+  color: #ff594f;
+}
+
 #videos .ui-li-desc {
   font-size: 10px;
 }

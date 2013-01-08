@@ -43,6 +43,13 @@
     $.localise('js/localisation/messages', {language: lang, loadBase: true});
 
     $('#videosources').live('pagebeforeshow', function(e, data) {
+      var fromVideosourceid = data.prevPage.attr('data-videosourceid');
+      if (!isNaN(fromVideosourceid)) {
+        // set all videos as seen for this source --> no: we only flag-off individual clips from now on, see below
+        if (nrOfNewVideos(fromVideosourceid) > 0) {
+          sessionStorage.setItem("newVideosForSource_"+fromVideosourceid, JSON.stringify(new Array()));
+        }
+      }
       loadVideos();
       $("#refresh_title .ui-btn-text").html(page_home_button_refresh);
       $("#menu_title .ui-btn-text").html(page_home_button_menu);
@@ -68,13 +75,9 @@
     $('#videos').live('pagebeforeshow', function (e, data) {
       var videosourceid = getUrlParam("videosourceid");
       if (videosourceid != null) {
+        // remember the videosource, used when going back to videosourcelist
+        $('#videos').attr('data-videosourceid', videosourceid);
         renderVideoList(videosourceid);
-        // set all videos as seen for this source --> no: we only flag-off individual clips from now on, see below
-//        if (nrOfNewVideos(videosourceid) > 0) {
-//          sessionStorage.setItem("newVideosForSource_"+videosourceid, JSON.stringify(new Array()));
-//          var cachedVideosources = JSON.parse(localStorage.getItem("videosources"));
-//          renderVideoSourceList(cachedVideosources);
-//        }
       }
       $(".button_back .ui-btn-text").html(button_back);
     });
@@ -304,7 +307,10 @@
           $("#videos h1").html(videosource.name);
           // render the videolist
           var htmlVideo = '';
-          var sourceHasNewVideos = nrOfNewVideos(videosource.id) > 0;
+          var newVideoIDs = null;
+          if (nrOfNewVideos(videosource.id) > 0) {
+            newVideoIDs = JSON.parse(sessionStorage.getItem("newVideosForSource_"+videosourceid));
+          }
           var previousDateString = null;
           $.each(videosource.videoList, function (j, video) {
             var dateString = getDateString(video.date, lang);
@@ -316,16 +322,14 @@
                 '<li>' +
                 '  <a href="#videoplayer?videosourceid='+videosource.id+'&videoid='+video.id+'">' +
                 '    <img src="' + video.imageurl + '" />' +
-                '    <h3>' + video.title + '</h3>';
+                '    <h3';
+            if (newVideoIDs != null && $.inArray(video.pageurl, newVideoIDs) > -1) {
+              htmlVideo += ' class="ui-li-heading-unseen"';
+            }
+            htmlVideo += '>' + video.title + '</h3>';
             if (video.description !== undefined) {
               htmlVideo += '    <p>' + video.description + '</p>';
             }
-              if (sourceHasNewVideos) {
-                var newVideoIDs = JSON.parse(sessionStorage.getItem("newVideosForSource_"+videosource.id));
-                if ($.inArray(video.pageurl, newVideoIDs) > -1) {
-                  htmlVideo += '<span class="ui-li-count">+</span>';
-                }
-              }
             htmlVideo +=
                 '  </a>' +
                 '</li>';
@@ -471,7 +475,7 @@
 
 
 <!-- PAGE: videos -->
-<div data-role="page" id="videos">
+<div data-role="page" id="videos" data-videosourceid="to-be-filled">
 
   <div data-role="header" data-tap-toggle="false" data-position="fixed">
     <a href="#videosources" data-icon="arrow-l" data-direction="reverse" class="button_back"></a>
