@@ -70,6 +70,7 @@
   <preference name="splash-screen-duration" value="2000" /> <!-- default 5000 -->
 
   <gap:plugin name="ChildBrowser" /> <!-- latest release -->
+  <gap:plugin name="Analytics" /> <!-- latest release -->
 
   <!-- allow loading any url in the webview -->
   <access origin="*" />
