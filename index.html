@@ -29,7 +29,7 @@
     $(document).ready(function() {
 
       // init phonegap
-      document.addEventListenter('deviceready', onDeviceReady, false);
+      document.addEventListener('deviceready', onDeviceReady, false);
 
       // for Android 4.2 (and higher, but that's for a later day), set a css property for smooth animations
       if (window.navigator.userAgent.indexOf("Android 4.2") > -1) {
