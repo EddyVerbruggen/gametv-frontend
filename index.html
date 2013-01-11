@@ -47,26 +47,20 @@
     var gaPlugin;
 
     function onDeviceReady() {
-      alert(gaPlugin);
       gaPlugin = window.plugins.gaPlugin;
-      gaPlugin.init(gaInitSuccessHandler, gaInitErrorHandler, "UA-28850866-2", 10);
-      alert(gaPlugin);
+      gaPlugin.init(gaInitSuccessHandler, gaInitErrorHandler, "UA-28850866-3", 10);
     }
 
     function gaInitSuccessHandler() {
-      alert("GA plugin initialised");
     }
 
     function gaInitErrorHandler() {
-      alert("GA plugin failed");
     }
 
     function gaPluginResultHandler() {
-      alert("Action tracked with GA");
     }
 
     function gaPluginErrorHandler() {
-      alert("Action tracking failed");
     }
 
     // kick off localisation
@@ -74,6 +68,9 @@
     $.localise('js/localisation/messages', {language: lang, loadBase: true});
 
     $('#videosources').live('pagebeforeshow', function(e, data) {
+      if (gaPlugin != null) {
+        gaPlugin.trackPage(gaPluginResultHandler, gaPluginErrorHandler, "videosources");
+      }
       var fromVideosourceid = data.prevPage.attr('data-videosourceid');
       if (!isNaN(fromVideosourceid)) {
         // set all videos as seen for this source --> no: we only flag-off individual clips from now on, see below
@@ -90,6 +87,9 @@
     });
 
     $('#editvideosources').live('pagebeforeshow', function (e, data) {
+      if (gaPlugin != null) {
+        gaPlugin.trackPage(gaPluginResultHandler, gaPluginErrorHandler, "editvideosources");
+      }
       renderEditVideoSourceList(JSON.parse(localStorage.getItem("videosources")));
       $('select').slider();
       $("#editvideosources h1").html(page_editvideosources_title);
@@ -122,6 +122,9 @@
     });
 
     $('#videoplayer').live('pagebeforeshow', function (e, data) {
+      if (gaPlugin != null) {
+        gaPlugin.trackPage(gaPluginResultHandler, gaPluginErrorHandler, "videoplayer");
+      }
       $(".button_back .ui-btn-text").html(button_back);
       $("#share h3").html(page_share_title);
       $("#share #page_share_button .ui-btn-text").html(page_share_button);
@@ -169,10 +172,6 @@
     });
 
     function loadVideos(forceLoad) {
-      if (gaPlugin != null) {
-        gaPlugin.trackEvent(gaPluginResultHandler, gaPluginErrorHandler, "Videosources", "Refreshed", "event only", 1);
-      }
-
       var cachedVideosourcesString = localStorage.getItem("videosources");
       var cachedVideosources = null;
       if (cachedVideosourcesString != null) {
