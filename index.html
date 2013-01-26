@@ -48,7 +48,7 @@
     function onDeviceReady() {
       navigator.splashscreen.hide();
       gaPlugin = window.plugins.gaPlugin;
-      gaPlugin.init(gaInitSuccessHandler, gaInitErrorHandler, "UA-28850866-4", 1); // TODO set 1 to 5 when this works
+      gaPlugin.init(gaInitSuccessHandler, gaInitErrorHandler, "UA-28850866-4", 3);
     }
 
     function gaInitSuccessHandler() {
@@ -63,14 +63,18 @@
     function gaPluginErrorHandler() {
     }
 
+    function googleAnalytics(page) {
+      if (gaPlugin !== undefined) {
+        gaPlugin.trackPage(gaPluginResultHandler, gaPluginErrorHandler, page);
+      }
+    }
+
     // kick off localisation
     var lang = $.localise.defaultLanguage;
     $.localise('js/localisation/messages', {language: lang, loadBase: true});
 
     $('#videosources').live('pagebeforeshow', function(e, data) {
-      if (gaPlugin !== undefined) {
-        gaPlugin.trackPage(gaPluginResultHandler, gaPluginErrorHandler, "videosources");
-      }
+      googleAnalytics("videosources");
       var fromVideosourceid = data.prevPage.attr('data-videosourceid');
       if (!isNaN(fromVideosourceid)) {
         // set all videos as seen for this source
@@ -87,9 +91,7 @@
     });
 
     $('#editvideosources').live('pagebeforeshow', function (e, data) {
-      if (gaPlugin !== undefined) {
-        gaPlugin.trackPage(gaPluginResultHandler, gaPluginErrorHandler, "editvideosources");
-      }
+      googleAnalytics("editvideosources");
       renderEditVideoSourceList(JSON.parse(localStorage.getItem("videosources")));
       $('select').slider();
       $("#editvideosources h1").html(page_editvideosources_title);
@@ -104,10 +106,7 @@
     });
 
     $('#videos').live('pagebeforeshow', function (e, data) {
-      if (gaPlugin !== undefined) {
-        gaPlugin.trackPage(gaPluginResultHandler, gaPluginErrorHandler, "videos");
-      }
-
+      googleAnalytics("videos");
       var videosourceid = getUrlParam("videosourceid");
       if (videosourceid != null) {
         // remember the videosource, used when going back to videosourcelist
@@ -122,9 +121,7 @@
     });
 
     $('#videoplayer').live('pagebeforeshow', function (e, data) {
-      if (gaPlugin !== undefined) {
-        gaPlugin.trackPage(gaPluginResultHandler, gaPluginErrorHandler, "videoplayer");
-      }
+      googleAnalytics("videoplayer");
       $(".button_back .ui-btn-text").html(button_back);
       $("#share h3").html(page_share_title);
       $("#share #page_share_button .ui-btn-text").html(page_share_button);
@@ -167,9 +164,9 @@
       $("#videocontainer").html("");
     });
 
-    $("#popupPanel").live("popupbeforeposition", function() {
-      $("#popupPanel").css("height", $(window).height());
-    });
+//    $("#popupPanel").live("popupbeforeposition", function() {
+//      $("#popupPanel").css("height", $(window).height());
+//    });
 
     function loadVideos(forceLoad) {
       var cachedVideosourcesString = localStorage.getItem("videosources");
@@ -429,6 +426,7 @@
 
       // mask the tweet button, so we can intercept clicks and open a web intent
       $('#videoplayer #tweetClickHijacker').click(function() {
+        googleAnalytics("tweet");
         var twitterWebIntentUrl = encodeURI('https://twitter.com/intent/tweet?via=_GameTV&text='+video.title+'&url='+video.pageurl);
         if (isIOS() || isAndroid()) {
           // open in childbrowser, so iOS users can navigate back to the app
@@ -467,13 +465,12 @@
     <!--a data-icon="grid" data-iconpos="right" href="#popupPanel" data-rel="popup" data-transition="slide" data-position-to="window" class="ui-btn-right" id="menu_title"></a-->
   </div>
 
-  <div data-role="popup" id="popupPanel" data-corners="false" data-theme="none" data-shadow="false" data-tolerance="0,0">
+  <!--div data-role="popup" id="popupPanel" data-corners="false" data-theme="none" data-shadow="false" data-tolerance="0,0">
     <br/>
     <a data-role="button" data-theme="a" data-icon="grid" data-mini="true" href="#editvideosources" data-direction="reverse" id="menu_option_editvideosources"></a>
-    <!--button data-theme="a" data-icon="search" data-mini="true">Zoek video</button-->
     <a data-role="button" data-theme="a" data-icon="info" data-mini="true" href="#about" data-transition="flip" id="menu_option_about"></a>
     <a data-role="button" data-theme="c" data-icon="delete" data-mini="true" onclick="$('#popupPanel').popup('close')" id="menu_option_close">x</a>
-  </div>
+  </div-->
 
   <div data-role="content">
     <div class="content-primary">
@@ -589,7 +586,7 @@
           <h3></h3>
           <label for="mailbody" class="ui-hidden-accessible">Tekst:</label>
           <textarea name="mailbody" id="mailbody" data-theme="a"></textarea>
-          <a data-icon="arrow-r" data-role="button" data-theme="b" data-iconpos="right" onclick="$('#share').popup('close'); redirect('mailto:?subject=Leuke video gezien op Game TV voor Android&body='+document.getElementById('mailbody').innerHTML); return false" id="page_share_button"></a>
+          <a data-icon="arrow-r" data-role="button" data-theme="b" data-iconpos="right" onclick="$('#share').popup('close'); redirect('mailto:?subject=Leuke video gezien op Game TV voor Android&body='+document.getElementById('mailbody').innerHTML); googleAnalytics('mail'); return false" id="page_share_button"></a>
         </div>
       </form>
     </div>
