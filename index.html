@@ -47,8 +47,9 @@
     var gaPlugin;
 
     function onDeviceReady() {
+      navigator.splashscreen.hide();
       gaPlugin = window.plugins.gaPlugin;
-      gaPlugin.init(gaInitSuccessHandler, gaInitErrorHandler, "UA-28850866-3", 10);
+      gaPlugin.init(gaInitSuccessHandler, gaInitErrorHandler, "UA-28850866-3", 1);
     }
 
     function gaInitSuccessHandler() {
@@ -478,7 +479,7 @@
   <div data-role="content">
     <div class="content-primary">
       <div class="antenna"></div>
-      <ul id="videosourceList" data-role="listview" data-inset="true" data-inset="true" data-divider-theme="d"></ul>
+      <ul id="videosourceList" data-role="listview" data-inset="true" data-divider-theme="d"></ul>
     </div>
 
   </div>
