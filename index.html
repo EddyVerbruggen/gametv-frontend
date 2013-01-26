@@ -106,13 +106,19 @@
     });
 
     $('#videos').live('pagebeforeshow', function (e, data) {
-      googleAnalytics("videos");
       var videosourceid = getUrlParam("videosourceid");
       if (videosourceid != null) {
         // remember the videosource, used when going back to videosourcelist
         $('#videos').attr('data-videosourceid', videosourceid);
         renderVideoList(videosourceid);
       }
+      var videosourcename = getUrlParam("videosourcename");
+      if (videosourcename != null) {
+        googleAnalytics("videos/"+videosourcename);
+      } else {
+        googleAnalytics("videos");
+      }
+
       $(".button_back .ui-btn-text").html(button_back);
     });
 
@@ -235,7 +241,7 @@
 
           htmlVideosource += '' +
               '<li>' +
-              '  <a href="#videos&videosourceid=' + videosource.id + '">' +
+              '  <a href="#videos&videosourceid=' + videosource.id + '&videosourcename='+videosource.name+'">' +
               '    <img src="img/videosources/' + videosource.image + '" />' +
               '    <h3>' + videosource.name +'</h3>' +
 //              '    <p><img src="img/flags/' + videosource.country + '.png" width="11px"/>&nbsp;&nbsp;&nbsp;' + videosource.website + '</p>';
