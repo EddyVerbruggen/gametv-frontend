@@ -186,6 +186,7 @@ li.ui-btn {
 
 #share {
   width: 300px;
+  z-index: 2000;
 }
 
 .antenna {

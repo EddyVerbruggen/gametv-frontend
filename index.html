@@ -586,7 +586,7 @@
           <h3></h3>
           <label for="mailbody" class="ui-hidden-accessible">Tekst:</label>
           <textarea name="mailbody" id="mailbody" data-theme="a"></textarea>
-          <a data-icon="arrow-r" data-role="button" data-theme="b" data-iconpos="right" onclick="$('#share').popup('close'); redirect('mailto:?subject=Leuke video gezien op Game TV voor Android&body='+document.getElementById('mailbody').innerHTML); googleAnalytics('mail'); return false" id="page_share_button"></a>
+          <a data-icon="arrow-r" data-role="button" data-theme="b" data-iconpos="right" onclick="$('#share').popup('close'); googleAnalytics('mail'); redirect('mailto:?subject=Leuke video gezien op Game TV voor Android&body='+document.getElementById('mailbody').innerHTML); return false" id="page_share_button"></a>
         </div>
       </form>
     </div>
