@@ -241,7 +241,7 @@
 
           htmlVideosource += '' +
               '<li>' +
-              '  <a href="#videos&videosourceid=' + videosource.id + '&videosourcename='+videosource.name+'">' +
+              '  <a href="#videos&videosourceid=' + videosource.id + '&videosourcename='+encodeURI(videosource.name.replace(".","_"))+'">' +
               '    <img src="img/videosources/' + videosource.image + '" />' +
               '    <h3>' + videosource.name +'</h3>' +
 //              '    <p><img src="img/flags/' + videosource.country + '.png" width="11px"/>&nbsp;&nbsp;&nbsp;' + videosource.website + '</p>';
