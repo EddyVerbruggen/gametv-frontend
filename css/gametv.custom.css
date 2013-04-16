@@ -260,6 +260,10 @@ li.ui-btn {
   margin: 0.6em 3% 0.8em;
 }
 
+img, video {
+  -webkit-transform: translate3d(0,0,0);
+}
+
 .ui-li-has-arrow.ui-li-has-count .ui-li-count {
   background: -moz-linear-gradient(center top , #DE939E, #A40717) repeat scroll 0 0 padding-box transparent;
   background-image: -webkit-gradient(
