@@ -14,19 +14,6 @@ $(document).bind("mobileinit", function(){
       })
 });
 
-function getUrlParam(name){
-  var href = window.location.href;
-  var queryUrl =href.slice(href.lastIndexOf('?') + 1);
-  var hashes = queryUrl.split('&');
-  for (var i=0; i<hashes.length; i++) {
-    var hash = hashes[i].split('=');
-    if (hash[0] == name) {
-      return hash[1];
-    }
-  }
-  return null;
-}
-
 function isAndroid() {
   return navigator.userAgent.toLowerCase().indexOf("android") > -1;
 }
@@ -35,12 +22,8 @@ function isIOS() {
   return navigator.userAgent.match(/(iPad|iPhone|iPod)/i);
 }
 
-function isMacBookBas() {
-  return window.location.hostname == 'gametvbas';
-}
-
-function isServerStubMode() {
-  return window.location.hostname == 'gametvbasstub'; // Bas stub mode
+function isMobile() {
+  return isAndroid() || isIOS();
 }
 
 function isYouTube(url) {
@@ -57,17 +40,10 @@ function getDateString(javaDateString) {
 }
 
 function getServiceURL(servicePath) {
-  // on a device, connect to the testserver, otherwise to the dev machine
-  if (isServerStubMode()) {
-    return "serverstub" + servicePath + ".json";
+  if (true || isAndroid() || isIOS()) {
+    return "http://www.thumbrater.com:9008" + servicePath; // Mac Server
   } else {
-    if (isAndroid() || isIOS()) {
-      return "http://www.thumbrater.com:9008" + servicePath; // Mac Server
-    } else if (isMacBookBas()) {
-      return "http://localhost:9006" + servicePath;
-    } else {
-      return "http://127.0.0.1:9007" + servicePath;
-    }
+    return "http://127.0.0.1:9007" + servicePath;
   }
 }
 

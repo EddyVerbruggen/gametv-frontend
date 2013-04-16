@@ -7,7 +7,6 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   <meta name="format-detection" content="telephone=no">
   <title>Game TV</title>
-  <!-- NOTE: jqm loads the HEAD only once per session, so we need to include all css and js on every page (not only the first, because a reload of a page need to load all css/js as well) -->
   <link rel="stylesheet" href="css/themes/default/jquery.mobile-1.3.1.min.css" type="text/css"/>
   <link rel="stylesheet" href="css/gametv.custom.css" type="text/css"/>
   <link rel="apple-touch-icon" href="icon.png"/><!-- for webapp usage (not intended btw, but is possible) -->
@@ -16,18 +15,25 @@
   <script src="js/jqm-init.js"></script>
   <script src="js/lib/jquery.localisation.min.js"></script>
   <script src="js/lib/jquery.mobile-1.3.1.min.js"></script>
+  <script src="js/lib/jqm.page.params.js"></script>
+  <!--link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Gudea:400,700,400italic" type="text/css"/-->
   <script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
   <!-- Included pgbuild js libs here. NOTE: debugging in Android emulator is not possible for PG features,
        BUT downloading the PG build APK on the emulator is! -->
-  <script src="phonegap.js"></script>
+  <script src="cordova.js"></script>
   <script src="GAPlugin.js"></script>
   <script src="childbrowser.js"></script>
   <script type="text/javascript">
 
+    "use strict";
     $(document).ready(function() {
 
       // init phonegap
-      document.addEventListener('deviceready', onDeviceReady, false);
+      if (isMobile()) {
+        document.addEventListener('deviceready', onDeviceReady, false);
+      } else {
+        onDeviceReady();
+      }
 
       // for Android 4.2 (and higher, but that's for a later day), set a css property for smooth animations
 //      if (window.navigator.userAgent.indexOf("Android 4.2") > -1) {
@@ -45,9 +51,13 @@
     var gaPlugin;
 
     function onDeviceReady() {
-      navigator.splashscreen.hide();
-      gaPlugin = window.plugins.gaPlugin;
-      gaPlugin.init(gaInitSuccessHandler, gaInitErrorHandler, "UA-28850866-4", 4);
+      if (navigator.splashscreen != undefined) {
+        navigator.splashscreen.hide();
+      }
+      if (window.plugins != undefined) {
+        gaPlugin = window.plugins.gaPlugin;
+        gaPlugin.init(gaInitSuccessHandler, gaInitErrorHandler, "UA-28850866-4", 5);
+      }
     }
 
     function gaInitSuccessHandler() {
@@ -63,7 +73,7 @@
     }
 
     function googleAnalytics(page) {
-      if (gaPlugin !== undefined) {
+      if (gaPlugin !== undefined && isMobile()) {
         gaPlugin.trackPage(gaPluginResultHandler, gaPluginErrorHandler, page);
       }
     }
@@ -72,106 +82,160 @@
     var lang = $.localise.defaultLanguage;
     $.localise('js/localisation/messages', {language: lang, loadBase: true});
 
-    $('#videosources').live('pagebeforeshow', function(e, data) {
-      googleAnalytics("videosources");
-      var fromVideosourceid = data.prevPage.attr('data-videosourceid');
-      if (!isNaN(fromVideosourceid)) {
-        // set all videos as seen for this source
-        if (nrOfNewVideos(fromVideosourceid) > 0) {
-          sessionStorage.setItem("newVideosForSource_"+fromVideosourceid, JSON.stringify(new Array()));
+    function renderVideoSourceList(videosources) {
+      var htmlVideosource = '' +
+          '<li data-role="list-divider" id="page_home_channellist_header"></li>';
+      $.each(videosources, function (i, videosource) {
+
+        if (videosource.videoList.length > 0 && isEnabledForUser(videosource.id)) { // no empty channels and only active sources
+
+          htmlVideosource += '' +
+              '<li>' +
+              '  <a href="#videos?videosourceid=' + videosource.id + '&videosourcename='+encodeURI(videosource.name.replace(".","_"))+'">' +
+              '    <img src="img/videosources/' + videosource.image + '" />' +
+              '    <h3>' + videosource.name +'</h3>' +
+//              '    <p><img src="img/flags/' + videosource.country + '.png" width="11px"/>&nbsp;&nbsp;&nbsp;' + videosource.website + '</p>';
+              '    <p><img src="img/flags/' + videosource.country + '.png" width="11px"/>&nbsp;&nbsp;&nbsp;' + getDateString(videosource.videoList[0].date, lang) + '</p>';
+          if (nrOfNewVideos(videosource.id) > 0) {
+            htmlVideosource +=
+                '    <span class="ui-li-count">' + nrOfNewVideos(videosource.id) + '</span>';
+          }
+          htmlVideosource +=
+              '  </a>' +
+              '</li>';
         }
-      }
-      loadVideos();
-      $("#refresh_title .ui-btn-text").html(page_home_button_refresh);
-      $("#menu_title .ui-btn-text").html(page_home_button_menu);
-      $("#menu_option_editvideosources .ui-btn-text").html(menu_option_editvideosources);
-      $("#menu_option_about .ui-btn-text").html(menu_option_about);
-      $("#menu_option_close .ui-btn-text").html(menu_option_close);
-    });
-
-    $('#editvideosources').live('pagebeforeshow', function (e, data) {
-      googleAnalytics("editvideosources");
-      renderEditVideoSourceList(JSON.parse(localStorage.getItem("videosources")));
-      $('select').slider();
-      $("#editvideosources h1").html(page_editvideosources_title);
-      $("#page_editvideosources_button_cancel .ui-btn-text").html(page_editvideosources_button_cancel);
-      $("#page_editvideosources_button_save .ui-btn-text").html(page_editvideosources_button_save);
-      $(".ui-block-b .ui-slider-label-a").html(page_editvideosources_switch_on);
-      $(".ui-block-b .ui-slider-label-b").html(page_editvideosources_switch_off);
-      $("#editvideosources .country_name").each(function(index, elem) {
-        var countryCode = $(elem).html();
-        $(elem).html(eval("country_"+countryCode));
       });
-    });
+      $("#videosourceList").html(htmlVideosource);
+      $("#page_home_channellist_header").html(page_home_channellist_header);
+      $("#videosourceList").listview('refresh');
+    }
 
-    $('#videos').live('pagebeforeshow', function (e, data) {
-      var videosourceid = getUrlParam("videosourceid");
-      if (videosourceid != null) {
-        // remember the videosource, used when going back to videosourcelist
-        $('#videos').attr('data-videosourceid', videosourceid);
-        renderVideoList(videosourceid);
-      }
-      var videosourcename = getUrlParam("videosourcename");
-      if (videosourcename != null) {
-        googleAnalytics("videos/"+videosourcename);
+    function nrOfNewVideos(videosourceid) {
+      var items = sessionStorage.getItem("newVideosForSource_"+videosourceid);
+      return items == null ? 0 : JSON.parse(items).length;
+    }
+
+    function isEnabledForUser(videosourceid) {
+      var disabledVideosources = localStorage.getItem("disabledVideosources");
+      if (disabledVideosources == null) {
+        return true;
       } else {
-        googleAnalytics("videos");
+        return $.inArray(videosourceid, JSON.parse(disabledVideosources)) == -1;
       }
+    }
 
-      $(".button_back .ui-btn-text").html(button_back);
-    });
+    function saveVideosources() {
+      var disabledVideosources = [];
+      var videosources = JSON.parse(localStorage.getItem("videosources"));
+      $.each(videosources, function (i, videosource) {
+        var sliderElementID = "#editvideosourcesForm #slider_"+videosource.id;
+        var setting = $(sliderElementID).val();
+        if (setting == "off") {
+          disabledVideosources.push(videosource.id);
+        }
+      });
+      localStorage.setItem("disabledVideosources", JSON.stringify(disabledVideosources));
+      // re-render the list
+      renderVideoSourceList(videosources);
+      // back to the list
+      $.mobile.changePage($("#videosources"), {reverse:true});
+    }
 
-    $('#about').live('pagebeforeshow', function (e, data) {
-      $(".button_back .ui-btn-text").html(button_back);
-    });
-
-    $('#videoplayer').live('pagebeforeshow', function (e, data) {
-      googleAnalytics("videoplayer");
-      $(".button_back .ui-btn-text").html(button_back);
-      $("#share h3").html(page_share_title);
-      $("#share #page_share_button .ui-btn-text").html(page_share_button);
-      var videosourceid = getUrlParam("videosourceid");
-      var videoid = getUrlParam("videoid");
-
+    function renderVideoList(videosourceid) {
       var cachedVideos = localStorage.getItem("videosources");
       var videosources = JSON.parse(cachedVideos);
+
       // find the correct videosource in the cache
       $.each(videosources, function (i, videosource) {
         if (videosource.id == videosourceid) {
-         // find the correct video in the cache
-          $.each(videosource.videoList, function (i, video) {
-            if (video.id == videoid) {
-              renderVideoPlayer(video);
-              // set video as seen if applicable
-              if (nrOfNewVideos(videosourceid) > 0) {
-                var newVideoIDs = JSON.parse(sessionStorage.getItem("newVideosForSource_"+videosourceid));
-                var index = $.inArray(video.pageurl, newVideoIDs);
-                if (index > -1) {
-                  // remove from array and store (remove 1 item, starting at the index of the item found)
-                  newVideoIDs.splice(index, 1);
-                  sessionStorage.setItem("newVideosForSource_"+videosourceid, JSON.stringify(newVideoIDs));
-                  // re-render the previous page
-                  renderVideoList(videosourceid);
-                }
-              }
-              return false; // breaks the loop
+          // set the header
+          $("#videos h1").html(videosource.name);
+          // render the videolist
+          var htmlVideo = '';
+          var newVideoIDs = null;
+          if (nrOfNewVideos(videosource.id) > 0) {
+            newVideoIDs = JSON.parse(sessionStorage.getItem("newVideosForSource_"+videosourceid));
+          }
+          var previousDateString = null;
+          $.each(videosource.videoList, function (j, video) {
+            var dateString = getDateString(video.date, lang);
+            if (previousDateString == null || dateString != previousDateString) {
+              htmlVideo += '' +
+                  '<li data-role="list-divider">' + dateString + '</li>';
             }
-          })
+            htmlVideo += '' +
+                '<li>' +
+                '  <a href="#videoplayer?videosourceid='+videosource.id+'&videoid='+video.id+'">' +
+                '    <img src="' + video.imageurl + '" />' +
+                '    <h3';
+            if (newVideoIDs != null && $.inArray(video.pageurl, newVideoIDs) > -1) {
+              htmlVideo += ' class="ui-li-heading-unseen"';
+            }
+            htmlVideo += '>' + video.title + '</h3>';
+            if (video.description !== undefined) {
+              htmlVideo += '    <p>' + video.description + '</p>';
+            }
+            htmlVideo +=
+                '  </a>' +
+                '</li>';
+            previousDateString = dateString;
+          });
+
+          $("#videoList")
+              .html(htmlVideo)
+              .listview('refresh');
+          $("#website").html("&copy; " + videosource.website);
+
+          //  break the loop
+          return false;
         }
       })
-    });
+    }
+  </script>
+</head>
+<body>
 
-    $('#videoplayer').live('pagebeforehide', function (e, data) {
-      // unbind click functions (done here, because we also need to unbind when it was not clicked)
-      $('#videoplayer #tweetClickHijacker').unbind("click");
 
-      // force the video to stop playing
-      $("#videocontainer").html("");
-    });
 
-//    $("#popupPanel").live("popupbeforeposition", function() {
-//      $("#popupPanel").css("height", $(window).height());
-//    });
+
+
+<!-- PAGE: videosources -->
+<div data-role="page" id="videosources" class="videosourcespage">
+  <script type="text/javascript">
+    $('#videosources')
+        .on('pagebeforeshow', function(e, data) {
+          googleAnalytics("videosources");
+          var fromVideosourceid = data.prevPage.attr('data-videosourceid');
+          if (!isNaN(fromVideosourceid)) {
+            // set all videos as seen for this source
+            if (nrOfNewVideos(fromVideosourceid) > 0) {
+              sessionStorage.setItem("newVideosForSource_"+fromVideosourceid, JSON.stringify([]));
+            }
+          }
+          loadVideos();
+          $("#refresh_title .ui-btn-text").html(page_home_button_refresh);
+          $("#menu_title .ui-btn-text").html(page_home_button_menu);
+          $("#menu_option_editvideosources .ui-btn-text").html(menu_option_editvideosources);
+          $("#menu_option_about .ui-btn-text").html(menu_option_about);
+          $("#menu_option_close .ui-btn-text").html(menu_option_close);
+        });
+
+    function getNewVideoIDs(idContainerOldList, idContainerNewList) {
+      var newList = [];
+      $.each(idContainerNewList, function (i, idContainerNew) {
+        var found = false;
+        $.each(idContainerOldList, function (j, idContainerOld) {
+          // compare the unique pageurls, so counts are ok when the server restarts
+          if (idContainerNew.pageurl == idContainerOld.pageurl) {
+            found = true;
+          }
+        });
+        if (!found) {
+          newList.push(idContainerNew.pageurl);
+        }
+      });
+      return newList;
+    }
 
     function loadVideos(forceLoad) {
       var cachedVideosourcesString = localStorage.getItem("videosources");
@@ -213,65 +277,56 @@
             }
           })
     }
+  </script>
 
-    function getNewVideoIDs(idContainerOldList, idContainerNewList) {
-      var newList = new Array();
-      $.each(idContainerNewList, function (i, idContainerNew) {
-        var found = false;
-        $.each(idContainerOldList, function (j, idContainerOld) {
-          // compare the unique pageurls, so counts are ok when the server restarts
-          if (idContainerNew.pageurl == idContainerOld.pageurl) {
-            found = true;
-          }
+  <div data-role="header" data-tap-toggle="false" data-position="fixed">
+    <!--a id="downloadApp" data-icon="refresh" href="#">update app</a-->
+    <a data-icon="refresh" href="#" onclick="$.mobile.loading('show'); setTimeout(function(){loadVideos(true); $.mobile.loading('hide');},400)" id="refresh_title">refresh</a>
+    <h1>Game TV</h1>
+    <a data-icon="grid" data-iconpos="notext" href="#editvideosources" data-role="button" data-direction="reverse" class="ui-btn-right" id="menu_title"></a>
+  </div>
+  <div data-role="content">
+    <div class="content-primary">
+      <div class="antenna"></div>
+      <ul id="videosourceList" data-role="listview" data-inset="true" data-divider-theme="d"></ul>
+    </div>
+  </div>
+  <div class="feedback"></div>
+</div>
+
+
+
+<!-- PAGE: edit videosources -->
+<div data-role="page" id="editvideosources" class="videosourcespage">
+  <script type="text/javascript">
+    $('#editvideosources')
+        .on('pagebeforeshow', function (e, data) {
+          googleAnalytics("editvideosources");
+          renderEditVideoSourceList(JSON.parse(localStorage.getItem("videosources")));
+          $('select').slider();
+          $("#editvideosources h1").html(page_editvideosources_title);
+          $("#page_editvideosources_button_cancel .ui-btn-text").html(page_editvideosources_button_cancel);
+          $("#page_editvideosources_button_save .ui-btn-text").html(page_editvideosources_button_save);
+          $(".ui-block-b .ui-slider-label-a").html(page_editvideosources_switch_on);
+          $(".ui-block-b .ui-slider-label-b").html(page_editvideosources_switch_off);
+          $("#editvideosources .country_name").each(function(index, elem) {
+            var countryCode = $(elem).html();
+            $(elem).html(eval("country_"+countryCode));
+          });
         });
-        if (!found) {
-          newList.push(idContainerNew.pageurl);
-        }
-      });
-      return newList;
-    }
 
-    function renderVideoSourceList(videosources) {
-      var htmlVideosource = '' +
-          '<li data-role="list-divider" id="page_home_channellist_header"></li>';
-      $.each(videosources, function (i, videosource) {
-
-        if (videosource.videoList.length > 0 && isEnabledForUser(videosource.id)) { // no empty channels and only active sources
-
-          htmlVideosource += '' +
-              '<li>' +
-              '  <a href="#videos&videosourceid=' + videosource.id + '&videosourcename='+encodeURI(videosource.name.replace(".","_"))+'">' +
-              '    <img src="img/videosources/' + videosource.image + '" />' +
-              '    <h3>' + videosource.name +'</h3>' +
-//              '    <p><img src="img/flags/' + videosource.country + '.png" width="11px"/>&nbsp;&nbsp;&nbsp;' + videosource.website + '</p>';
-              '    <p><img src="img/flags/' + videosource.country + '.png" width="11px"/>&nbsp;&nbsp;&nbsp;' + getDateString(videosource.videoList[0].date, lang) + '</p>';
-          if (nrOfNewVideos(videosource.id) > 0) {
-            htmlVideosource +=
-                '    <span class="ui-li-count">' + nrOfNewVideos(videosource.id) + '</span>';
-          }
-          htmlVideosource +=
-              '  </a>' +
-              '</li>';
-        }
-      });
-      $("#videosourceList").html(htmlVideosource);
-      $("#page_home_channellist_header").html(page_home_channellist_header);
-      $("#videosourceList").listview('refresh');
-    }
 
     function renderEditVideoSourceList(videosources) {
       var htmlVideosource = '';
       var previousCountry = null;
-
 
       // first sort by country, done by creating an associative array of arrays
       var sortedVideosources = {};
       $.each(videosources, function (i, videosource) {
         var country = videosource.country;
         var channelsInCountry = sortedVideosources[country];
-//        alert(channelsInCountry);
         if (channelsInCountry === undefined) {
-          sortedVideosources[country] = new Array();
+          sortedVideosources[country] = [];
         }
         var x = sortedVideosources[country];
         x.push(videosource);
@@ -303,192 +358,17 @@
           }
         });
       });
-      $("#videosourceListFull").html(htmlVideosource);
-      $("#videosourceListFull").listview('refresh');
-    }
 
-    function nrOfNewVideos(videosourceid) {
-      var items = sessionStorage.getItem("newVideosForSource_"+videosourceid);
-      return items == null ? 0 : JSON.parse(items).length;
-    }
-
-    function isEnabledForUser(videosourceid) {
-      var disabledVideosources = localStorage.getItem("disabledVideosources");
-      if (disabledVideosources == null) {
-        return true;
-      } else {
-        return $.inArray(videosourceid, JSON.parse(disabledVideosources)) == -1;
-      }
-    }
-
-    function saveVideosources() {
-      var disabledVideosources = new Array();
-      var videosources = JSON.parse(localStorage.getItem("videosources"));
-      $.each(videosources, function (i, videosource) {
-        var sliderElementID = "#editvideosourcesForm #slider_"+videosource.id;
-        var setting = $(sliderElementID).val();
-        if (setting == "off") {
-          disabledVideosources.push(videosource.id);
-        }
-      });
-      localStorage.setItem("disabledVideosources", JSON.stringify(disabledVideosources));
-      // re-render the list
-      renderVideoSourceList(videosources);
-    }
-
-    function renderVideoList(videosourceid) {
-      var cachedVideos = localStorage.getItem("videosources");
-      var videosources = JSON.parse(cachedVideos);
-
-      // find the correct videosource in the cache
-      $.each(videosources, function (i, videosource) {
-        if (videosource.id == videosourceid) {
-          // set the header
-          $("#videos h1").html(videosource.name);
-          // render the videolist
-          var htmlVideo = '';
-          var newVideoIDs = null;
-          if (nrOfNewVideos(videosource.id) > 0) {
-            newVideoIDs = JSON.parse(sessionStorage.getItem("newVideosForSource_"+videosourceid));
-          }
-          var previousDateString = null;
-          $.each(videosource.videoList, function (j, video) {
-            var dateString = getDateString(video.date, lang);
-            if (previousDateString == null || dateString != previousDateString) {
-              htmlVideo += '' +
-                  '<li data-role="list-divider">' + dateString + '</li>';
-            }
-            htmlVideo += '' +
-                '<li>' +
-                '  <a href="#videoplayer&videosourceid='+videosource.id+'&videoid='+video.id+'">' +
-                '    <img src="' + video.imageurl + '" />' +
-                '    <h3';
-            if (newVideoIDs != null && $.inArray(video.pageurl, newVideoIDs) > -1) {
-              htmlVideo += ' class="ui-li-heading-unseen"';
-            }
-            htmlVideo += '>' + video.title + '</h3>';
-            if (video.description !== undefined) {
-              htmlVideo += '    <p>' + video.description + '</p>';
-            }
-            htmlVideo +=
-                '  </a>' +
-                '</li>';
-            previousDateString = dateString;
-          });
-
-          $("#videoList").html(htmlVideo);
-          $("#videoList").listview('refresh');
-          $("#website").html("&copy; " + videosource.website);
-
-          //  break the loop
-          return false;
-        }
-      })
-    }
-
-    function renderVideoPlayer(video) {
-      // set the header
-      $("#videoplayer h1").html(video.title);
-
-      // render the player
-      $("#videoplayer video").attr("poster", video.imageurl);
-
-      var totalWidth = $("body").width();
-      var totalHeight = $("body").height();
-      var height = (totalWidth / (totalWidth < totalHeight ? 2 : 3)) - 30;
-      width = "100%";
-
-      var videourl = video.videourl;
-
-      if (isYouTube(videourl)) {
-        $("#videocontainer").html('<iframe width="'+width+'" height="'+height+'" type="text/html" src="'+videourl+'?hd=1&autoplay=true&modestbranding=1&rel=0&showinfo=0" frameborder="0" allowfullscreen></iframe>');
-      } else {
-        if (isIOS()) {
-          width = "95%";
-//                  height = "";
-        }
-        $("#videocontainer").html('\
-            <video style="z-index:1008" width="'+width+'" height="'+height+'" src="'+videourl+'" type="video/mp4" autobuffer controls poster="'+video.imageurl+'">\
-              <object classid="clsid:02bf25d5-8c17-4b23-bc80-d3488abddc6b" width="'+width+'" height="'+height+'" codebase="http://www.apple.com/qtactivex/qtplugin.cab">\
-                <param value="'+videourl+'" type="video/mp4">\
-                <embed src="'+videourl+'" type="video/mp4" width="'+width+'" height="'+height+'" controller="false" pluginspage="http://www.apple.com/quicktime/download/"></embed>\
-              </object>\
-            </video>');
-      }
-
-      $("#videoplayer #mailbody").html('Check "'+video.title+'" @ ' + video.pageurl);
-      if (video.description) {
-        $("#videoplayer #description").html(video.description + (video.description.length == 255 ? ".." : "")); // TODO serverfix & remove any links and images!
-      } else {
-        $("#videoplayer #description").html(video.title);
-      }
-
-      // add dynamically updated tweet button
-      var tweetButton = '';
-      tweetButton += '<a href="https://twitter.com/share" class="twitter-share-button" data-text="'+video.title+'" data-size="large" data-lang="en" data-via="_GameTV" data-url="'+video.pageurl+'">Tweet</a>';
-      $('#videoplayer #sharebytweet').html(tweetButton);
-      twttr.widgets.load();
-
-      // mask the tweet button, so we can intercept clicks and open a web intent
-      $('#videoplayer #tweetClickHijacker').click(function() {
-        googleAnalytics("tweet");
-        var twitterWebIntentUrl = encodeURI('https://twitter.com/intent/tweet?via=_GameTV&text='+video.title+'&url='+video.pageurl);
-        if (isIOS() || isAndroid()) {
-          // open in childbrowser, so iOS users can navigate back to the app
-          window.plugins.childBrowser.showWebPage(twitterWebIntentUrl);
-        } else {
-          // childbrowser is only available for iOS and Android
-          window.open(twitterWebIntentUrl);
-        }
-      });
+      $("#videosourceListFull")
+          .html(htmlVideosource)
+          .listview('refresh');
     }
   </script>
-</head>
-<body>
-
-
-
-
-
-<!-- PAGE: videosources -->
-<div data-role="page" id="videosources" class="videosourcespage">
-
-  <div data-role="header" data-tap-toggle="false" data-position="fixed">
-    <!--a id="downloadApp" data-icon="refresh" href="#">update app</a-->
-    <a data-icon="refresh" href="#" onclick="$.mobile.loading('show'); setTimeout(function(){loadVideos(true); $.mobile.loading('hide');},750)" id="refresh_title">refresh</a>
-    <h1>Game TV</h1>
-    <a data-icon="grid" data-iconpos="right" href="#editvideosources" data-role="button" data-direction="reverse" class="ui-btn-right" id="menu_title"></a>
-    <!--a data-icon="grid" data-iconpos="right" href="#popupPanel" data-rel="popup" data-transition="slide" data-position-to="window" class="ui-btn-right" id="menu_title"></a-->
-  </div>
-
-  <!--div data-role="popup" id="popupPanel" data-corners="false" data-theme="none" data-shadow="false" data-tolerance="0,0">
-    <br/>
-    <a data-role="button" data-theme="a" data-icon="grid" data-mini="true" href="#editvideosources" data-direction="reverse" id="menu_option_editvideosources"></a>
-    <a data-role="button" data-theme="a" data-icon="info" data-mini="true" href="#about" data-transition="flip" id="menu_option_about"></a>
-    <a data-role="button" data-theme="c" data-icon="delete" data-mini="true" onclick="$('#popupPanel').popup('close')" id="menu_option_close">x</a>
-  </div-->
-
-  <div data-role="content">
-    <div class="content-primary">
-      <div class="antenna"></div>
-      <ul id="videosourceList" data-role="listview" data-inset="true" data-divider-theme="d"></ul>
-    </div>
-
-  </div>
-
-  <div class="feedback"></div>
-
-</div>
-
-
-
-<!-- PAGE: edit videosources -->
-<div data-role="page" id="editvideosources" class="videosourcespage">
 
   <div data-role="header" data-tap-toggle="false" data-position="fixed">
     <a href="#videosources" data-icon="delete" id="page_editvideosources_button_cancel"></a>
     <h1>Beheer kanalen</h1>
-    <a data-icon="check" data-role="button" class="ui-btn-right"  data-iconpos="right" href="#videosources" onclick="saveVideosources(); return false" id="page_editvideosources_button_save"></a>
+    <a data-icon="check" data-role="button" class="ui-btn-right"  data-iconpos="right" href="#" onclick="saveVideosources()" id="page_editvideosources_button_save"></a>
   </div>
 
   <div data-role="content">
@@ -507,6 +387,26 @@
 
 <!-- PAGE: videos -->
 <div data-role="page" id="videos" data-videosourceid="to-be-filled">
+  <script type="text/javascript">
+    $('#videos')
+        .on('pagebeforeshow', function (e, data) {
+          if ($.mobile.pageData != null) {
+            var videosourceid = $.mobile.pageData.videosourceid;
+            if (videosourceid != null) {
+              // remember the videosource, used when going back to videosourcelist
+              $('#videos').attr('data-videosourceid', videosourceid);
+              renderVideoList(videosourceid);
+            }
+            var videosourcename = $.mobile.pageData.videosourcename;
+            if (videosourcename != null) {
+              googleAnalytics("videos/"+videosourcename);
+            } else {
+              googleAnalytics("videos");
+            }
+          }
+          $(".button_back .ui-btn-text").html(button_back);
+        });
+  </script>
 
   <div data-role="header" data-tap-toggle="false" data-position="fixed">
     <a href="#videosources" data-icon="arrow-l" data-direction="reverse" class="button_back"></a>
@@ -528,7 +428,12 @@
 
 <!-- PAGE: about -->
 <div data-role="page" id="about">
-
+  <script type="text/javascript">
+    $('#about')
+        .on('pagebeforeshow', function (e, data) {
+          $(".button_back .ui-btn-text").html(button_back);
+        });
+  </script>
   <div data-role="header" data-tap-toggle="false" data-position="fixed">
     <a href="#videosources" data-icon="arrow-l" data-transition="flip" data-direction="reverse" class="button_back"></a>
     <h1>Over Game TV</h1>
@@ -569,6 +474,108 @@
 
 <!-- PAGE: videoplayer -->
   <div data-role="page" id="videoplayer">
+    <script type="text/javascript">
+      $('#videoplayer')
+          .on('pagebeforeshow', function (e, data) {
+            googleAnalytics("videoplayer");
+            $(".button_back .ui-btn-text").html(button_back);
+            $("#share h3").html(page_share_title);
+            $("#share #page_share_button .ui-btn-text").html(page_share_button);
+            var videosourceid = $.mobile.pageData.videosourceid;
+            var videoid = $.mobile.pageData.videoid;
+            var cachedVideos = localStorage.getItem("videosources");
+            var videosources = JSON.parse(cachedVideos);
+            // find the correct videosource in the cache
+            $.each(videosources, function (i, videosource) {
+              if (videosource.id == videosourceid) {
+               // find the correct video in the cache
+                $.each(videosource.videoList, function (i, video) {
+                  if (video.id == videoid) {
+                    renderVideoPlayer(video);
+                    // set video as seen if applicable
+                    if (nrOfNewVideos(videosourceid) > 0) {
+                      var newVideoIDs = JSON.parse(sessionStorage.getItem("newVideosForSource_"+videosourceid));
+                      var index = $.inArray(video.pageurl, newVideoIDs);
+                      if (index > -1) {
+                        // remove from array and store (remove 1 item, starting at the index of the item found)
+                        newVideoIDs.splice(index, 1);
+                        sessionStorage.setItem("newVideosForSource_"+videosourceid, JSON.stringify(newVideoIDs));
+                        // re-render the previous page
+                        renderVideoList(videosourceid);
+                      }
+                    }
+                    return false; // breaks the loop
+                  }
+                })
+              }
+            })
+          })
+          .on('pagebeforehide', function (e, data) {
+            // unbind click functions (done here, because we also need to unbind when it was not clicked)
+            $('#videoplayer #tweetClickHijacker').unbind("click");
+
+            // force the video to stop playing
+            $("#videocontainer").html("");
+          });
+
+
+      function renderVideoPlayer(video) {
+        // set the header
+        $("#videoplayer h1").html(video.title);
+
+        // render the player
+        $("#videoplayer video").attr("poster", video.imageurl);
+
+        var totalWidth = $("body").width();
+        var totalHeight = $("body").height();
+        var height = (totalWidth / (totalWidth < totalHeight ? 2 : 3)) - 30;
+        var width = "100%";
+
+        var videourl = video.videourl;
+
+        if (isYouTube(videourl)) {
+          $("#videocontainer").html('<iframe width="'+width+'" height="'+height+'" type="text/html" src="'+videourl+'?hd=1&autoplay=true&modestbranding=1&rel=0&showinfo=0" frameborder="0" allowfullscreen></iframe>');
+        } else {
+          if (isIOS()) {
+            width = "95%";
+  //                  height = "";
+          }
+          $("#videocontainer").html('\
+              <video style="z-index:1008" width="'+width+'" height="'+height+'" src="'+videourl+'" type="video/mp4" autobuffer controls poster="'+video.imageurl+'">\
+                <object classid="clsid:02bf25d5-8c17-4b23-bc80-d3488abddc6b" width="'+width+'" height="'+height+'" codebase="http://www.apple.com/qtactivex/qtplugin.cab">\
+                  <param value="'+videourl+'" type="video/mp4">\
+                  <embed src="'+videourl+'" type="video/mp4" width="'+width+'" height="'+height+'" controller="false" pluginspage="http://www.apple.com/quicktime/download/"></embed>\
+                </object>\
+              </video>');
+        }
+
+        $("#videoplayer #mailbody").html('Check "'+video.title+'" @ ' + video.pageurl);
+        if (video.description) {
+          $("#videoplayer #description").html(video.description + (video.description.length == 255 ? ".." : "")); // TODO serverfix & remove any links and images!
+        } else {
+          $("#videoplayer #description").html(video.title);
+        }
+
+        // add dynamically updated tweet button
+        var tweetButton = '';
+        tweetButton += '<a href="https://twitter.com/share" class="twitter-share-button" data-text="'+video.title+'" data-size="large" data-lang="en" data-via="_GameTV" data-url="'+video.pageurl+'">Tweet</a>';
+        $('#videoplayer #sharebytweet').html(tweetButton);
+        twttr.widgets.load();
+
+        // mask the tweet button, so we can intercept clicks and open a web intent
+        $('#videoplayer #tweetClickHijacker').click(function() {
+          googleAnalytics("tweet");
+          var twitterWebIntentUrl = encodeURI('https://twitter.com/intent/tweet?via=_GameTV&text='+video.title+'&url='+video.pageurl);
+          if (isMobile()) {
+            // open in childbrowser, so iOS users can navigate back to the app
+            window.plugins.childBrowser.showWebPage(twitterWebIntentUrl);
+          } else {
+            // childbrowser is only available for iOS and Android
+            window.open(twitterWebIntentUrl);
+          }
+        });
+      }
+    </script>
 
   <div data-role="header" data-tap-toggle="false" data-position="fixed">
     <a href="#videos" data-icon="arrow-l" data-direction="reverse" class="button_back"></a>
