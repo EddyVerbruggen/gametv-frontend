@@ -492,7 +492,8 @@
                // find the correct video in the cache
                 $.each(videosource.videoList, function (i, video) {
                   if (video.id == videoid) {
-                    renderVideoPlayer(video);
+                    // testing this, so it kicks off after the transiton (TODO better yet, use a different event than pagebeforeshow?)
+                    setTimeout(function(){renderVideoPlayer(video)}, 1000);
                     // set video as seen if applicable
                     if (nrOfNewVideos(videosourceid) > 0) {
                       var newVideoIDs = JSON.parse(sessionStorage.getItem("newVideosForSource_"+videosourceid));
