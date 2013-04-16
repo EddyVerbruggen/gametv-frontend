@@ -305,13 +305,13 @@ li.ui-btn {
 }
 
 .ui-header .ui-btn-left {
-  /*top: 6px;*/
-  /*left: 12px;*/
+  top: 6px;
+  left: 12px;
 }
 
 .ui-header .ui-btn-right {
-  /*top: 6px;*/
-  /*right: 14px;*/
+  top: 6px;
+  right: 14px;
 }
 
 #website {
