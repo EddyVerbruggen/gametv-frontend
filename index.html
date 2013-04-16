@@ -39,6 +39,7 @@
 //      if (window.navigator.userAgent.indexOf("Android 4.2") > -1) {
 //        $("div[data-role='page']").css({"-webkit-backface-visibility": "hidden"});
 //      }
+      // these swipes kill scrolling fluency on Android
 //      $('#videos').bind('swiperight', function() {
 //        $.mobile.changePage($("#videosources"), {reverse:true});
 //      });
@@ -538,7 +539,6 @@
         } else {
           if (isIOS()) {
             width = "95%";
-  //                  height = "";
           }
           $("#videocontainer").html('\
               <video style="z-index:1008" width="'+width+'" height="'+height+'" src="'+videourl+'" type="video/mp4" autobuffer controls poster="'+video.imageurl+'">\
