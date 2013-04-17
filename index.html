@@ -477,7 +477,7 @@
   <div data-role="page" id="videoplayer">
     <script type="text/javascript">
       $('#videoplayer')
-          .on('pagebeforeshow', function (e, data) {
+          .on('pageshow', function (e, data) {
             googleAnalytics("videoplayer");
             $(".button_back .ui-btn-text").html(button_back);
             $("#share h3").html(page_share_title);
@@ -493,7 +493,7 @@
                 $.each(videosource.videoList, function (i, video) {
                   if (video.id == videoid) {
                     // testing this, so it kicks off after the transiton (TODO better yet, use a different event than pagebeforeshow?)
-                    setTimeout(function(){renderVideoPlayer(video)}, 1000);
+                    renderVideoPlayer(video);
                     // set video as seen if applicable
                     if (nrOfNewVideos(videosourceid) > 0) {
                       var newVideoIDs = JSON.parse(sessionStorage.getItem("newVideosForSource_"+videosourceid));

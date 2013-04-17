@@ -68,7 +68,7 @@
   <preference name="exit-on-suspend" value="true" /><!-- stay with us, or not? -->
   <preference name="auto-hide-splash-screen" value="false" /><!-- we're hiding it with js -->
 
-  <preference name="splash-screen-duration" value="1500" /> <!-- default 5000 -->
+  <preference name="splash-screen-duration" value="3000" /> <!-- default 5000 -->
 
   <gap:plugin name="ChildBrowser" /> <!-- latest release -->
   <gap:plugin name="Analytics" /> <!-- latest release -->
