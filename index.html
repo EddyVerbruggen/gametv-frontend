@@ -52,9 +52,9 @@
     var gaPlugin;
 
     function onDeviceReady() {
-//      if (navigator.splashscreen != undefined) {
-//        navigator.splashscreen.hide();
-//      }
+      if (navigator.splashscreen != undefined) {
+        navigator.splashscreen.hide();
+      }
       if (window.plugins != undefined) {
         gaPlugin = window.plugins.gaPlugin;
         gaPlugin.init(gaInitSuccessHandler, gaInitErrorHandler, "UA-28850866-4", 5);
@@ -204,7 +204,7 @@
 <div data-role="page" id="videosources" class="videosourcespage">
   <script type="text/javascript">
     $('#videosources')
-        .on('pagebeforeshow', function(e, data) {
+        .on('pageshow', function(e, data) {
           googleAnalytics("videosources");
           var fromVideosourceid = data.prevPage.attr('data-videosourceid');
           if (!isNaN(fromVideosourceid)) {
