@@ -204,7 +204,7 @@
 <div data-role="page" id="videosources" class="videosourcespage">
   <script type="text/javascript">
     $('#videosources')
-        .on('pagebeforeshow', function(e, data) {
+        .on('pageshow', function(e, data) {
           googleAnalytics("videosources");
           var fromVideosourceid = data.prevPage.attr('data-videosourceid');
           if (!isNaN(fromVideosourceid)) {
@@ -492,7 +492,6 @@
                // find the correct video in the cache
                 $.each(videosource.videoList, function (i, video) {
                   if (video.id == videoid) {
-                    // testing this, so it kicks off after the transiton (TODO better yet, use a different event than pagebeforeshow?)
                     renderVideoPlayer(video);
                     // set video as seen if applicable
                     if (nrOfNewVideos(videosourceid) > 0) {
