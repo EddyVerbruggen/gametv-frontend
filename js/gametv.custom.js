@@ -6,14 +6,6 @@ window.onerror = function(message, file, line) {
   console.log('Error gevangen: ' + file + ':' + line + '\n' + message);
 };
 
-// override some JQM defaults
-$(document).bind("mobileinit", function(){
-  $.extend(
-      $.mobile, {
-        defaultPageTransition: "slide"
-      })
-});
-
 function isAndroid() {
   return navigator.userAgent.toLowerCase().indexOf("android") > -1;
 }
