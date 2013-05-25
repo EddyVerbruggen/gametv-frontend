@@ -29,7 +29,7 @@
     $(document).ready(function() {
 
       // init phonegap
-      if (isMobile()) {
+      if (isMobileWithPhonegap()) {
         document.addEventListener('deviceready', onDeviceReady, false);
       } else {
         onDeviceReady();
@@ -74,7 +74,7 @@
     }
 
     function googleAnalytics(page) {
-      if (gaPlugin !== undefined && isMobile()) {
+      if (gaPlugin !== undefined && isMobileWithPhonegap()) {
         gaPlugin.trackPage(gaPluginResultHandler, gaPluginErrorHandler, page);
       }
     }
@@ -251,7 +251,7 @@
         return;
       }
 
-      $.getJSON(getServiceURL("/videosource/client/gametv/" + (isAndroid() ? "android" : "ios")))
+      $.getJSON(getServiceURL("/videosource/client/gametv/" + (isAndroid() ? "android" : (isFireFoxOS() ? "firefoxos" : "ios"))))
           .success(function (newVideosources) {
             var newVideosourcesString = JSON.stringify(newVideosources);
             if (cachedVideosources != null) {
@@ -566,7 +566,7 @@
         $('#videoplayer #tweetClickHijacker').click(function() {
           googleAnalytics("tweet");
           var twitterWebIntentUrl = encodeURI('https://twitter.com/intent/tweet?via=_GameTV&text='+video.title+'&url='+video.pageurl);
-          if (isMobile()) {
+          if (isMobileWithPhonegap()) {
             // open in childbrowser, so iOS users can navigate back to the app
             window.plugins.childBrowser.showWebPage(twitterWebIntentUrl);
           } else {

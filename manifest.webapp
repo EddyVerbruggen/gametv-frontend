@@ -1,0 +1,27 @@
+{
+  "version": "1.0",
+  "name": "Game TV",
+  "description": "Watch the latest Gaming videos add-free!",
+  "launch_path": "/index.html",
+  "icons": {
+    "30": "/icons/ffos/icon-30.png",
+    "60": "/icons/ffos/icon-60.png",
+    "90": "/icons/ffos/icon-90.png",
+    "128": "/icons/ffos/icon-128.png",
+    "256": "/icons/ffos/icon-256.png"
+  },
+  "developer": {
+    "name": "Eddy Verbruggen",
+    "url": "http://www.x-services.nl/promotion/game-tv"
+  },
+  "installs_allowed_from": ["*"],
+  "locales": {
+    "nl": {
+      "description": "Bekijk de nieuwste gaming videos uit binnen- en buitenland ZONDER reclame!",
+      "developer": {
+        "url": "http://www.x-services.nl/promotion/game-tv"
+      }
+    }
+  },
+  "default_locale": "en"
+}

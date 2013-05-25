@@ -6,6 +6,10 @@ window.onerror = function(message, file, line) {
   console.log('Error gevangen: ' + file + ':' + line + '\n' + message);
 };
 
+function isFireFoxOS() {
+  return !isAndroid() && navigator.userAgent.toLowerCase().indexOf("firefox") > -1;
+}
+
 function isAndroid() {
   return navigator.userAgent.toLowerCase().indexOf("android") > -1;
 }
@@ -14,7 +18,7 @@ function isIOS() {
   return navigator.userAgent.match(/(iPad|iPhone|iPod)/i);
 }
 
-function isMobile() {
+function isMobileWithPhonegap() {
   return isAndroid() || isIOS();
 }
 
@@ -32,7 +36,7 @@ function getDateString(javaDateString) {
 }
 
 function getServiceURL(servicePath) {
-  if (true || isAndroid() || isIOS()) {
+  if (true || isAndroid() || isIOS() || isFireFoxOS()) {
     return "http://www.thumbrater.com:9008" + servicePath; // Mac Server
   } else {
     return "http://127.0.0.1:9007" + servicePath;
