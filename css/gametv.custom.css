@@ -238,12 +238,11 @@ li.ui-btn {
 
 #videoplayer #tweetClickHijacker {
   position: relative;
-  width:120px;
+  width:116px;
   height: 30px;
   margin-top:-34px;
   margin-left: 85px;
   cursor: pointer;
-  /*border: 1px solid red;*/
 }
 
 #videoplayer .ui-content {
@@ -254,10 +253,42 @@ li.ui-btn {
   margin-left: 25%;
 }
 
+#videoplayer .twitter-share-button {
+  width: 126px !important;
+}
+
+#videos .nrOfViews {
+  padding-left: 4px;
+  padding-right: 4px;
+  text-shadow: none;
+  font-size: 0.8em;
+  line-height: 1.4em;
+  color: #fff;
+  background-color: #aaa;
+  border-radius: 4px;
+  float: left;
+  margin-right: 6px;
+}
+
 #videos .ui-header .ui-title,
 #videoplayer .ui-header .ui-title {
   padding-left: 75px;
   margin: 0.6em 3% 0.8em;
+}
+
+#videoplayer #recommend,
+#videoplayer #recommended {
+  display: none;
+  position: relative;
+  top: -8px;
+  border: 2px solid white;
+  color: #FFFFFF;
+  padding: 4px 6px;
+  text-shadow: none;
+  font-weight: normal;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.6);
+  border-radius: 10px;
+  font-size: 13px;
 }
 
 .ui-li-has-arrow.ui-li-has-count .ui-li-count {
@@ -279,10 +310,46 @@ li.ui-btn {
   box-shadow: 0 0 4px rgba(0, 0, 0, 0.6);
 }
 
+#videoplayer #recommend, .ui-li-has-arrow.ui-li-has-count .ui-li-count.recommendations {
+  background: -moz-linear-gradient(center top , green, darkgreen) repeat scroll 0 0 padding-box transparent;
+  background-image: -webkit-gradient(
+  	linear,
+  	left bottom,
+  	left top,
+  	color-stop(0.14, darkgreen),
+    color-stop(0.57, darkgreen),
+  	color-stop(0.79, green)
+  );
+}
+
+#videoplayer #recommended {
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0.6);
+  background: -moz-linear-gradient(center top, green, darkgreen) repeat scroll 0 0 padding-box transparent;
+  background-image: -webkit-gradient(
+  	linear,
+  	left bottom,
+  	left top,
+  	color-stop(0.14, #666),
+    color-stop(0.57, #666),
+  	color-stop(0.79, #ddd)
+  );
+}
+
+#videosources .ui-li-has-arrow.ui-li-has-count .ui-li-count.recommendations {
+  margin-right: 26px;
+}
+
 @media (min-width: 400px) {
   .ui-li-has-arrow.ui-li-has-count .ui-li-count {
     margin-right: 14px;
   }
+  #videosources .ui-li-has-arrow.ui-li-has-count .ui-li-count.recommendations {
+    margin-right: 50px;
+  }
+}
+
+#videos .ui-li-has-arrow.ui-li-has-count .ui-btn-inner a.ui-link-inherit {
+  padding-right: 100px;
 }
 
 .ui-header {

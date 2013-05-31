@@ -57,9 +57,3 @@ function redirectToAppStore() {
     alert("Voor deze browser hebben we helaas (nog) geen app.");
   }
 }
-
-function var_dump(object) {
-  for (var member in object) {
-    alert(member);
-  }
-}
