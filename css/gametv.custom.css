@@ -292,6 +292,8 @@ li.ui-btn {
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
   border-radius: 10px;
   font-size: 13px;
+  margin-left: 0;
+  margin-right: 10px;
 }
 
 .ui-li-has-arrow.ui-li-has-count .ui-li-count {
