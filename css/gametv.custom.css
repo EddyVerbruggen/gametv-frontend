@@ -238,11 +238,12 @@ li.ui-btn {
 
 #videoplayer #tweetClickHijacker {
   position: relative;
-  width:116px;
+  width:124px;
   height: 30px;
   margin-top:-34px;
-  margin-left: 85px;
+  margin-left: 140px;
   cursor: pointer;
+  /*border: 1px solid red;*/
 }
 
 #videoplayer .ui-content {
@@ -251,10 +252,6 @@ li.ui-btn {
 
 #videosources .ui-header .ui-title {
   margin-left: 25%;
-}
-
-#videoplayer .twitter-share-button {
-  width: 126px !important;
 }
 
 #videos .nrOfViews {
@@ -280,13 +277,13 @@ li.ui-btn {
 #videoplayer #recommended {
   display: none;
   position: relative;
-  top: -8px;
+  top: -10px;
   border: 2px solid white;
   color: #FFFFFF;
   padding: 4px 6px;
   text-shadow: none;
   font-weight: normal;
-  box-shadow: 0 0 4px rgba(0, 0, 0, 0.6);
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
   border-radius: 10px;
   font-size: 13px;
 }

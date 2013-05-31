@@ -25,28 +25,14 @@
   <script src="GAPlugin.js"></script>
   <script src="childbrowser.js"></script>
   <script type="text/javascript">
-
     "use strict";
     $(document).ready(function() {
-
       // init phonegap
       if (isMobileWithPhonegap()) {
         document.addEventListener('deviceready', onDeviceReady, false);
       } else {
         onDeviceReady();
       }
-
-      // for Android 4.2 (and higher, but that's for a later day), set a css property for smooth animations
-//      if (window.navigator.userAgent.indexOf("Android 4.2") > -1) {
-//        $("div[data-role='page']").css({"-webkit-backface-visibility": "hidden"});
-//      }
-      // these swipes kill scrolling fluency on Android
-//      $('#videos').bind('swiperight', function() {
-//        $.mobile.changePage($("#videosources"), {reverse:true});
-//      });
-//      $('#videoplayer').bind('swiperight', function() {
-//        $.mobile.changePage($("#videos"), {reverse:true});
-//      });
     });
 
     // Google Analytics
@@ -744,10 +730,10 @@
       	</div>
       	<div class="ui-block-b">
           <div id="description"></div><br/>
+          <span class="ui-btn-inline" id="recommend" style="cursor: pointer"><i class="icon-smile"> tip</i></span>
+          <span class="ui-btn-inline" id="recommended" style="cursor: pointer"><i class="icon-smile"> tip</i></span>
           <a id="sharebyemail" data-role="button" data-inline="true" data-mini="true" data-icon="forward" href="#share" data-rel="popup" data-transition="flip" data-position-to="window">Mail</a>
           <span id="sharebytweet"></span>
-          <span class="ui-btn-inline" id="recommend" style="cursor: pointer"><i class="icon-smile"> recommend</i></span>
-          <span class="ui-btn-inline" id="recommended" style="cursor: pointer"><i class="icon-smile"> recommended</i></span>
           <div id="tweetClickHijacker"></div>
           <br/>
       	</div>
