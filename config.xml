@@ -60,7 +60,7 @@
   <preference name="show-splash-screen-spinner" value="false" />
   <preference name="prerendered-icon" value="true" /> <!-- no ios gloss effect plz -->
 
-  <preference name="android-minSdkVersion" value="14" /><!-- 8=2.2, 9=2.3, 10=2.3.3, 14=4.0, 16=4.1, 17=4.2 -->
+  <preference name="android-minSdkVersion" value="12" /><!-- 8=2.2, 9=2.3, 10=2.3.3, 14=4.0(crash!), 16=4.1, 17=4.2 -->
   <preference name="android-installLocation" value="auto" /><!-- preferExternal; preferably install on SD-card -->
 
   <preference name="stay-in-webview" value="true" />
