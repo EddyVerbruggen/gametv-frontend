@@ -12,6 +12,7 @@
   <link rel="stylesheet" href="font-awesome/css/font-awesome.min.css" type="text/css">
   <link rel="apple-touch-icon" href="icon.png"/><!-- for webapp usage (not intended btw, but is possible) -->
   <script src="js/lib/jquery-1.9.1.min.js"></script>
+  <script src="js/lib/fastclick.js"></script>
   <script src="js/gametv.custom.js"></script>
   <script src="js/jqm-init.js"></script>
   <script src="js/lib/jquery.localisation.min.js"></script>
@@ -33,6 +34,7 @@
       } else {
         onDeviceReady();
       }
+      FastClick.attach(document.body);
     });
 
     // Google Analytics
