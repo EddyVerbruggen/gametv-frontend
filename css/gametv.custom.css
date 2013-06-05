@@ -347,6 +347,7 @@ li.ui-btn {
 @media (min-width: 400px) {
   .ui-li-has-arrow.ui-li-has-count .ui-li-count {
     margin-right: 14px;
+    right: 30px;
   }
   #videosources .ui-li-has-arrow.ui-li-has-count .ui-li-count.recommendations {
     margin-right: 50px;
@@ -354,7 +355,7 @@ li.ui-btn {
 }
 
 #videos .ui-li-has-arrow.ui-li-has-count .ui-btn-inner a.ui-link-inherit {
-  padding-right: 100px;
+  padding-right: 80px;
 }
 
 .ui-header {
