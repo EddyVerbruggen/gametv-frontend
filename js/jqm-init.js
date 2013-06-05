@@ -14,4 +14,10 @@ $(document).bind("mobileinit", function(){
 //  $(document).ajaxStop(function() {
 //    $.mobile.loading('hide');
 //  });
+
+  // remove any clicked states in header buttons (using 'on', so the function will attach to anything that's added to the DOM)
+  $(document).on("click", ".ui-header .ui-btn", function() {
+    $(this).removeClass("ui-btn-active");
+  });
+
 });
