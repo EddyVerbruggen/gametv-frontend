@@ -51,7 +51,7 @@
   <!--<feature name="http://api.phonegap.com/1.0/contacts"/>-->
   <!--<feature name="http://api.phonegap.com/1.0/geolocation"/>-->
 
-  <preference name="phonegap-version" value="2.5.0"/>
+  <preference name="phonegap-version" value="2.7.0"/>
   <preference name="orientation" value="default"/><!-- both landscape and portrait = "default" -->
   <preference name="target-device" value="universal"/>
   <preference name="webviewbounce" value="false"/><!-- ios rubber banding -->
@@ -68,7 +68,7 @@
   <preference name="exit-on-suspend" value="true" /><!-- stay with us, or not? -->
   <preference name="auto-hide-splash-screen" value="false" /><!-- we're hiding it with js -->
 
-  <preference name="splash-screen-duration" value="4000" /> <!-- default 5000 -->
+  <preference name="splash-screen-duration" value="3500" /> <!-- default 5000 -->
 
   <gap:plugin name="ChildBrowser" /> <!-- latest release -->
   <gap:plugin name="GAPlugin" /> <!-- latest release -->
