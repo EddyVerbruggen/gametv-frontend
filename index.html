@@ -360,7 +360,7 @@
 <div data-role="page" id="editvideosources" class="videosourcespage">
   <script type="text/javascript">
     $('#editvideosources')
-        .on('pagebeforeshow', function (e, data) {
+        .on('pageshow', function (e, data) {
           googleAnalytics("editvideosources");
           renderEditVideoSourceList(JSON.parse(localStorage.getItem("videosources")));
           $('select').slider();
@@ -447,7 +447,7 @@
 <div data-role="page" id="videos" data-videosourceid="to-be-filled">
   <script type="text/javascript">
     $('#videos')
-        .on('pagebeforeshow', function (e, data) {
+        .on('pageshow', function (e, data) {
           if ($.mobile.pageData != null) {
             var videosourceid = $.mobile.pageData.videosourceid;
             if (videosourceid != null) {
