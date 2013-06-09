@@ -683,11 +683,9 @@
               .html('<video id="daVideo_'+video.id+'" width="100%" height="100%" class="video-js vjs-default-skin" src="'+videourl+'" controls preload="auto" poster="'+video.imageurl+'">' +
                     '  <source src="'+videourl+'" type="video/mp4"/>' +
                     '</video>');
-//          setTimeout(function(){
-            videojs("daVideo_"+video.id, {}, function() {
-//              alert('init done');
-            }, 5000);
-//          })
+          videojs("daVideo_"+video.id, {}, function() {
+            alert('init done');
+          })
         }
 
 //        $("#videoplayer #mailbody").html('Check "'+video.title+'" @ ' + video.pageurl);
