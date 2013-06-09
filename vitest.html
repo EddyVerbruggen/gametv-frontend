@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="video-js/video-js.css">
+  <script src="video-js/video.js"></script>
+  <script>
+    videojs.options.flash.swf = "video-js/video-js.swf"
+  </script>
+</head>
+<body>
+
+<video id="daVideo_1" width="300px" height="240px" class="video-js vjs-default-skin" src="http://stream.gamekings.tv/large/20130607_AnimalCrossingReview.mp4" controls preload="auto">
+  <source src="http://stream.gamekings.tv/large/20130607_AnimalCrossingReview.mp4" type="video/mp4"/>
+</video>
+
+<script>
+videojs("daVideo_1", {}, function() {
+})
+</script>
+
+</body>
+</html>
