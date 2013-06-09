@@ -9,7 +9,7 @@
   <title>Game TV</title>
   <link rel="stylesheet" href="css/themes/default/jquery.mobile-1.3.1.min.css" type="text/css"/>
   <link rel="stylesheet" href="css/gametv.custom.css" type="text/css"/>
-  <!--link rel="stylesheet" href="font-awesome/css/font-awesome.min.css" type="text/css"-->
+  <link rel="stylesheet" href="font-awesome/css/font-awesome.min.css" type="text/css">
   <link rel="apple-touch-icon" href="icon.png"/><!-- for webapp usage (not intended btw, but is possible) -->
   <!--link rel="stylesheet" href="video-js/video-js.css"-->
   <script src="js/lib/jquery-1.9.1.min.js"></script>
@@ -24,7 +24,7 @@
     videojs.options.flash.swf = "video-js/video-js.swf"
   </script-->
   <!--link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Gudea:400,700,400italic" type="text/css"/-->
-  <!--script type="text/javascript" src="http://platform.twitter.com/widgets.js" defer="defer" async="async"></script-->
+  <script type="text/javascript" src="http://platform.twitter.com/widgets.js" defer="defer" async="async"></script>
   <!-- Included pgbuild js libs here. NOTE: debugging in Android emulator is not possible for PG features,
        BUT downloading the PG build APK on the emulator is! -->
   <script src="phonegap.js"></script>
@@ -660,19 +660,19 @@
 
         var totalWidth = $("body").width();
         var totalHeight = $("body").height();
-        var height = (totalWidth / (totalWidth < totalHeight ? 2 : 3));
-        var width = "95%";
+        var height = (totalWidth / (totalWidth < totalHeight ? 2 : 3)) - 30;
+        var width = "100%";
 
         var videourl = video.videourl;
 
         if (isYouTube(videourl)) {
           $("#videocontainer").html('<iframe width="'+width+'" height="'+height+'" type="text/html" src="'+videourl+'?hd=1&autoplay=true&modestbranding=1&rel=0&showinfo=0" frameborder="0" allowfullscreen></iframe>');
         } else {
-//          if (isIOS()) {
-            //  width = "95%";
-//          }
+          if (isIOS()) {
+            width = "95%";
+          }
           $("#videocontainer").html('\
-              <video style="z-index:1008" width="'+width+'" height="'+height+'" src="'+videourl+'" type="video/mp4" preload="auto" autobuffer controls poster="'+video.imageurl+'">\
+              <video style="z-index:1008" width="'+width+'" height="'+height+'" src="'+videourl+'" type="video/mp4" preload="auto" controls poster="'+video.imageurl+'">\
                 <object classid="clsid:02bf25d5-8c17-4b23-bc80-d3488abddc6b" width="'+width+'" height="'+height+'" codebase="http://www.apple.com/qtactivex/qtplugin.cab">\
                   <param value="'+videourl+'" type="video/mp4">\
                   <embed src="'+videourl+'" type="video/mp4" width="'+width+'" height="'+height+'" controller="false" pluginspage="http://www.apple.com/quicktime/download/"></embed>\
@@ -699,7 +699,6 @@
         showRecommendButtons(videosourceid, video.id);
 
         // add dynamically updated tweet button
-        /*
         var tweetButton = '';
         tweetButton += '<a href="https://twitter.com/share" class="twitter-share-button" data-text="'+video.title+'" data-size="large" data-lang="en" data-via="_GameTV" data-url="'+video.pageurl+'">Tweet</a>';
         $('#videoplayer #sharebytweet').html(tweetButton);
@@ -717,7 +716,6 @@
             window.open(twitterWebIntentUrl);
           }
         });
-        */
       }
     </script>
 
