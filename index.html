@@ -684,10 +684,12 @@
                     '  <source src="'+videourl+'"/>' +
                     '</video>');
           alert('init vid');
-          videojs("daVideo", {}, function() {
-            alert('init done');
-//            Player (this) is initialized and ready.
-          });
+          setTimeout(function(){
+            videojs("daVideo", {}, function() {
+              alert('init done');
+  //            Player (this) is initialized and ready.
+            }, 5000);
+          })
         }
 
 //        $("#videoplayer #mailbody").html('Check "'+video.title+'" @ ' + video.pageurl);
