@@ -680,16 +680,14 @@
 
           $("#videocontainer")
               .css({width:width, height:height})
-              .html('<video id="daVideo" width="100%" height="100%" class="video-js vjs-default-skin" src="'+videourl+'" controls preload="auto" poster="'+video.imageurl+'">' +
+              .html('<video id="daVideo_'+video.id+'" width="100%" height="100%" class="video-js vjs-default-skin" src="'+videourl+'" controls preload="auto" poster="'+video.imageurl+'">' +
                     '  <source src="'+videourl+'" type="video/mp4"/>' +
                     '</video>');
-          alert('init vid');
-          setTimeout(function(){
-            videojs("daVideo", {}, function() {
-              alert('init done');
-  //            Player (this) is initialized and ready.
+//          setTimeout(function(){
+            videojs("daVideo_"+video.id, {}, function() {
+//              alert('init done');
             }, 5000);
-          })
+//          })
         }
 
 //        $("#videoplayer #mailbody").html('Check "'+video.title+'" @ ' + video.pageurl);
