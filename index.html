@@ -680,9 +680,32 @@
     //            </object>\
       //        </video>');
 
-          $("#videocontainer").html('<video width="'+width+'" height="'+height+'" src="'+videourl+'"></video>');
+          $("#videocontainer").html('' +
+              '<video id="player1" controls preload="auto" width="'+width+'" height="'+height+'">' +
+              '	 <source type="video/mp4" src="'+videourl+'" />' +
+              '  <object width="320" height="240" type="application/x-shockwave-flash" data="mediaelement/flashmediaelement.swf">' +
+              '    <param name="movie" value="mediaelement/flashmediaelement.swf" />' +
+              '    <param name="flashvars" value="controls=true&amp;file='+encodeURIComponent(videourl)+'" />' +
+              '	</object>' +
+              '</video>');
 
-          $("video").mediaelementplayer();
+          $('audio,video').mediaelementplayer({
+          		// show framecount in timecode (##:00:00:00)
+          		showTimecodeFrameCount: true,
+          		// used when showTimecodeFrameCount is set to true
+          		framesPerSecond: 25,
+
+//            pluginPath: 'mediaelement/',
+
+//            plugins: ['flash'],
+
+          		// Hide controls when playing and mouse is not over the video
+          		alwaysShowControls: true,
+
+          	success: function(mediaElement, domObject) {
+          		$('#' + domObject.id + '-mode').html('mode: ' + mediaElement.pluginType);
+          	}
+          });
 
 //          $("#videocontainer")
 //              .css({width:width, height:height})
@@ -748,6 +771,8 @@
       	<div class="ui-block-a">
           <div class="antenna"></div>
           <div id="videocontainer"></div>
+          <span id="player1-mode"></span>
+          <span id="current-time"></span>
       	</div>
       	<div class="ui-block-b">
           <div id="description"></div><br/>
