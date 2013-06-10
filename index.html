@@ -15,6 +15,8 @@
   <!--link rel="stylesheet" href="video-js/video-js.css"-->
   <script src="js/lib/jquery-1.9.1.min.js"></script>
   <script src="mediaelement/mediaelement-and-player.js"></script>
+  <script src="mediaelement/mep-feature-fullscreen.js"></script>
+  <script src="mediaelement/mep-feature-progress.js"></script>
   <script src="js/lib/fastclick.js"></script>
   <script src="js/gametv.custom.js"></script>
   <script src="js/jqm-init.js"></script>
@@ -680,25 +682,20 @@
     //            </object>\
       //        </video>');
 
-          $("#videocontainer").html('' +
-              '<video id="player1" controls preload="auto" width="'+width+'" height="'+height+'">' +
-//              '	 <source type="video/mp4" src="'+videourl+'" />' +
-              '  <object width="320" height="240" type="application/x-shockwave-flash" data="mediaelement/flashmediaelement.swf">' +
-              '    <param name="movie" value="mediaelement/flashmediaelement.swf" />' +
-              '    <param name="flashvars" value="controls=true&amp;file='+videourl+'" />' +
-              '	</object>' +
-              '</video>');
+          $("#videocontainer").html('<video id="player1" controls preload="auto" width="'+width+'" height="'+height+'" src="'+videourl+'" preload="auto" poster="'+video.imageurl+'"></video>');
 
-          $('audio,video').mediaelementplayer({
+          $('video').mediaelementplayer({
           		// show framecount in timecode (##:00:00:00)
           		showTimecodeFrameCount: true,
           		// used when showTimecodeFrameCount is set to true
           		framesPerSecond: 25,
-            enablePluginDebug:true,
+              enablePluginDebug:true,
+              features: ['playpause','current','progress','duration','fullscreen'],
 
-//            pluginPath: 'mediaelement/',
 
-//            plugins: ['flash'],
+            pluginPath: 'mediaelement/',
+
+            plugins: ['flash'],
 
           		// Hide controls when playing and mouse is not over the video
           		alwaysShowControls: true,
