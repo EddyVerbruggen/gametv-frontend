@@ -685,7 +685,7 @@
               '	 <source type="video/mp4" src="'+videourl+'" />' +
               '  <object width="320" height="240" type="application/x-shockwave-flash" data="mediaelement/flashmediaelement.swf">' +
               '    <param name="movie" value="mediaelement/flashmediaelement.swf" />' +
-              '    <param name="flashvars" value="controls=true&amp;file='+encodeURIComponent(videourl)+'" />' +
+              '    <param name="flashvars" value="controls=true&amp;file='+videourl+'" />' +
               '	</object>' +
               '</video>');
 
@@ -694,6 +694,7 @@
           		showTimecodeFrameCount: true,
           		// used when showTimecodeFrameCount is set to true
           		framesPerSecond: 25,
+            enablePluginDebug:true,
 
 //            pluginPath: 'mediaelement/',
 
