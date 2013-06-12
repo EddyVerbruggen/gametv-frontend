@@ -667,6 +667,7 @@
         var width = "100%";
 
         var videourl = video.videourl;
+        videourl = "http://www.thumbrater.com/testvideo.mp4";
 
         if (isYouTube(videourl)) {
           $("#videocontainer").html('<iframe width="'+width+'" height="'+height+'" type="text/html" src="'+videourl+'?hd=1&autoplay=true&modestbranding=1&rel=0&showinfo=0" frameborder="0" allowfullscreen></iframe>');
@@ -674,17 +675,17 @@
           if (isIOS()) {
             width = "95%";
           }
-//          $("#videocontainer").html('\
-//              <video style="z-index:1008" width="'+width+'" height="'+height+'" src="'+videourl+'" type="video/mp4" preload="auto" controls poster="'+video.imageurl+'">\
-//                <object classid="clsid:02bf25d5-8c17-4b23-bc80-d3488abddc6b" width="'+width+'" height="'+height+'" codebase="http://www.apple.com/qtactivex/qtplugin.cab">\
-//                  <param value="'+videourl+'" type="video/mp4">\
-  //                <embed src="'+videourl+'" type="video/mp4" width="'+width+'" height="'+height+'" controller="false" pluginspage="http://www.apple.com/quicktime/download/"></embed>\
-    //            </object>\
-      //        </video>');
+          $("#videocontainer").html('\
+              <video style="z-index:1008" width="'+width+'" height="'+height+'" src="'+videourl+'" type="video/mp4" preload="auto" controls poster="'+video.imageurl+'">\
+                <object classid="clsid:02bf25d5-8c17-4b23-bc80-d3488abddc6b" width="'+width+'" height="'+height+'" codebase="http://www.apple.com/qtactivex/qtplugin.cab">\
+                  <param value="'+videourl+'" type="video/mp4">\
+                  <embed src="'+videourl+'" type="video/mp4" width="'+width+'" height="'+height+'" controller="false" pluginspage="http://www.apple.com/quicktime/download/"></embed>\
+                </object>\
+              </video>');
 
 //          $("#videocontainer").html('<video id="player1" controls preload="auto" width="'+width+'" height="'+height+'" src="'+videourl+'" preload="auto" poster="'+video.imageurl+'"></video>');
-          $("#videocontainer").html('<video id="player1" controls preload="auto" width="'+width+'" height="'+height+'" src="http://www.thumbrater.com/testvideo.mp4" preload="auto" poster="'+video.imageurl+'"></video>');
 
+          /*
           $('video').mediaelementplayer({
           		// show framecount in timecode (##:00:00:00)
           		showTimecodeFrameCount: true,
@@ -697,6 +698,7 @@
           		$('#' + domObject.id + '-mode').html('mode: ' + mediaElement.pluginType);
           	}
           });
+          */
 
 //          $("#videocontainer")
 //              .css({width:width, height:height})
