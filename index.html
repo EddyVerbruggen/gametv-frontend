@@ -44,7 +44,7 @@
       document.addEventListener("backbutton", onBackButtonPressed, false);
       if (window.plugins != undefined) {
         gaPlugin = window.plugins.gaPlugin;
-        gaPlugin.init(gaInitSuccessHandler, gaInitErrorHandler, "UA-28850866-4", 10);
+        gaPlugin.init(gaInitSuccessHandler, gaInitErrorHandler, "UA-28850866-4", 8);
       }
       if (navigator.splashscreen != undefined) {
         navigator.splashscreen.hide();
@@ -328,6 +328,7 @@
             sessionStorage.setItem("videosources", newVideosourcesString);
             localStorage.setItem("videosources", newVideosourcesString);
             renderVideoSourceList(newVideosources);
+            $.mobile.loading('hide');
           })
           .error(function () {
             if (cachedVideosourcesString == null) {
@@ -335,13 +336,14 @@
             } else {
 //              $(".feedback").html("Failed to fetch latest videos, showing the last known list.");
             }
+            $.mobile.loading('hide');
           })
     }
   </script>
 
   <div data-role="header" data-tap-toggle="false" data-position="fixed">
     <!--a id="downloadApp" data-icon="refresh" href="#">update app</a-->
-    <a data-icon="refresh" href="#" onclick="$.mobile.loading('show'); setTimeout(function(){loadVideos(true); $.mobile.loading('hide');},400)" id="refresh_title">refresh</a>
+    <a data-icon="refresh" href="#" onclick="$.mobile.loading('show'); setTimeout(function(){loadVideos(true)},400)" id="refresh_title">refresh</a>
     <h1>Game TV</h1>
     <a data-icon="grid" data-iconpos="notext" href="#editvideosources" data-role="button" data-direction="reverse" class="ui-btn-right" id="menu_title"></a>
   </div>
