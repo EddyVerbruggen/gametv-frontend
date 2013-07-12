@@ -742,6 +742,7 @@
       var playerwidth;
       var playerheight;
       var playervideourl;
+      var playerquality;
 
       function loadYoutubeVideoplayer(videourl, width, height, quality) {
         playerwidth = width;
@@ -766,11 +767,27 @@
           height: playerheight,
           width: playerwidth,
           videoId: playervideourl,
+          suggestedQuality: 'small',
+          playerVars: {
+            'autoplay': 1,
+            'controls': 1,
+            'modestbranding': 1
+          },
           events: {
-//            'onReady': onPlayerReady,
-//            'onStateChange': onPlayerStateChange
+            'onReady': onPlayerReady,
+            'onStateChange': onPlayerStateChange
           }
-        });
+        })
+      }
+
+      function onPlayerReady(event) {
+        event.target.setPlaybackQuality('large');
+      }
+
+      function onPlayerStateChange(event) {
+        if (event.data == YT.PlayerState.BUFFERING) {
+          event.target.setPlaybackQuality('large');
+        }
       }
     </script>
 
