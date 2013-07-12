@@ -777,14 +777,13 @@
       }
 
     function getVideoQuality() {
-      alert($("body").height());
       if (navigator.connection == undefined /*desktop*/) {
         return "hd720";
       } else {
         var cnx = navigator.connection.type;
         if (cnx == Connection.WIFI || cnx == Connection.ETHERNET) {
-          if ($("body").height() >= 720) {
-          return "hd720";
+          if ($("body").height() >= 720 || $("body").width() > 720) {
+            return "hd720";
           } else {
             return "large";
           }
