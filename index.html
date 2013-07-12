@@ -537,6 +537,7 @@
     <script type="text/javascript">
       $('#videoplayer')
           .on('pagebeforeshow', function (e, data) {
+            // TODO
             $('#videocontainer').html('<div id="player"></div>');
           })
           .on('pageshow', function (e, data) {
@@ -746,12 +747,17 @@
         playerwidth = width;
         playerheight = height;
         playervideourl = videourl.substring(videourl.lastIndexOf('/')+1);
-        alert(playervideourl);
 
-        var tag = document.createElement('script');
-        tag.src = "//www.youtube.com/iframe_api";
-        var firstScriptTag = document.getElementsByTagName('script')[0];
-        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+        var scriptAlreadyInjected = document.getElementById("myplayerscript") != null;
+        if (!scriptAlreadyInjected) {
+          var tag = document.createElement('script');
+          tag.id = "myplayerscript";
+          tag.src = "//www.youtube.com/iframe_api";
+          var firstScriptTag = document.getElementsByTagName('script')[0];
+          firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+        } else {
+          onYouTubeIframeAPIReady();
+        }
 //        $("#videocontainer").html('<iframe id="player" width="'+width+'" height="'+height+'" type="text/html" src="'+videourl+'?enablejsapi=1&hd=1&vq='+quality+'&autoplay=true&modestbranding=1&rel=0&showinfo=0" frameborder="0" allowfullscreen></iframe>');
       }
 
@@ -791,7 +797,7 @@
       	<div class="ui-block-a">
           <div class="antenna"></div>
           <div id="videocontainer"></div><br/>
-          <fieldset id="videoqualitySwitch" data-role="controlgroup" data-type="horizontal" data-mini="true">
+          <!--fieldset id="videoqualitySwitch" data-role="controlgroup" data-type="horizontal" data-mini="true">
             <input type="radio" data-theme="a" name="radio-videoquality" id="radio-videoquality-small" value="small">
             <label id="radio-videoquality-small-label" for="radio-videoquality-small">240p</label>
             <input type="radio" data-theme="a" name="radio-videoquality" id="radio-videoquality-medium" value="medium">
@@ -800,7 +806,7 @@
             <label id="radio-videoquality-large-label" for="radio-videoquality-large">480p</label>
             <input type="radio" data-theme="a" name="radio-videoquality" id="radio-videoquality-hd720" value="hd720">
             <label id="radio-videoquality-hd720-label" for="radio-videoquality-hd720">720p HD</label>
-          </fieldset>
+          </fieldset-->
       	</div>
       	<div class="ui-block-b">
           <div id="description"></div><br/>
