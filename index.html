@@ -189,8 +189,8 @@
     }
 
     function userHasRecommended(videoid) {
-      var recommendedVideos = JSON.parse(localStorage.getItem("recommendedVideos"));
-      return recommendedVideos != null && $.inArray(videoid, recommendedVideos) > -1;
+      var recommendedVideos = localStorage.getItem("recommendedVideos");
+      return recommendedVideos != null && $.inArray(videoid, JSON.parse(recommendedVideos)) > -1;
     }
 
     function renderVideoList(videosourceid) {
@@ -601,9 +601,11 @@
               var videoid = parseInt($(this).attr("data-videoid"));
               var videosourceid = parseInt($(this).attr("data-videosourceid"));
               registerVideoRecommended(videoid);
-              var recommendedVideos = JSON.parse(localStorage.getItem("recommendedVideos"));
+              var recommendedVideos = localStorage.getItem("recommendedVideos");
               if (recommendedVideos == null) {
                 recommendedVideos = [];
+              } else {
+                recommendedVideos = JSON.parse(recommendedVideos);
               }
               recommendedVideos.push(videoid);
               localStorage.setItem("recommendedVideos", JSON.stringify(recommendedVideos));
@@ -619,8 +621,9 @@
               var videoid = parseInt($(this).attr("data-videoid"));
               var videosourceid = parseInt($(this).attr("data-videosourceid"));
               deregisterVideoRecommended(videoid);
-              var recommendedVideos = JSON.parse(localStorage.getItem("recommendedVideos"));
+              var recommendedVideos = localStorage.getItem("recommendedVideos");
               if (recommendedVideos != null) {
+                recommendedVideos = JSON.parse(recommendedVideos);
                 var curIndex = recommendedVideos.indexOf(videoid);
                 recommendedVideos = recommendedVideos.slice(curIndex,1);
                 localStorage.setItem("recommendedVideos", JSON.stringify(recommendedVideos));
@@ -660,11 +663,26 @@
         var width = "100%";
 
         var videourl = video.videourl;
-//        videourl = "http://www.thumbrater.com/testvideo.mp4";
-
         if (isYouTube(videourl)) {
-          $("#videocontainer").html('<iframe width="'+width+'" height="'+height+'" type="text/html" src="'+videourl+'?hd=1&autoplay=true&modestbranding=1&rel=0&showinfo=0" frameborder="0" allowfullscreen></iframe>');
+          // set the video quality
+          var videoquality = "large"; // default
+          var preferedVideoquality = localStorage.getItem("videoQuality");
+          if (preferedVideoquality != null) {
+            videoquality = preferedVideoquality;
+          }
+          loadYoutubeVideoplayer(videourl, width, height, videoquality);
+          $("#videoqualitySwitch")
+              .show()
+              .find("input[type='radio']")
+              .bind("change", function(event, ui) {
+                var switchedTo = $(this).val();
+                $("#youtubeFrame").attr('src', videourl+'?autoplay=1&hd=1&vq='+switchedTo+'&autoplay=true&modestbranding=1&rel=0&showinfo=0');
+                setVideoQualitySwitch(switchedTo);
+                localStorage.setItem("videoQuality", switchedTo);
+              });
+          setVideoQualitySwitch(videoquality);
         } else {
+          $("#videoqualitySwitch").hide();
           if (isIOS()) {
             width = "95%";
           }
@@ -705,6 +723,16 @@
           }
         });
       }
+
+      function setVideoQualitySwitch(val) {
+        var switchContainer = $("#videoqualitySwitch");
+        $(switchContainer).find("label").removeClass("ui-btn-active");
+        $(switchContainer).find('#radio-videoquality-'+val+'-label').addClass("ui-btn-active");
+      }
+
+      function loadYoutubeVideoplayer(videourl, width, height, quality) {
+        $("#videocontainer").html('<iframe id="youtubeFrame" width="'+width+'" height="'+height+'" type="text/html" src="'+videourl+'?hd=1&vq='+quality+'&autoplay=true&modestbranding=1&rel=0&showinfo=0" frameborder="0" allowfullscreen></iframe>');
+      }
     </script>
 
   <div data-role="header" data-tap-toggle="false" data-position="fixed">
@@ -726,13 +754,20 @@
 
   <div data-role="content">
     <div class="content-primary" style="text-align: center">
-
       <div class="ui-grid-a">
       	<div class="ui-block-a">
           <div class="antenna"></div>
-          <div id="videocontainer"></div>
-          <span id="player1-mode"></span>
-          <span id="current-time"></span>
+          <div id="videocontainer"></div><br/>
+          <fieldset id="videoqualitySwitch" data-role="controlgroup" data-type="horizontal" data-mini="true">
+            <input type="radio" data-theme="a" name="radio-videoquality" id="radio-videoquality-small" value="small">
+            <label id="radio-videoquality-small-label" for="radio-videoquality-small">240p</label>
+            <input type="radio" data-theme="a" name="radio-videoquality" id="radio-videoquality-medium" value="medium">
+            <label id="radio-videoquality-medium-label" for="radio-videoquality-medium">360p</label>
+            <input type="radio" data-theme="a" name="radio-videoquality" id="radio-videoquality-large" value="large">
+            <label id="radio-videoquality-large-label" for="radio-videoquality-large">480p</label>
+            <input type="radio" data-theme="a" name="radio-videoquality" id="radio-videoquality-hd720" value="hd720">
+            <label id="radio-videoquality-hd720-label" for="radio-videoquality-hd720">720p HD</label>
+          </fieldset>
       	</div>
       	<div class="ui-block-b">
           <div id="description"></div><br/>
