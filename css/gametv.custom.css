@@ -212,8 +212,7 @@ li.ui-btn {
     width: 100%;
   }
   #videocontainer {
-    width: 90%;
-    /*margin-left: 10%;*/
+    width: 100%;
   }
 }
 
@@ -253,7 +252,7 @@ li.ui-btn {
 }
 
 #videoplayer .ui-content {
-  padding-right: 10px;
+  /*padding-right: 10px;*/
 }
 
 #videosources .ui-header .ui-title {
