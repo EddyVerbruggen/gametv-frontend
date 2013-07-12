@@ -748,6 +748,7 @@
         playerwidth = width;
         playerheight = height;
         playervideourl = videourl.substring(videourl.lastIndexOf('/')+1);
+        playerquality = quality;
 
 //        var scriptAlreadyInjected = document.getElementById("myplayerscript") != null;
 //        if (!scriptAlreadyInjected) {
@@ -781,12 +782,12 @@
       }
 
       function onPlayerReady(event) {
-        event.target.setPlaybackQuality('large');
+        event.target.setPlaybackQuality(playerquality);
       }
 
       function onPlayerStateChange(event) {
         if (event.data == YT.PlayerState.BUFFERING) {
-          event.target.setPlaybackQuality('large');
+          event.target.setPlaybackQuality(playerquality);
         }
       }
     </script>
