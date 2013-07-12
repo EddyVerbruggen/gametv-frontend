@@ -670,12 +670,12 @@
         var videourl = video.videourl;
         if (isYouTube(videourl)) {
           // set the video quality
-          var videoquality = "small"; // default
+//          var videoquality = "small"; // default
 //          var preferedVideoquality = localStorage.getItem("videoQuality");
 //          if (preferedVideoquality != null) {
 //            videoquality = preferedVideoquality;
 //          }
-          loadYoutubeVideoplayer(videourl, width, height, videoquality);
+          loadYoutubeVideoplayer(videourl, width, height);
           /*
           $("#videoqualitySwitch")
               .show()
@@ -742,13 +742,11 @@
       var playerwidth;
       var playerheight;
       var playervideourl;
-      var playerquality;
 
-      function loadYoutubeVideoplayer(videourl, width, height, quality) {
+      function loadYoutubeVideoplayer(videourl, width, height) {
         playerwidth = width;
         playerheight = height;
         playervideourl = videourl.substring(videourl.lastIndexOf('/')+1);
-        playerquality = quality;
 
 //        var scriptAlreadyInjected = document.getElementById("myplayerscript") != null;
 //        if (!scriptAlreadyInjected) {
@@ -768,7 +766,6 @@
           height: playerheight,
           width: playerwidth,
           videoId: playervideourl,
-          suggestedQuality: 'small',
           playerVars: {
             'autoplay': 1,
             'controls': 1,
@@ -782,14 +779,33 @@
       }
 
       function onPlayerReady(event) {
-        event.target.setPlaybackQuality(playerquality);
+        event.target.setPlaybackQuality(getVideoQuality());
       }
 
       function onPlayerStateChange(event) {
         if (event.data == YT.PlayerState.BUFFERING) {
-          event.target.setPlaybackQuality(playerquality);
+          event.target.setPlaybackQuality(getVideoQuality());
         }
       }
+
+    function getVideoQuality() {
+      // desktop:
+      if (navigator.connection == undefined) {
+        return "hd720";
+      } else {
+        var cnx = navigator.connection.type;
+        alert(cnx);
+        if (cnx == Connection.WIFI || cnx == Connection.ETHERNET) {
+          return "hd720";
+        } else if (cnx == Connection.CELL_4G) {
+          return "large";
+        } else if (cnx == Connection.CELL_2G) {
+          return "small";
+        } else {
+          return "medium";
+        }
+      }
+    }
     </script>
 
   <div data-role="header" data-tap-toggle="false" data-position="fixed">
