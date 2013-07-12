@@ -206,16 +206,6 @@ li.ui-btn {
   text-align: center;
 }
 
-/* for devices of max 479px, we want the content not to be side by side */
-@media all and (orientation:portrait) {
-  #videoplayer .ui-block-a, #videoplayer .ui-block-b {
-    width: 100%;
-  }
-  #videocontainer {
-    width: 100%;
-  }
-}
-
 #videoplayer .ui-block-a {
   text-align: left;
   /*margin-bottom: 24px;*/
@@ -224,6 +214,19 @@ li.ui-btn {
 #videoplayer .ui-block-b {
   text-align: left;
   margin-top: 23px;
+}
+
+/* for devices of max 479px, we want the content not to be side by side */
+@media all and (orientation:portrait) {
+  #videoplayer .ui-block-a, #videoplayer .ui-block-b {
+    width: 100%;
+  }
+  #videocontainer {
+    width: 100%;
+  }
+  #videoplayer .ui-block-b {
+    margin-top: 0;
+  }
 }
 
 #mailbody {

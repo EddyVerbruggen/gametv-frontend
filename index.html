@@ -755,9 +755,9 @@
           width: playerwidth,
           videoId: playervideourl,
           playerVars: {
-            'autoplay': 1,
-            'controls': 0,
-            'modestbranding': 1
+            autoplay: 1,
+            controls: 1,
+            modestbranding: 1
           },
           events: {
             'onReady': onPlayerReady,
@@ -777,12 +777,17 @@
       }
 
     function getVideoQuality() {
+      alert($("body").height());
       if (navigator.connection == undefined /*desktop*/) {
         return "hd720";
       } else {
         var cnx = navigator.connection.type;
         if (cnx == Connection.WIFI || cnx == Connection.ETHERNET) {
+          if ($("body").height() >= 720) {
           return "hd720";
+          } else {
+            return "large";
+          }
         } else if (cnx == Connection.CELL_4G) {
           return "large";
         } else if (cnx == Connection.CELL_2G) {
