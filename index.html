@@ -670,10 +670,10 @@
         if (isYouTube(videourl)) {
           // set the video quality
           var videoquality = "large"; // default
-          var preferedVideoquality = localStorage.getItem("videoQuality");
-          if (preferedVideoquality != null) {
-            videoquality = preferedVideoquality;
-          }
+//          var preferedVideoquality = localStorage.getItem("videoQuality");
+//          if (preferedVideoquality != null) {
+//            videoquality = preferedVideoquality;
+//          }
           loadYoutubeVideoplayer(videourl, width, height, videoquality);
           /*
           $("#videoqualitySwitch")
@@ -743,7 +743,6 @@
       var playervideourl;
 
       function loadYoutubeVideoplayer(videourl, width, height, quality) {
-        playervideo = videourl;
         playerwidth = width;
         playerheight = height;
         playervideourl = videourl.substring(videourl.lastIndexOf('/')+1);
@@ -762,6 +761,7 @@
       }
 
       function onYouTubeIframeAPIReady() {
+        alert('yt iframe ready');
         player = new YT.Player('player', {
           height: playerheight,
           width: playerwidth,
