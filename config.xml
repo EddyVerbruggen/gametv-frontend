@@ -2,7 +2,7 @@
 <widget xmlns="http://www.w3.org/ns/widgets"
         xmlns:gap="http://phonegap.com/ns/1.0"
         id="nl.x-services.gametv"
-        version="1.2.6">
+        version="1.2.7-SNAPSHOT">
 
   <name>Game TV</name><!-- is also the name of the icon on the device -->
 
@@ -69,7 +69,7 @@
   <preference name="splash-screen-duration" value="3500" /> <!-- default 5000 -->
 
   <gap:plugin name="ChildBrowser" />
-  <gap:plugin name="GAPlugin" />
+  <gap:plugin name="com.adobe.plugins.gaplugin" />
 
   <!-- allow loading any url in the webview -->
   <access origin="*" />
