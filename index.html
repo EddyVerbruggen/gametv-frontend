@@ -687,7 +687,7 @@
               });
           setVideoQualitySwitch(videoquality);
           */
-        } else {
+        } else if (videourl.indexOf(".mp4") > -1) {
 //          $("#videoqualitySwitch").hide();
           if (isIOS()) {
 //            width = "95%";
@@ -699,6 +699,8 @@
                   <embed src="'+videourl+'" type="video/mp4" width="'+width+'" height="'+height+'" controller="false" pluginspage="http://www.apple.com/quicktime/download/"></embed>\
                 </object>\
               </video>');
+        } else {
+          $("#videocontainer").html("<iframe width='"+width+"' height='"+height+"' src='http://zentr.cc/oUlwGF/' frameborder='0' webkitAllowFullScreen allowfullscreen></iframe>");
         }
 
 //        $("#videoplayer #mailbody").html('Check "'+video.title+'" @ ' + video.pageurl);
@@ -826,6 +828,7 @@
           <div id="description"></div><br/>
           <span class="ui-btn-inline" id="recommend" style="cursor: pointer"><i class="icon-smile"> tip</i></span>
           <span class="ui-btn-inline" id="recommended" style="cursor: pointer"><i class="icon-smile"> tip</i></span>
+          <!--<span class="ui-btn-inline" id="viewonweb" style="cursor: pointer"><i class="icon-share"> web</i></span>-->
           <span id="sharebytweet"></span>
           <div id="tweetClickHijacker"></div>
           <br/>
@@ -837,5 +840,3 @@
 
 </body>
 </html>
-
-ruby -e "$(curl -fsSL https://raw.github.com/mxcl/homebrew/go)"
