@@ -667,7 +667,7 @@
         var width = "100%";
 
         var videourl = video.videourl;
-        if (false && isYouTube(videourl)) {
+        if (isYouTube(videourl)) {
           // set the video quality
 //          var videoquality = "small"; // default
 //          var preferedVideoquality = localStorage.getItem("videoQuality");
@@ -687,7 +687,7 @@
               });
           setVideoQualitySwitch(videoquality);
           */
-        } else if (false && videourl.indexOf(".mp4") > -1) {
+        } else {
 //          $("#videoqualitySwitch").hide();
           if (isIOS()) {
 //            width = "95%";
@@ -699,8 +699,6 @@
                   <embed src="'+videourl+'" type="video/mp4" width="'+width+'" height="'+height+'" controller="false" pluginspage="http://www.apple.com/quicktime/download/"></embed>\
                 </object>\
               </video>');
-        } else {
-          $("#videocontainer").html("<iframe width='"+width+"' height='"+height+"' src='http://zentr.cc/oUlwGF/' frameborder='0' webkitAllowFullScreen allowfullscreen></iframe>");
         }
 
 //        $("#videoplayer #mailbody").html('Check "'+video.title+'" @ ' + video.pageurl);
