@@ -40,12 +40,21 @@
 
     // Google Analytics
     var gaPlugin;
+    var _gaq = _gaq || [];
 
     function onDeviceReady() {
       document.addEventListener("backbutton", onBackButtonPressed, false);
       if (window.plugins != undefined) {
         gaPlugin = window.plugins.gaPlugin;
         gaPlugin.init(gaInitSuccessHandler, gaInitErrorHandler, "UA-28850866-4", 8);
+      } else {
+        // custom GA (for clients accessing www.x-services.nl/gametv)
+        _gaq.push(['_setAccount', 'UA-28850866-4']);
+        (function() {
+          var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+          ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+          var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
       }
       if (navigator.splashscreen != undefined) {
         navigator.splashscreen.hide();
@@ -67,6 +76,8 @@
     function googleAnalytics(page) {
       if (gaPlugin !== undefined && isMobileWithPhonegap()) {
         gaPlugin.trackPage(gaPluginResultHandler, gaPluginErrorHandler, page);
+      } else {
+        _gaq.push(['_trackPageview', page]);
       }
     }
 
