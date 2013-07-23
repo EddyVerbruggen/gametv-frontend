@@ -189,7 +189,7 @@ li.ui-btn {
   top: 10px;
 }
 
-#editvideosources .ui-last-child .ui-icon-checkbox-on {
+#editvideosources .pushcheckbox .ui-icon-checkbox-on {
   background-color: red;
 }
 
