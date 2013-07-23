@@ -65,8 +65,7 @@
 
     function onReceivePushRegistrationID(regid) {
       localStorage.setItem("regid", regid);
-//      alert("received: " + regid);
-      // TODO send it to the server (async), for create or update. Also send the platform name.
+      $.getJSON(getServiceURL("/push/register/"+regid+"/"+(isAndroid()?"ANDROID":"IOS")));
     }
 
     function onReceiveMessage(message) {
