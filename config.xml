@@ -67,6 +67,7 @@
   <preference name="splash-screen-duration" value="3500" /> <!-- default 5000 -->
 
   <gap:plugin name="com.adobe.plugins.gaplugin" />
+  <gap:plugin name="com.adobe.plugins.pushplugin" />
 
   <!-- allow loading any url in the webview -->
   <access origin="*" />

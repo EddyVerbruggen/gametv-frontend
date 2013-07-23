@@ -373,7 +373,7 @@
     <!--a id="downloadApp" data-icon="refresh" href="#">update app</a-->
     <a data-icon="refresh" href="#" onclick="$.mobile.loading('show'); setTimeout(function(){loadVideos(true)},400)" id="refresh_title">refresh</a>
     <h1>Game TV</h1>
-    <a data-icon="bars" data-iconpos="notext" href="#editvideosources" data-role="button" data-direction="reverse" class="ui-btn-right" id="menu_title"></a>
+    <a data-icon="bars" data-iconpos="notext" href="#" onclick="$.mobile.loading('show'); setTimeout(function(){$.mobile.changePage('#editvideosources', {})},400)" data-role="button" data-direction="reverse" class="ui-btn-right" id="menu_title"></a>
   </div>
   <div data-role="content">
     <div class="content-primary">
