@@ -26,6 +26,7 @@
   <script src="js/pushclient.js"></script>
   <script src="phonegap.js"></script>
   <script src="GAPlugin.js"></script>
+  <script src="PushNotification.js"></script>
   <script type="text/javascript">
     "use strict";
     $(document).ready(function() {
@@ -43,7 +44,6 @@
     var _gaq = _gaq || [];
 
     function onDeviceReady() {
-      navigator.splashscreen.hide();
       document.addEventListener("backbutton", onBackButtonPressed, false);
       if (window.plugins != undefined) {
         gaPlugin = window.plugins.gaPlugin;
@@ -58,9 +58,9 @@
           var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
         })();
       }
-//      if (navigator.splashscreen != undefined) {
-//        navigator.splashscreen.hide();
-//      }
+      if (navigator.splashscreen != undefined) {
+        navigator.splashscreen.hide();
+      }
     }
 
     function onReceivePushRegistrationID(regid) {
