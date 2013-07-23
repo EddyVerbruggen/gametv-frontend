@@ -23,9 +23,9 @@
   <script type="text/javascript" src="http://platform.twitter.com/widgets.js" defer="defer" async="async"></script>
   <!-- Included pgbuild js libs here. NOTE: debugging in Android emulator is not possible for PG features,
        BUT downloading the PG build APK on the emulator is! -->
+  <script src="js/pushclient.js"></script>
   <script src="phonegap.js"></script>
   <script src="GAPlugin.js"></script>
-  <script src="childbrowser.js"></script>
   <script type="text/javascript">
     "use strict";
     $(document).ready(function() {
@@ -47,7 +47,10 @@
       if (window.plugins != undefined) {
         gaPlugin = window.plugins.gaPlugin;
         gaPlugin.init(gaInitSuccessHandler, gaInitErrorHandler, "UA-28850866-4", 8);
-      } else {
+        if (hasPushChannels) { // TODO
+          new PushClient("44561589632", onReceivePushRegistrationID, onReceiveMessage);
+        }
+      } else if (location.hostname.indexOf("x-services.nl") > -1) {
         // custom GA (for clients accessing www.x-services.nl/gametv)
         _gaq.push(['_setAccount', 'UA-28850866-4']);
         (function() {
@@ -58,6 +61,20 @@
       }
       if (navigator.splashscreen != undefined) {
         navigator.splashscreen.hide();
+      }
+    }
+
+    function onReceivePushRegistrationID(regid) {
+      if (getUser() != null) {
+        // TODO send it to the server (async), along with the platform name (use MobilePlatform enum value)
+      }
+    }
+
+    function onConfirmReceiveAanvraag(buttonIndex) {
+      if (buttonIndex == 1) { // index starts at 1
+        $.mobile.changePage("#requestPage", {transition: 'none'});
+      } else if (buttonIndex == 2) {
+        // nothing
       }
     }
 
@@ -141,12 +158,11 @@
     }
 
     function isEnabledForUser(videosourceid) {
-      var disabledVideosources = localStorage.getItem("disabledVideosources");
-      if (disabledVideosources == null) {
-        return true;
-      } else {
-        return $.inArray(videosourceid, JSON.parse(disabledVideosources)) == -1;
-      }
+      return localStorageObjectContainsID("disabledVideosources", videosourceid);
+    }
+
+    function isPushEnabledForUser(videosourceid) {
+      return localStorageObjectContainsID("disabledVideosourcesForPush", videosourceid);
     }
 
     function toggleRecommendationLocally(videosourceid, videoid, on) {
@@ -185,15 +201,18 @@
 
     function saveVideosources() {
       var disabledVideosources = [];
+      var disabledVideosourcesForPush = [];
       var videosources = JSON.parse(localStorage.getItem("videosources"));
       $.each(videosources, function (i, videosource) {
-        var sliderElementID = "#editvideosourcesForm #slider_"+videosource.id;
-        var setting = $(sliderElementID).val();
-        if (setting == "off") {
+        if (!$("#editvideosourcesForm #checkbox-on-"+videosource.id).is(":checked")) {
           disabledVideosources.push(videosource.id);
+        }
+        if (!$("#editvideosourcesForm #checkbox-push-"+videosource.id).is(":checked")) {
+          disabledVideosourcesForPush.push(videosource.id);
         }
       });
       localStorage.setItem("disabledVideosources", JSON.stringify(disabledVideosources));
+      localStorage.setItem("disabledVideosourcesForPush", JSON.stringify(disabledVideosourcesForPush));
       // re-render the list
       renderVideoSourceList(videosources);
       // back to the list
@@ -357,7 +376,7 @@
     <!--a id="downloadApp" data-icon="refresh" href="#">update app</a-->
     <a data-icon="refresh" href="#" onclick="$.mobile.loading('show'); setTimeout(function(){loadVideos(true)},400)" id="refresh_title">refresh</a>
     <h1>Game TV</h1>
-    <a data-icon="grid" data-iconpos="notext" href="#editvideosources" data-role="button" data-direction="reverse" class="ui-btn-right" id="menu_title"></a>
+    <a data-icon="bars" data-iconpos="notext" href="#editvideosources" data-role="button" data-direction="reverse" class="ui-btn-right" id="menu_title"></a>
   </div>
   <div data-role="content">
     <div class="content-primary">
@@ -377,7 +396,8 @@
         .on('pageshow', function (e, data) {
           googleAnalytics("editvideosources");
           renderEditVideoSourceList(JSON.parse(localStorage.getItem("videosources")));
-          $('select').slider();
+          // trigger everything inside this container to repaint
+          $('.ui-block-b').trigger("create");
           $("#editvideosources h1").html(page_editvideosources_title);
           $("#page_editvideosources_button_cancel .ui-btn-text").html(page_editvideosources_button_cancel);
           $("#page_editvideosources_button_save .ui-btn-text").html(page_editvideosources_button_save);
@@ -421,11 +441,13 @@
                 '      <h3>' + videosource.name + '</h3>' +
                 '      <p>' + videosource.website + '</p>' +
                 '    </div>' +
-                '    <div class="ui-block-b" style="text-align: right; margin-top: 8px">' +
-                '      <select name="slider_'+videosource.id+'" id="slider_'+videosource.id+'" data-role="slider" data-mini="true" data-theme="c" data-track-theme="a">' +
-                '        <option value="off" style="color:green"></option>' +
-                '        <option value="on" ' + (isEnabledForUser(videosource.id) ? 'selected' : '') + '></option>' +
-                '      </select>' +
+                '    <div class="ui-block-b">' +
+                '      <fieldset data-role="controlgroup" data-iconpos="right">' +
+                '        <input type="checkbox" name="checkbox-on-'+videosource.id+'" id="checkbox-on-'+videosource.id+'" '+(isEnabledForUser(videosource.id) ? 'checked' : '')+' data-mini="true" data-theme="d">' +
+                '        <label for="checkbox-on-'+videosource.id+'">On</label>' +
+                '        <input type="checkbox" name="checkbox-push-'+videosource.id+'" id="checkbox-push-'+videosource.id+'" '+(isPushEnabledForUser(videosource.id) ? 'checked' : '')+' data-mini="true" data-theme="d">' +
+                '        <label for="checkbox-push-'+videosource.id+'">Push</label>' +
+                '      </fieldset>' +
                 '    </div>' +
                 '  </div>' +
                 '</li>';
@@ -731,13 +753,14 @@
         $('#videoplayer #tweetClickHijacker').click(function() {
           googleAnalytics("tweet");
           var twitterWebIntentUrl = encodeURI('https://twitter.com/intent/tweet?via=_GameTV&text='+video.title+'&url='+video.pageurl);
-          if (isMobileWithPhonegap()) {
-            // open in childbrowser, so iOS users can navigate back to the app
-            window.plugins.childBrowser.showWebPage(twitterWebIntentUrl);
-          } else {
+//          if (isMobileWithPhonegap()) {
+            // open in InAppBrowser, so iOS users can navigate back to the app
+//            window.plugins.childBrowser.showWebPage(twitterWebIntentUrl);
+            window.open(twitterWebIntentUrl, '_blank', 'location=no,toolbar=no,transitionstyle=fliphorizontal');
+//          } else {
             // childbrowser is only available for iOS and Android
-            window.open(twitterWebIntentUrl);
-          }
+//            window.open(twitterWebIntentUrl);
+//          }
         });
       }
 

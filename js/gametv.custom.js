@@ -43,6 +43,15 @@ function getServiceURL(servicePath) {
   }
 }
 
+function localStorageObjectContainsID(localStorageObject, id) {
+  var storedObject = localStorage.getItem(localStorageObject);
+  if (storedObject == null) {
+    return true;
+  } else {
+    return $.inArray(id, JSON.parse(storedObject)) == -1;
+  }
+}
+
 function redirect(where) {
   window.location = where;
 }

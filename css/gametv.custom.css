@@ -176,6 +176,23 @@ li.ui-btn {
   margin: -1px 0;
 }
 
+#editvideosources .ui-block-b {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+#editvideosources .ui-block-b .ui-controlgroup {
+  margin-top: 0;
+}
+
+#editvideosources .ui-li-thumb {
+  top: 10px;
+}
+
+#editvideosources .ui-last-child .ui-icon-checkbox-on {
+  background-color: red;
+}
+
 #popupPanel .ui-btn {
   margin: 2em 15px;
 }
