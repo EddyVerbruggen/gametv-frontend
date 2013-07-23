@@ -64,8 +64,9 @@
     }
 
     function onReceivePushRegistrationID(regid) {
+      localStorage.setItem("regid", regid);
 //      alert("received: " + regid);
-      // TODO send it to the server (async), along with the platform name (use MobilePlatform enum value)
+      // TODO send it to the server (async), for create or update. Also send the platform name.
     }
 
     function onReceiveMessage(message) {
@@ -209,6 +210,7 @@
       });
       localStorage.setItem("disabledVideosources", JSON.stringify(disabledVideosources));
       localStorage.setItem("disabledVideosourcesForPush", JSON.stringify(disabledVideosourcesForPush));
+      // TODO send the Videosource array to the server along with the regid. Store regid in LS. Serverside: ignore (but dont delete) regids which have not been updated a while
       // re-render the list
       renderVideoSourceList(videosources);
       // back to the list
@@ -479,7 +481,7 @@
 <div data-role="page" id="videos" data-videosourceid="to-be-filled">
   <script type="text/javascript">
     $('#videos')
-        .on('pagebeforeshow', function (e, data) {
+        .on('pageshow', function (e, data) {
           if ($.mobile.pageData != null) {
             var videosourceid = $.mobile.pageData.videosourceid;
             if (videosourceid != null) {
@@ -752,7 +754,7 @@
 //          if (isMobileWithPhonegap()) {
             // open in InAppBrowser, so iOS users can navigate back to the app
 //            window.plugins.childBrowser.showWebPage(twitterWebIntentUrl);
-            window.open(twitterWebIntentUrl, '_blank', 'location=no,toolbar=no,transitionstyle=fliphorizontal');
+            window.open(twitterWebIntentUrl, '_blank', 'location=no,toolbar=yes,transitionstyle=fliphorizontal');
 //          } else {
             // childbrowser is only available for iOS and Android
 //            window.open(twitterWebIntentUrl);
