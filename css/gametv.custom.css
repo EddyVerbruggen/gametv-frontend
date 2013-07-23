@@ -406,6 +406,12 @@ li.ui-btn {
   right: 14px;
 }
 
+#videosources .ui-header .ui-btn-right {
+  top: 3px;
+  right: 7px;
+  padding: 6px;
+}
+
 #website {
   margin-top: 18px;
   color: #bbb;

@@ -65,17 +65,13 @@
     }
 
     function onReceivePushRegistrationID(regid) {
-      if (getUser() != null) {
-        // TODO send it to the server (async), along with the platform name (use MobilePlatform enum value)
-      }
+      alert("received: " + regid);
+      // TODO send it to the server (async), along with the platform name (use MobilePlatform enum value)
     }
 
-    function onConfirmReceiveAanvraag(buttonIndex) {
-      if (buttonIndex == 1) { // index starts at 1
-        $.mobile.changePage("#requestPage", {transition: 'none'});
-      } else if (buttonIndex == 2) {
-        // nothing
-      }
+    function onReceiveMessage(message) {
+      alert("msg: " + message);
+//      $.mobile.changePage('#videos?videosourceid=' + videosource.id + '&videosourcename='+encodeURI(videosource.name.replace(".","_"))+', {transition: 'none'});
     }
 
     function gaInitSuccessHandler() {
@@ -162,7 +158,8 @@
     }
 
     function isPushEnabledForUser(videosourceid) {
-      return localStorageObjectContainsID("disabledVideosourcesForPush", videosourceid);
+      return localStorage.getItem("disabledVideosourcesForPush") != null &&
+          localStorageObjectContainsID("disabledVideosourcesForPush", videosourceid);
     }
 
     function toggleRecommendationLocally(videosourceid, videoid, on) {
