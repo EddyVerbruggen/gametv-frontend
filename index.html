@@ -47,9 +47,7 @@
       if (window.plugins != undefined) {
         gaPlugin = window.plugins.gaPlugin;
         gaPlugin.init(gaInitSuccessHandler, gaInitErrorHandler, "UA-28850866-4", 8);
-        if (hasPushChannels) { // TODO
-          new PushClient("44561589632", onReceivePushRegistrationID, onReceiveMessage);
-        }
+        new PushClient("44561589632", onReceivePushRegistrationID, onReceiveMessage);
       } else if (location.hostname.indexOf("x-services.nl") > -1) {
         // custom GA (for clients accessing www.x-services.nl/gametv)
         _gaq.push(['_setAccount', 'UA-28850866-4']);
