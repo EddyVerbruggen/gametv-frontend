@@ -193,6 +193,10 @@ li.ui-btn {
   background-color: red;
 }
 
+#editvideosources .ui-controlgroup .ui-btn-text {
+  font-weight: normal;
+}
+
 #popupPanel .ui-btn {
   margin: 2em 15px;
 }

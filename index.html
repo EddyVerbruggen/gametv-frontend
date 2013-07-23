@@ -64,7 +64,7 @@
     }
 
     function onReceivePushRegistrationID(regid) {
-      alert("received: " + regid);
+//      alert("received: " + regid);
       // TODO send it to the server (async), along with the platform name (use MobilePlatform enum value)
     }
 
@@ -479,7 +479,7 @@
 <div data-role="page" id="videos" data-videosourceid="to-be-filled">
   <script type="text/javascript">
     $('#videos')
-        .on('pageshow', function (e, data) {
+        .on('pagebeforeshow', function (e, data) {
           if ($.mobile.pageData != null) {
             var videosourceid = $.mobile.pageData.videosourceid;
             if (videosourceid != null) {
