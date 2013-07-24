@@ -41,9 +41,9 @@
   <!-- Android splash -->
   <gap:splash src="splash/android/hdpi.png" gap:platform="android" gap:density="hdpi" width="480" height="760" />
   <!--<gap:splash src="splash/android/hdpi_landscape.png" gap:platform="android" gap:density="hdpi" width="760" height="480" />-->
-  <!--<gap:splash src="splash/android/xhdpi.png" gap:platform="android" gap:density="xhdpi" width="720" height="1140" />-->
+  <gap:splash src="splash/android/xhdpi.png" gap:platform="android" gap:density="xhdpi" width="720" height="1140" />
   <!--<gap:splash src="splash/android/xhdpi_landscape.png" gap:platform="android" gap:density="xhdpi" width="1140" height="720" />-->
-  <gap:splash src="splash/android/xhdpi.png" gap:platform="android" gap:density="xhdpi" width="960" height="1440" />
+  <gap:splash src="splash/android/xxhdpi.png" gap:platform="android" gap:density="xxhdpi" width="960" height="1440" />
 
   <feature name="http://api.phonegap.com/1.0/network"/>
   <!--<feature name="http://api.phonegap.com/1.0/camera"/>-->
