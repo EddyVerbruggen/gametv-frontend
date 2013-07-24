@@ -199,13 +199,16 @@
     function saveVideosources() {
       var disabledVideosources = [];
       var disabledVideosourcesForPush = [];
+      var enabledVideosourcesForPush = [];
       var videosources = JSON.parse(localStorage.getItem("videosources"));
       $.each(videosources, function (i, videosource) {
         if (!$("#editvideosourcesForm #checkbox-on-"+videosource.id).is(":checked")) {
           disabledVideosources.push(videosource.id);
         }
         if (getPushRegistrationID() != null) {
-          if (!$("#editvideosourcesForm #checkbox-push-"+videosource.id).is(":checked")) {
+          if ($("#editvideosourcesForm #checkbox-push-"+videosource.id).is(":checked")) {
+            enabledVideosourcesForPush.push(videosource.id);
+          } else {
             disabledVideosourcesForPush.push(videosource.id);
           }
         }
@@ -213,9 +216,8 @@
       localStorage.setItem("disabledVideosources", JSON.stringify(disabledVideosources));
       if (getPushRegistrationID() != null) {
         localStorage.setItem("disabledVideosourcesForPush", JSON.stringify(disabledVideosourcesForPush));
-        $.getJSON(getServiceURL("/push/registersub/"+getPushRegistrationID()+"/"+JSON.stringify(disabledVideosourcesForPush)));
+        $.getJSON(getServiceURL("/push/registersub/"+getPushRegistrationID()+"/"+JSON.stringify(enabledVideosourcesForPush)));
       }
-      // TODO send the Videosource array to the server along with the regid. Store regid in LS. Serverside: ignore (but dont delete) regids which have not been updated a while
       // re-render the list
       renderVideoSourceList(videosources);
       // back to the list
