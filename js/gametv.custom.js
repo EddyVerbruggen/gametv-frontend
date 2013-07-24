@@ -26,6 +26,14 @@ function isYouTube(url) {
   return url.indexOf("youtube") > -1;
 }
 
+function setPushRegistrationID(regid) {
+  localStorage.setItem("regid", regid);
+}
+
+function getPushRegistrationID() {
+  return localStorage.getItem("regid");
+}
+
 function getDateString(javaDateString) {
   var date = new Date(javaDateString);
   var d = date.getDate();

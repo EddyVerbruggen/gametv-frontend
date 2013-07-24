@@ -64,7 +64,7 @@
     }
 
     function onReceivePushRegistrationID(regid) {
-      localStorage.setItem("regid", regid);
+      setPushRegistrationID(regid);
       $.getJSON(getServiceURL("/push/register/"+regid+"/"+(isAndroid()?"ANDROID":"IOS")));
     }
 
@@ -204,14 +204,17 @@
         if (!$("#editvideosourcesForm #checkbox-on-"+videosource.id).is(":checked")) {
           disabledVideosources.push(videosource.id);
         }
-        if (isMobileWithPhonegap()) {
+        if (getPushRegistrationID() != null) {
           if (!$("#editvideosourcesForm #checkbox-push-"+videosource.id).is(":checked")) {
             disabledVideosourcesForPush.push(videosource.id);
           }
         }
       });
       localStorage.setItem("disabledVideosources", JSON.stringify(disabledVideosources));
-      localStorage.setItem("disabledVideosourcesForPush", JSON.stringify(disabledVideosourcesForPush));
+      if (getPushRegistrationID() != null) {
+        localStorage.setItem("disabledVideosourcesForPush", JSON.stringify(disabledVideosourcesForPush));
+        $.getJSON(getServiceURL("/push/registersub/"+getPushRegistrationID()+"/"+JSON.stringify(disabledVideosourcesForPush)));
+      }
       // TODO send the Videosource array to the server along with the regid. Store regid in LS. Serverside: ignore (but dont delete) regids which have not been updated a while
       // re-render the list
       renderVideoSourceList(videosources);
