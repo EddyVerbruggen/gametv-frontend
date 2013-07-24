@@ -204,8 +204,10 @@
         if (!$("#editvideosourcesForm #checkbox-on-"+videosource.id).is(":checked")) {
           disabledVideosources.push(videosource.id);
         }
-        if (!$("#editvideosourcesForm #checkbox-push-"+videosource.id).is(":checked")) {
-          disabledVideosourcesForPush.push(videosource.id);
+        if (isMobileWithPhonegap()) {
+          if (!$("#editvideosourcesForm #checkbox-push-"+videosource.id).is(":checked")) {
+            disabledVideosourcesForPush.push(videosource.id);
+          }
         }
       });
       localStorage.setItem("disabledVideosources", JSON.stringify(disabledVideosources));
@@ -442,9 +444,13 @@
                 '    <div class="ui-block-b">' +
                 '      <fieldset data-role="controlgroup" data-iconpos="right">' +
                 '        <input type="checkbox" name="checkbox-on-'+videosource.id+'" id="checkbox-on-'+videosource.id+'" '+(isEnabledForUser(videosource.id) ? 'checked' : '')+' data-mini="true" data-theme="d">' +
-                '        <label for="checkbox-on-'+videosource.id+'">On</label>' +
-                '        <input type="checkbox" name="checkbox-push-'+videosource.id+'" id="checkbox-push-'+videosource.id+'" '+(isPushEnabledForUser(videosource.id) ? 'checked' : '')+' data-mini="true" data-theme="d">' +
-                '        <label class="pushcheckbox" for="checkbox-push-'+videosource.id+'">Push</label>' +
+                '        <label for="checkbox-on-'+videosource.id+'">On</label>';
+            if (isMobileWithPhonegap()) {
+              htmlVideosource += '' +
+                  '        <input type="checkbox" name="checkbox-push-'+videosource.id+'" id="checkbox-push-'+videosource.id+'" '+(isPushEnabledForUser(videosource.id) ? 'checked' : '')+' data-mini="true" data-theme="d">' +
+                  '        <label class="pushcheckbox" for="checkbox-push-'+videosource.id+'">Push</label>';
+            }
+            htmlVideosource += '' +
                 '      </fieldset>' +
                 '    </div>' +
                 '  </div>' +
@@ -789,6 +795,7 @@
           playerVars: {
             autoplay: 1,
             controls: 1,
+            rel: 0,
             modestbranding: 1
           },
           events: {

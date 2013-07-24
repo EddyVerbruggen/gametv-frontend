@@ -1,13 +1,10 @@
 "use strict";
 
-var pushClient;
-
 function PushClient(androidSenderID, receivePushRegistrationIDCallback, receiveMessageCallback) {
-  pushClient = this;
-  var pushNotification;
+  window.pushClient = this;
 
   this._initPushNotifications = function() {
-    pushNotification = window.plugins.pushNotification;
+    window.pushNotification = window.plugins.pushNotification;
     if (isAndroid()) {
       pushNotification.register(pushClient.successHandler, pushClient.errorHandler, {"senderID": androidSenderID, "ecb": "pushClient.onNotificationGCM"});
     } else if (isIOS()) {
