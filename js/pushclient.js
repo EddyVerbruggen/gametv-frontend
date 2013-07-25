@@ -61,7 +61,7 @@ function PushClient(androidSenderID, receivePushRegistrationIDCallback, receiveM
 
   this.errorHandler = function(error) {
     // TODO don't alert when development is finished
-    alert("Unknown push error: " + error);
+//    alert("Unknown push error: " + error);
   };
 
   // call this 'private' method upon class construction
