@@ -13,11 +13,11 @@
     X-Services VOF
   </author>
 
-  <icon src="icon.png"/><!-- gap:role=default is required for ios build -->
+  <icon src="icon.png" /><!-- gap:role=default is required for ios build -->
 
-  <icon src="icons/android/ldpi.png" gap:platform="android" gap:density="ldpi" />
-  <icon src="icons/android/mdpi.png" gap:platform="android" gap:density="mdpi" />
-  <icon src="icons/android/hdpi.png" gap:platform="android" gap:density="hdpi" />
+  <icon src="icons/android/ldpi.png" gap:platform="android" gap:density="ldpi" width="36" height="36" />
+  <icon src="icons/android/mdpi.png" gap:platform="android" gap:density="mdpi" width="48" height="48" />
+  <icon src="icons/android/hdpi.png" gap:platform="android" gap:density="hdpi" width="72" height="72" />
   <icon src="icons/android/xhdpi.png" gap:platform="android" gap:density="xhdpi" width="96" height="96" />
 
   <!--<gap:splash src="splash/android/ldpi.png" gap:platform="android" gap:density="ldpi"/>-->
@@ -31,23 +31,17 @@
   <preference name="orientation" value="default"/><!-- both landscape and portrait = "default" -->
   <preference name="target-device" value="universal"/>
   <preference name="webviewbounce" value="false"/><!-- ios rubber banding -->
-
   <preference name="ios-statusbarstyle" value="black-opaque"/>
   <preference name="show-splash-screen-spinner" value="false" />
   <preference name="prerendered-icon" value="true" /> <!-- no ios gloss effect plz -->
-
-  <preference name="android-minSdkVersion" value="7" /><!-- 8=2.2, 9=2.3, 10=2.3.3, 14=4.0(crash on rotate!), 16=4.1, 17=4.2 -->
-  <preference name="android-installLocation" value="auto" /><!-- preferExternal; preferably install on SD-card -->
-
-  <preference name="exit-on-suspend" value="true" /><!-- stay with us, or not? -->
-  <preference name="auto-hide-splash-screen" value="false" /><!-- we're hiding it with js -->
-
-  <preference name="splash-screen-duration" value="3000" /> <!-- default 5000 -->
-
+  <preference name="android-minSdkVersion" value="12" />
+  <preference name="android-installLocation" value="auto" />
+  <preference name="exit-on-suspend" value="true" />
+  <preference name="auto-hide-splash-screen" value="true" />
+  <preference name="splash-screen-duration" value="1" />
   <gap:plugin name="com.adobe.plugins.gaplugin" />
   <gap:plugin name="com.adobe.plugins.pushplugin" />
 
-  <!-- allow loading any url in the webview -->
-  <access origin="*" />
+  <access origin="*" /><!-- allow loading any url in the webview -->
 
 </widget>
