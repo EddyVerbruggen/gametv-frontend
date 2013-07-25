@@ -22,8 +22,7 @@ page_home_channellist_header = 'Kies een recent geupdate kanaal';
 page_editvideosources_title = 'Kies kanalen';
 page_editvideosources_button_cancel = 'annuleer';
 page_editvideosources_button_save = 'opslaan';
-page_editvideosources_switch_on = 'aan';
-page_editvideosources_switch_off = 'uit';
+page_editvideosources_checkbox_channel = 'Toon';
 
 page_share_title = 'Mail een vriend';
 page_share_button = 'Naar verzenden';

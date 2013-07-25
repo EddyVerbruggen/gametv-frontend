@@ -34,8 +34,9 @@ page_home_channellist_header = 'Browse a recently updated channel';
 page_editvideosources_title = 'Choose channels';
 page_editvideosources_button_cancel = 'cancel';
 page_editvideosources_button_save = 'save';
-page_editvideosources_switch_on = 'on';
-page_editvideosources_switch_off = 'off';
+page_editvideosources_checkbox_channel = 'Show';
+page_editvideosources_checkbox_push = 'Push';
+
 
 page_share_title = 'Mail a friend';
 page_share_button = 'Let\'s send it';

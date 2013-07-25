@@ -384,6 +384,10 @@
     <a data-icon="bars" data-iconpos="notext" href="#" onclick="$.mobile.loading('show'); setTimeout(function(){$.mobile.changePage('#editvideosources', {})},400)" data-role="button" data-direction="reverse" class="ui-btn-right" id="menu_title"></a>
   </div>
   <div data-role="content">
+    <div class="notification">
+      Heb je favoriete kanalen? Klik rechtsboven op <a data-icon="bars" data-role="button" data-mini="true" data-inline="true" data-iconpos="notext" href="#" data-role="button"></a> om een pushbericht in te stellen.
+      <br/><a href="#" id="closeNotification">Dit bericht verbergen</a>
+    </div>
     <div class="content-primary">
       <div class="antenna"></div>
       <ul id="videosourceList" data-role="listview" data-inset="true" data-divider-theme="d"></ul>
@@ -406,8 +410,8 @@
           $("#editvideosources h1").html(page_editvideosources_title);
           $("#page_editvideosources_button_cancel .ui-btn-text").html(page_editvideosources_button_cancel);
           $("#page_editvideosources_button_save .ui-btn-text").html(page_editvideosources_button_save);
-          $(".ui-block-b .ui-slider-label-a").html(page_editvideosources_switch_on);
-          $(".ui-block-b .ui-slider-label-b").html(page_editvideosources_switch_off);
+          $(".ui-block-b .showcheckbox .ui-btn-text").html(page_editvideosources_checkbox_channel);
+          $(".ui-block-b .pushcheckbox .ui-btn-text").html(page_editvideosources_checkbox_push);
           $("#editvideosources .country_name").each(function(index, elem) {
             var countryCode = $(elem).html();
             $(elem).html(eval("country_"+countryCode));
@@ -449,11 +453,11 @@
                 '    <div class="ui-block-b">' +
                 '      <fieldset data-role="controlgroup" data-iconpos="right">' +
                 '        <input type="checkbox" name="checkbox-on-'+videosource.id+'" id="checkbox-on-'+videosource.id+'" '+(isEnabledForUser(videosource.id) ? 'checked' : '')+' data-mini="true" data-theme="d">' +
-                '        <label for="checkbox-on-'+videosource.id+'">On</label>';
+                '        <label class="showcheckbox" for="checkbox-on-'+videosource.id+'"></label>';
             if (isMobileWithPhonegap()) {
               htmlVideosource += '' +
                   '        <input type="checkbox" name="checkbox-push-'+videosource.id+'" id="checkbox-push-'+videosource.id+'" '+(isPushEnabledForUser(videosource.id) ? 'checked' : '')+' data-mini="true" data-theme="d">' +
-                  '        <label class="pushcheckbox" for="checkbox-push-'+videosource.id+'">Push</label>';
+                  '        <label class="pushcheckbox" for="checkbox-push-'+videosource.id+'"></label>';
             }
             htmlVideosource += '' +
                 '      </fieldset>' +

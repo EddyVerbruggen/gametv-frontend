@@ -19,7 +19,7 @@ function isIOS() {
 }
 
 function isMobileWithPhonegap() {
-  return isAndroid() || isIOS();
+  return true || isAndroid() || isIOS();
 }
 
 function isYouTube(url) {

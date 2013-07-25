@@ -79,6 +79,24 @@ li.ui-btn {
   }
 }
 
+.notification {
+  padding: 8px;
+  padding-bottom: 35px;
+  background-color: royalblue;
+  color: white;
+  border: 3px solid #194b7e;
+  border-radius: 8px;
+  text-shadow: none;
+  margin-bottom: 20px;
+}
+
+.ui-body-c .notification .ui-link {
+  color: #b2d8ff;
+  font-size: 0.8em;
+  float: right;
+  padding: 8px;
+}
+
 .ui-li-desc {
   color: #999;
 }
