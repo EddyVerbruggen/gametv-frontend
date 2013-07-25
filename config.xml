@@ -40,6 +40,7 @@
   <preference name="orientation" value="default"/><!-- both landscape and portrait = "default" -->
   <preference name="target-device" value="universal"/>
   <preference name="webviewbounce" value="false"/><!-- ios rubber banding -->
+  <preference name="fullscreen" value="true"/>
 
   <preference name="ios-statusbarstyle" value="black-opaque"/>
   <preference name="show-splash-screen-spinner" value="false" />
