@@ -13,7 +13,7 @@
     X-Services VOF
   </author>
 
-  <icon src="icon.png" gap:role="default"/><!-- gap:role=default is required for ios build -->
+  <icon src="icon.png"/><!-- gap:role=default is required for ios build -->
 
   <icon src="icons/android/ldpi.png" gap:platform="android" gap:density="ldpi" />
   <icon src="icons/android/mdpi.png" gap:platform="android" gap:density="mdpi" />
@@ -42,7 +42,7 @@
   <preference name="exit-on-suspend" value="true" /><!-- stay with us, or not? -->
   <preference name="auto-hide-splash-screen" value="false" /><!-- we're hiding it with js -->
 
-  <preference name="splash-screen-duration" value="3200" /> <!-- default 5000 -->
+  <preference name="splash-screen-duration" value="3000" /> <!-- default 5000 -->
 
   <gap:plugin name="com.adobe.plugins.gaplugin" />
   <gap:plugin name="com.adobe.plugins.pushplugin" />
