@@ -36,11 +36,10 @@
   <!--<feature name="http://api.phonegap.com/1.0/contacts"/>-->
   <!--<feature name="http://api.phonegap.com/1.0/geolocation"/>-->
 
-  <preference name="phonegap-version" value="2.9.0"/>
+  <preference name="phonegap-version" value="2.7.0"/>
   <preference name="orientation" value="default"/><!-- both landscape and portrait = "default" -->
   <preference name="target-device" value="universal"/>
   <preference name="webviewbounce" value="false"/><!-- ios rubber banding -->
-  <preference name="fullscreen" value="true"/>
 
   <preference name="ios-statusbarstyle" value="black-opaque"/>
   <preference name="show-splash-screen-spinner" value="false" />
