@@ -40,8 +40,8 @@
 
   <gap:splash src="splash/android/ldpi.png" gap:platform="android" gap:density="ldpi" />
   <gap:splash src="splash/android/mdpi.png" gap:platform="android" gap:density="mdpi" />
-  <gap:splash src="splash/android/screen-hdpi-portrait" gap:platform="android" gap:density="hdpi" />
-  <gap:splash src="splash/android/screen-xhdpi-portrait" gap:platform="android" gap:density="xhdpi" />
+  <gap:splash src="splash/android/screen-hdpi-portrait.png" gap:platform="android" gap:density="hdpi" />
+  <gap:splash src="splash/android/screen-xhdpi-portrait.png" gap:platform="android" gap:density="xhdpi" />
 
   <access origin="*" /><!-- allow loading any url in the webview -->
 
