@@ -384,13 +384,14 @@
     <a data-icon="bars" data-iconpos="notext" href="#" onclick="$.mobile.loading('show'); setTimeout(function(){$.mobile.changePage('#editvideosources', {})},400)" data-role="button" data-direction="reverse" class="ui-btn-right" id="menu_title"></a>
   </div>
   <div data-role="content">
-    <div class="notification">
-      Heb je favoriete kanalen? Klik rechtsboven op <a data-icon="bars" data-role="button" data-mini="true" data-inline="true" data-iconpos="notext" href="#" data-role="button"></a> om een pushbericht in te stellen.
-      <br/><a href="#" id="closeNotification">Dit bericht verbergen</a>
-    </div>
     <div class="content-primary">
       <div class="antenna"></div>
       <ul id="videosourceList" data-role="listview" data-inset="true" data-divider-theme="d"></ul>
+    </div>
+    <div class="notification">
+      <!-- TODO impl vertaling & hide-feature (na klik op verbergen of de knop rechtsboven).. sla op in LS -->
+      Heb je favoriete kanalen? Klik rechtsboven op <a data-icon="bars" data-role="button" data-mini="true" data-inline="true" data-iconpos="notext" href="#" data-role="button"></a> om een pushbericht in te stellen.
+      <br/><a href="#" id="closeNotification">Dit bericht verbergen</a>
     </div>
   </div>
   <div class="feedback"></div>

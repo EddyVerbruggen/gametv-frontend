@@ -80,18 +80,25 @@ li.ui-btn {
 }
 
 .notification {
-  padding: 8px;
+  font-size: 0.9em;
+  padding: 6px;
   padding-bottom: 35px;
-  background-color: royalblue;
+  background-color: #559adc;
   color: white;
-  border: 3px solid #194b7e;
-  border-radius: 8px;
+  border: 2px solid #1e6da9;
+  border-radius: 6px;
   text-shadow: none;
-  margin-bottom: 20px;
+  margin-top: 30px;
+}
+
+.notification .ui-btn {
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  background: none;
 }
 
 .ui-body-c .notification .ui-link {
-  color: #b2d8ff;
+  color: rgb(178, 216, 255);
   font-size: 0.8em;
   float: right;
   padding: 8px;
@@ -385,6 +392,10 @@ li.ui-btn {
   margin-right: 26px;
 }
 
+#videosources .ui-li-has-arrow.ui-li-has-count .ui-li-count {
+  padding-top: 3px;
+}
+
 @media (min-width: 400px) {
   .ui-li-has-arrow.ui-li-has-count .ui-li-count {
     margin-right: 14px;
@@ -401,6 +412,10 @@ li.ui-btn {
 
 .ui-header {
   border-color: transparent;
+}
+
+.ui-btn-icon-notext .ui-btn-inner .ui-icon {
+  margin-top: 3px;
 }
 
 .ui-header .ui-icon {
