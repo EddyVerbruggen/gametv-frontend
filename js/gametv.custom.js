@@ -69,7 +69,7 @@ function getNotification(name) {
 }
 
 function hideNotification(name) {
-  $("#notification_"+name).hide('slow');
+  $("#notification_"+name).hide();
   var notificationsSeen = localStorage.getItem("notificationsSeen");
   if (notificationsSeen == null) {
     notificationsSeen = [];
