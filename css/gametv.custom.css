@@ -79,7 +79,8 @@ li.ui-btn {
   }
 }
 
-.notification {
+.notificationItem {
+  margin-top: 30px;
   font-size: 0.9em;
   padding: 6px;
   padding-bottom: 35px;
@@ -88,16 +89,15 @@ li.ui-btn {
   border: 2px solid #1e6da9;
   border-radius: 6px;
   text-shadow: none;
-  margin-top: 30px;
 }
 
-.notification .ui-btn {
+.notificationItem .ui-btn {
   -webkit-box-shadow: none;
   box-shadow: none;
   background: none;
 }
 
-.ui-body-c .notification .ui-link {
+.ui-body-c .notificationItem .ui-link {
   color: rgb(178, 216, 255);
   font-size: 0.8em;
   float: right;

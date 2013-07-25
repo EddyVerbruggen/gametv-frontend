@@ -19,7 +19,7 @@ function isIOS() {
 }
 
 function isMobileWithPhonegap() {
-  return true || isAndroid() || isIOS();
+  return isAndroid() || isIOS();
 }
 
 function isYouTube(url) {
@@ -58,6 +58,35 @@ function localStorageObjectContainsID(localStorageObject, id) {
   } else {
     return $.inArray(id, JSON.parse(storedObject)) == -1;
   }
+}
+
+function getNotification(name) {
+  if (hasSeenNotification(name)) {
+    return '';
+  } else {
+    return '<div class="notificationItem" id="notification_'+name+'">' + eval('notification_item_'+name) + '<br/><a href="#" onclick="hideNotification(\''+name+'\')">'+notification_hide+'</a></div>';
+  }
+}
+
+function hideNotification(name) {
+  $("#notification_"+name).hide('slow');
+  var notificationsSeen = localStorage.getItem("notificationsSeen");
+  if (notificationsSeen == null) {
+    notificationsSeen = [];
+  } else {
+    notificationsSeen = JSON.parse(notificationsSeen);
+  }
+  notificationsSeen.push(name);
+  localStorage.setItem("notificationsSeen", JSON.stringify(notificationsSeen));
+}
+
+function hasSeenNotification(name) {
+  var notificationsSeen = localStorage.getItem("notificationsSeen");
+  if (notificationsSeen != null) {
+    notificationsSeen = JSON.parse(notificationsSeen);
+    return notificationsSeen.indexOf(name) > -1;
+  }
+  return false;
 }
 
 function redirect(where) {

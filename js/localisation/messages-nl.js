@@ -26,3 +26,6 @@ page_editvideosources_checkbox_channel = 'Toon';
 
 page_share_title = 'Mail een vriend';
 page_share_button = 'Naar verzenden';
+
+notification_hide = 'Dit bericht verbergen';
+notification_item_homepage_pushconfighint = 'Heb je favoriete kanalen? Klik rechtsboven op <a data-icon="bars" data-role="button" data-mini="true" data-inline="true" data-iconpos="notext" href="#" data-role="button"></a> om een pushbericht in te stellen.';

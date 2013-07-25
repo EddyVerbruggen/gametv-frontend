@@ -299,6 +299,15 @@
 <div data-role="page" id="videosources" class="videosourcespage">
   <script type="text/javascript">
     $('#videosources')
+        .on('pagecreate', function(e, data) {
+          // don't show the pushnotification notification (lol) on first start
+          if (localStorage.getItem("videosources") != null) {
+            // only show this notification if no pushes have been configured
+            if (localStorage.getItem("disabledVideosourcesForPush") == null && isMobileWithPhonegap()) {
+              $("#notification").html(getNotification('homepage_pushconfighint'));
+            }
+          }
+        })
         .on('pageshow', function(e, data) {
           googleAnalytics("videosources");
           var fromVideosourceid = data.prevPage.attr('data-videosourceid');
@@ -388,11 +397,7 @@
       <div class="antenna"></div>
       <ul id="videosourceList" data-role="listview" data-inset="true" data-divider-theme="d"></ul>
     </div>
-    <div class="notification">
-      <!-- TODO impl vertaling & hide-feature (na klik op verbergen of de knop rechtsboven).. sla op in LS -->
-      Heb je favoriete kanalen? Klik rechtsboven op <a data-icon="bars" data-role="button" data-mini="true" data-inline="true" data-iconpos="notext" href="#" data-role="button"></a> om een pushbericht in te stellen.
-      <br/><a href="#" id="closeNotification">Dit bericht verbergen</a>
-    </div>
+    <div id="notification"></div>
   </div>
   <div class="feedback"></div>
 </div>
