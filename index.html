@@ -111,8 +111,7 @@
     }
 
     function onResume() {
-      alert($.mobile.activePage[0].id);
-      if ($.mobile.activePage[0].id == "videoSources") {
+      if ($.mobile.activePage[0].id == "videosources") {
         loadVideos();
       } else {
         forceLoad = true;
