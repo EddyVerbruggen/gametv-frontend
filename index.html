@@ -67,12 +67,14 @@
     function onReceivePushRegistrationID(regid) {
       setPushRegistrationID(regid);
       $.getJSON(getServiceURL("/push/register/"+regid+"/"+(isAndroid()?"ANDROID":"IOS")));
+      googleAnalytics("push-registrationid");
     }
 
     function onReceiveMessage(message) {
       // maybe the best is to do nothing
 //      alert("msg: " + message);
 //      $.mobile.changePage('#videos?videosourceid=' + videosource.id + '&videosourcename='+encodeURI(videosource.name.replace(".","_"))+', {transition: 'none'});
+      googleAnalytics("push-message");
     }
 
     function gaInitSuccessHandler() {
@@ -91,6 +93,7 @@
       if (gaPlugin !== undefined && isMobileWithPhonegap()) {
         gaPlugin.trackPage(gaPluginResultHandler, gaPluginErrorHandler, page);
       } else {
+        // not that googleanalytics lib is not loaded unless on x-services domain (see above)
         _gaq.push(['_trackPageview', page]);
       }
     }

@@ -34,9 +34,9 @@
   <preference name="prerendered-icon" value="true" />
   <preference name="android-minSdkVersion" value="12" />
   <preference name="android-installLocation" value="auto" />
-  <preference name="exit-on-suspend" value="true" />
+  <preference name="exit-on-suspend" value="false" />
   <preference name="auto-hide-splash-screen" value="false" />
-  <preference name="splash-screen-duration" value="3000" />
+  <preference name="splash-screen-duration" value="3200" />
   <preference name="detect-data-types" value="false" />
 
   <gap:plugin name="com.adobe.plugins.gaplugin" />
