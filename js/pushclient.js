@@ -38,6 +38,7 @@ function PushClient(androidSenderID, receivePushRegistrationIDCallback, receiveM
         break;
 
       case 'message':
+          alert(JSON.stringify(e));
         receiveMessageCallback(e.message);
         break;
 
