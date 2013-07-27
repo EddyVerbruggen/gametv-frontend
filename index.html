@@ -45,6 +45,7 @@
 
     function onDeviceReady() {
       document.addEventListener("backbutton", onBackButtonPressed, false);
+      document.addEventListener("resume", onResume, false);
       if (window.plugins != undefined) {
         gaPlugin = window.plugins.gaPlugin;
         gaPlugin.init(gaInitSuccessHandler, gaInitErrorHandler, "UA-28850866-4", 8);
@@ -105,6 +106,14 @@
             .trigger('click');
       }
     }
+
+    function onResume() {
+      // if we're currently on the videoSources page, refresh it
+//      if ($.mobile.activePage[0].id == "videoSources") {
+        loadVideos();
+//      }
+    }
+
     // kick off localisation
     var lang = $.localise.defaultLanguage;
     $.localise('js/localisation/messages', {language: lang, loadBase: true});
@@ -298,6 +307,7 @@
 <!-- PAGE: videosources -->
 <div data-role="page" id="videosources" class="videosourcespage">
   <script type="text/javascript">
+    var firstLoad = true;
     $('#videosources')
         .on('pagecreate', function(e, data) {
           // don't show the pushnotification notification (lol) on first start
@@ -317,7 +327,10 @@
               sessionStorage.setItem("newVideosForSource_"+fromVideosourceid, JSON.stringify([]));
             }
           }
-          loadVideos();
+          if (firstLoad) {
+            loadVideos();
+            firstLoad = false;
+          }
           $("#refresh_title .ui-btn-text").html(page_home_button_refresh);
           $("#menu_title .ui-btn-text").html(page_home_button_menu);
           $("#menu_option_editvideosources .ui-btn-text").html(menu_option_editvideosources);
@@ -342,53 +355,51 @@
       return newList;
     }
 
-    function loadVideos(forceLoad) {
-      var cachedVideosourcesString = localStorage.getItem("videosources");
-      var cachedVideosources = null;
-      if (cachedVideosourcesString != null) {
-        cachedVideosources = JSON.parse(cachedVideosourcesString);
-        renderVideoSourceList(cachedVideosources);
-      }
+    function loadVideos() {
+      $.mobile.loading('show');
+      setTimeout(function(){
+        var cachedVideosourcesString = localStorage.getItem("videosources");
+        var cachedVideosources = null;
+        if (cachedVideosourcesString != null) {
+          cachedVideosources = JSON.parse(cachedVideosourcesString);
+          renderVideoSourceList(cachedVideosources);
+        }
 
-      // if this is the first time (not returning from a video), load the list from the server
-      if (!forceLoad && sessionStorage.getItem("videosources") != null && cachedVideosourcesString != null) {
-        return;
-      }
-
-      $.getJSON(getServiceURL("/videosource/client/gametv/" + (isAndroid() ? "android" : (isFireFoxOS() ? "firefoxos" : "ios"))))
-          .success(function (newVideosources) {
-            var newVideosourcesString = JSON.stringify(newVideosources);
-            if (cachedVideosources != null) {
-              // count the number of new videos per source, compared to the cachedvideos
-              $.each(newVideosources, function (i, newVideosource) {
-                $.each(cachedVideosources, function (j, cachedVideosource) {
-                  if (newVideosource.id == cachedVideosource.id) {
-                    var newVideoIDsForThisVideosource = getNewVideoIDs(cachedVideosource.videoList, newVideosource.videoList);
-                    sessionStorage.setItem("newVideosForSource_"+newVideosource.id, JSON.stringify(newVideoIDsForThisVideosource));
-                  }
+        $.getJSON(getServiceURL("/videosource/client/gametv/" + (isAndroid() ? "android" : (isFireFoxOS() ? "firefoxos" : "ios"))))
+            .success(function (newVideosources) {
+              var newVideosourcesString = JSON.stringify(newVideosources);
+              if (cachedVideosources != null) {
+                // count the number of new videos per source, compared to the cachedvideos
+                $.each(newVideosources, function (i, newVideosource) {
+                  $.each(cachedVideosources, function (j, cachedVideosource) {
+                    if (newVideosource.id == cachedVideosource.id) {
+                      var newVideoIDsForThisVideosource = getNewVideoIDs(cachedVideosource.videoList, newVideosource.videoList);
+                      sessionStorage.setItem("newVideosForSource_"+newVideosource.id, JSON.stringify(newVideoIDsForThisVideosource));
+                    }
+                  })
                 })
-              })
-            }
+              }
 
-            sessionStorage.setItem("videosources", newVideosourcesString);
-            localStorage.setItem("videosources", newVideosourcesString);
-            renderVideoSourceList(newVideosources);
-            $.mobile.loading('hide');
-          })
-          .error(function () {
-            if (cachedVideosourcesString == null) {
-              $(".feedback").html("Well, there was an error loading the videos from the server. Please try again later..");
-            } else {
-//              $(".feedback").html("Failed to fetch latest videos, showing the last known list.");
-            }
-            $.mobile.loading('hide');
-          })
+              sessionStorage.setItem("videosources", newVideosourcesString);
+              localStorage.setItem("videosources", newVideosourcesString);
+              renderVideoSourceList(newVideosources);
+              $.mobile.loading('hide');
+            })
+            .error(function () {
+              if (cachedVideosourcesString == null) {
+                $(".feedback").html("Well, there was an error loading the videos from the server. Please try again later..");
+              } else {
+  //              $(".feedback").html("Failed to fetch latest videos, showing the last known list.");
+              }
+              $.mobile.loading('hide');
+            })
+      }, 250);
     }
   </script>
 
   <div data-role="header" data-tap-toggle="false" data-position="fixed">
     <!--a id="downloadApp" data-icon="refresh" href="#">update app</a-->
-    <a data-icon="refresh" href="#" onclick="$.mobile.loading('show'); setTimeout(function(){loadVideos(true)},400)" id="refresh_title">refresh</a>
+    <a data-icon="refresh" href="#" onclick="loadVideos()" id="refresh_title">refresh</a>
     <h1>Game TV</h1>
     <a data-icon="bars" data-iconpos="notext" href="#" onclick="$.mobile.loading('show'); setTimeout(function(){$.mobile.changePage('#editvideosources', {})},400)" data-role="button" data-direction="reverse" class="ui-btn-right" id="menu_title"></a>
   </div>
