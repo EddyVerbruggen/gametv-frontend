@@ -111,10 +111,11 @@
     }
 
     function onResume() {
-      // if we're currently on the videoSources page, refresh it
-//      if ($.mobile.activePage[0].id == "videoSources") {
+      if ($.mobile.activePage[0].id == "videoSources") {
         loadVideos();
-//      }
+      } else {
+        forceLoad = true;
+      }
     }
 
     // kick off localisation
@@ -310,7 +311,7 @@
 <!-- PAGE: videosources -->
 <div data-role="page" id="videosources" class="videosourcespage">
   <script type="text/javascript">
-    var firstLoad = true;
+    var forceLoad = true;
     $('#videosources')
         .on('pagecreate', function(e, data) {
           // don't show the pushnotification notification (lol) on first start
@@ -330,9 +331,9 @@
               sessionStorage.setItem("newVideosForSource_"+fromVideosourceid, JSON.stringify([]));
             }
           }
-          if (firstLoad) {
+          if (forceLoad) {
             loadVideos();
-            firstLoad = false;
+            forceLoad = false;
           }
           $("#refresh_title .ui-btn-text").html(page_home_button_refresh);
           $("#menu_title .ui-btn-text").html(page_home_button_menu);
@@ -360,6 +361,7 @@
 
     function loadVideos() {
       $.mobile.loading('show');
+      // timeout, so the spinner can load
       setTimeout(function(){
         var cachedVideosourcesString = localStorage.getItem("videosources");
         var cachedVideosources = null;
