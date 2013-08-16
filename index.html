@@ -37,6 +37,7 @@
         onDeviceReady();
       }
       FastClick.attach(document.body);
+      $.mobile.defaultHomeScroll = 0;
     });
 
     // Google Analytics
@@ -319,6 +320,10 @@
             // only show this notification if no pushes have been configured
             if (localStorage.getItem("disabledVideosourcesForPush") == null && isMobileWithPhonegap()) {
               $("#notification").html(getNotification('homepage_pushconfighint'));
+            }
+            // for non-app visitors.. this may be interesting
+            if (!isMobileWithPhonegap()) {
+              $("#notification").css({'text-align':'right'}).html('<br/><br/><a href="http://play.google.com/store/apps/details?id=nl.x_services.gametv"><img src="http://developer.android.com/images/brand/en_generic_rgb_wo_45.png" alt="Game TV Android app in the Play Store" />');
             }
           }
         })

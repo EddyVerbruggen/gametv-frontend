@@ -42,4 +42,3 @@ page_share_button = 'Let\'s send it';
 
 notification_hide = 'Hide this message';
 notification_item_homepage_pushconfighint = 'Have favorite channels? Click <a data-icon="bars" data-role="button" data-mini="true" data-inline="true" data-iconpos="notext" href="#" data-role="button"></a> in the top-rigth corner to enable push notifications.';
-notification_item_homepage_pushconfighint2 = 'test';

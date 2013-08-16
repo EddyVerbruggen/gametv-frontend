@@ -9,7 +9,7 @@ function PushClient(androidSenderID, receivePushRegistrationIDCallback, receiveM
       pushNotification.register(pushClient.successHandler, pushClient.errorHandler, {"senderID": androidSenderID, "ecb": "pushClient.onNotificationGCM"});
     } else if (isIOS()) {
       pushNotification.register(pushClient.apnTokenHandler, pushClient.errorHandler, {"badge": "true", "sound": "true", "alert": "true", "ecb": "pushClient.onNotificationAPN"});
-      // TODO: uncomment this line to show a count bubble on the app icon
+      // TODO: uncomment this line to show a count bubble on the app icon (err, already seems to work without this)
   //        pushNotification.setApplicationIconBadgeNumber(onApplicationIconBadgeNumberSuccessCallback, 3);
     } else {
       console.log("unsupported push platform");
