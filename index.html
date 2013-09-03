@@ -7,16 +7,16 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   <meta name="format-detection" content="telephone=no">
   <title>Game TV</title>
-  <link rel="stylesheet" href="css/themes/default/jquery.mobile-1.3.1.min.css" type="text/css"/>
+  <link rel="stylesheet" href="css/themes/default/jquery.mobile-1.4.0-alpha.2.min.css" type="text/css"/>
   <link rel="stylesheet" href="css/gametv.custom.css" type="text/css"/>
   <link rel="stylesheet" href="font-awesome/css/font-awesome.min.css" type="text/css">
   <link rel="apple-touch-icon" href="icon.png"/><!-- for webapp usage (not intended btw, but is possible) -->
-  <script src="js/lib/jquery-1.9.1.min.js"></script>
+  <script src="js/lib/jquery-1.10.2.min.js"></script>
   <script src="js/lib/fastclick.js"></script>
   <script src="js/gametv.custom.js"></script>
   <script src="js/jqm-init.js"></script>
   <script src="js/lib/jquery.localisation.min.js"></script>
-  <script src="js/lib/jquery.mobile-1.3.1.min.js"></script>
+  <script src="js/lib/jquery.mobile-1.4.0-alpha.2.min.js"></script>
   <script src="js/lib/jqm.page.params.js"></script>
   <script src="http://www.youtube.com/iframe_api"></script>
   <!--link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Gudea:400,700,400italic" type="text/css"/-->
@@ -133,16 +133,17 @@
           htmlVideosource += '' +
               '<li>' +
               '  <a href="#videos?videosourceid=' + videosource.id + '&videosourcename='+encodeURI(videosource.name.replace(".","_"))+'">' +
-              '    <img src="img/videosources/' + videosource.image + '" />' +
+              '    <img class="videosource-image" src="img/videosources/' + videosource.image + '" />' +
               '    <h3>' + videosource.name +'</h3>' +
               '    <p><img src="img/flags/' + videosource.country + '.png" width="11px"/>&nbsp;&nbsp;&nbsp;' + getDateString(videosource.videoList[0].date, lang) + '</p>';
           var nrOfNewVids = nrOfNewVideos(videosource.id);
+          nrOfNewVids = 12;
           if (nrOfNewVids > 0) {
             htmlVideosource += '<span class="ui-li-count">' + nrOfNewVids + '</span>';
           }
           var nrRec = nrOfRecommendedVideos(videosource.videoList);
           if (nrRec > 0) {
-            htmlVideosource += '<span class="ui-li-count recommendations"><i class="icon-smile"> ' + nrRec + '</i></span>';
+            htmlVideosource += '<span class="ui-li-count recommendations"><i class="icon-smile"> <span class="fontawesome-corrected">' + nrRec + '</span></i></span>';
           }
           htmlVideosource +=
               '  </a>' +
@@ -268,7 +269,7 @@
             htmlVideo += '' +
                 '<li>' +
                 '  <a href="#videoplayer?videosourceid='+videosource.id+'&videoid='+video.id+'">' +
-                '    <img src="' + video.imageurl + '" />' +
+                '    <img class="video-image" src="' + video.imageurl + '" />' +
                 '    <h3';
             if (newVideoIDs != null && $.inArray(video.pageurl, newVideoIDs) > -1) {
               htmlVideo += ' class="ui-li-heading-unseen"';
@@ -340,8 +341,8 @@
             loadVideos();
             forceLoad = false;
           }
-          $("#refresh_title .ui-btn-text").html(page_home_button_refresh);
-          $("#menu_title .ui-btn-text").html(page_home_button_menu);
+          $("#refresh_title").html(page_home_button_refresh);
+          $("#menu_title").html(page_home_button_menu);
           $("#menu_option_editvideosources .ui-btn-text").html(menu_option_editvideosources);
           $("#menu_option_about .ui-btn-text").html(menu_option_about);
           $("#menu_option_close .ui-btn-text").html(menu_option_close);
@@ -409,14 +410,14 @@
 
   <div data-role="header" data-tap-toggle="false" data-position="fixed">
     <!--a id="downloadApp" data-icon="refresh" href="#">update app</a-->
-    <a data-icon="refresh" href="#" onclick="loadVideos()" id="refresh_title">refresh</a>
+    <a data-icon="refresh" href="#" data-iconpos="notext" onclick="loadVideos()" id="refresh_title">refresh</a>
     <h1>Game TV</h1>
     <a data-icon="bars" data-iconpos="notext" href="#" onclick="$.mobile.loading('show'); setTimeout(function(){$.mobile.changePage('#editvideosources', {})},400)" data-role="button" data-direction="reverse" class="ui-btn-right" id="menu_title"></a>
   </div>
   <div data-role="content">
     <div class="content-primary">
       <div class="antenna"></div>
-      <ul id="videosourceList" data-role="listview" data-inset="true" data-divider-theme="d"></ul>
+      <ul id="videosourceList" data-role="listview" data-inset="true"></ul>
     </div>
     <div id="notification"></div>
   </div>
@@ -435,10 +436,10 @@
           // trigger everything inside this container to repaint
           $('.ui-block-b').trigger("create");
           $("#editvideosources h1").html(page_editvideosources_title);
-          $("#page_editvideosources_button_cancel .ui-btn-text").html(page_editvideosources_button_cancel);
-          $("#page_editvideosources_button_save .ui-btn-text").html(page_editvideosources_button_save);
-          $(".ui-block-b .showcheckbox .ui-btn-text").html(page_editvideosources_checkbox_channel);
-          $(".ui-block-b .pushcheckbox .ui-btn-text").html(page_editvideosources_checkbox_push);
+          $("#page_editvideosources_button_cancel").html(page_editvideosources_button_cancel);
+          $("#page_editvideosources_button_save").html(page_editvideosources_button_save);
+          $(".ui-block-b .showcheckbox").html(page_editvideosources_checkbox_channel);
+          $(".ui-block-b .pushcheckbox").html(page_editvideosources_checkbox_push);
           $("#editvideosources .country_name").each(function(index, elem) {
             var countryCode = $(elem).html();
             $(elem).html(eval("country_"+countryCode));
@@ -471,7 +472,7 @@
           if (videosource.videoList.length > 0) { // no empty channels
             htmlVideosource += '' +
                 '<li data-role="fieldcontain">' +
-                '  <img src="img/videosources/' + videosource.image + '" />' +
+                '  <img class="videosource-image" src="img/videosources/' + videosource.image + '" />' +
                 '  <div class="ui-grid-a">' +
                 '    <div class="ui-block-a">' +
                 '      <h3>' + videosource.name + '</h3>' +
@@ -479,11 +480,11 @@
                 '    </div>' +
                 '    <div class="ui-block-b">' +
                 '      <fieldset data-role="controlgroup" data-iconpos="right">' +
-                '        <input type="checkbox" name="checkbox-on-'+videosource.id+'" id="checkbox-on-'+videosource.id+'" '+(isEnabledForUser(videosource.id) ? 'checked' : '')+' data-mini="true" data-theme="d">' +
+                '        <input type="checkbox" name="checkbox-on-'+videosource.id+'" id="checkbox-on-'+videosource.id+'" '+(isEnabledForUser(videosource.id) ? 'checked' : '')+' data-mini="true">' +
                 '        <label class="showcheckbox" for="checkbox-on-'+videosource.id+'"></label>';
             if (isMobileWithPhonegap()) {
               htmlVideosource += '' +
-                  '        <input type="checkbox" name="checkbox-push-'+videosource.id+'" id="checkbox-push-'+videosource.id+'" '+(isPushEnabledForUser(videosource.id) ? 'checked' : '')+' data-mini="true" data-theme="d">' +
+                  '        <input type="checkbox" name="checkbox-push-'+videosource.id+'" id="checkbox-push-'+videosource.id+'" '+(isPushEnabledForUser(videosource.id) ? 'checked' : '')+' data-mini="true">' +
                   '        <label class="pushcheckbox" for="checkbox-push-'+videosource.id+'"></label>';
             }
             htmlVideosource += '' +
@@ -502,7 +503,7 @@
   </script>
 
   <div data-role="header" data-tap-toggle="false" data-position="fixed">
-    <a href="#videosources" data-icon="delete" id="page_editvideosources_button_cancel"></a>
+    <a data-theme="b" href="#videosources" data-role="button" data-icon="delete" id="page_editvideosources_button_cancel"></a>
     <h1>Beheer kanalen</h1>
     <a data-icon="check" data-role="button" class="ui-btn-right"  data-iconpos="right" href="#" onclick="saveVideosources()" id="page_editvideosources_button_save"></a>
   </div>
@@ -511,7 +512,7 @@
     <div class="content-primary">
       <form id="editvideosourcesForm">
         <div class="antenna"></div>
-        <ul id="videosourceListFull" data-role="listview" data-inset="true" data-divider-theme="d"></ul>
+        <ul id="videosourceListFull" data-role="listview" data-inset="true"></ul>
       </form>
     </div>
   </div>
@@ -538,7 +539,7 @@
               googleAnalytics("videos");
             }
           }
-          $(".button_back .ui-btn-text").html(button_back);
+          $(".button_back").html(button_back);
         });
   </script>
 
@@ -550,7 +551,7 @@
   <div data-role="content">
     <div class="content-primary">
       <div class="antenna"></div>
-      <ul id="videoList" data-role="listview" data-inset="true" data-divider-theme="d"></ul>
+      <ul id="videoList" data-role="listview" data-inset="true"></ul>
     </div>
     <div id="website"></div>
   </div>
@@ -565,7 +566,7 @@
   <script type="text/javascript">
     $('#about')
         .on('pagebeforeshow', function (e, data) {
-          $(".button_back .ui-btn-text").html(button_back);
+          $(".button_back").html(button_back);
         });
   </script>
   <div data-role="header" data-tap-toggle="false" data-position="fixed">
@@ -615,7 +616,7 @@
           })
           .on('pageshow', function (e, data) {
             googleAnalytics("videoplayer");
-            $(".button_back .ui-btn-text").html(button_back);
+            $(".button_back").html(button_back);
             $("#share h3").html(page_share_title);
             $("#share #page_share_button .ui-btn-text").html(page_share_button);
             var videosourceid = $.mobile.pageData.videosourceid;
@@ -878,13 +879,13 @@
     <h1><!-- filled when loaded --></h1>
   </div>
 
-    <!--div data-role="popup" id="share" data-theme="a" class="ui-corner-all">
-      <a data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" onclick="$('#share').popup('close'); return false" class="ui-btn-right">Close</a>
+    <!--div data-role="popup" id="share" class="ui-corner-all">
+      <a data-role="button" data-icon="delete" data-iconpos="notext" onclick="$('#share').popup('close'); return false" class="ui-btn-right">Close</a>
       <form>
         <div style="padding:10px 20px;">
           <h3></h3>
           <label for="mailbody" class="ui-hidden-accessible">Tekst:</label>
-          <textarea name="mailbody" id="mailbody" data-theme="a"></textarea>
+          <textarea name="mailbody" id="mailbody"></textarea>
           <a data-icon="arrow-r" data-role="button" data-theme="b" data-iconpos="right" onclick="$('#share').popup('close'); googleAnalytics('mail'); redirect('mailto:?subject=Leuke video gezien op Game TV voor Android&body='+document.getElementById('mailbody').innerHTML); return false" id="page_share_button"></a>
         </div>
       </form>
@@ -899,8 +900,8 @@
       	</div>
       	<div class="ui-block-b">
           <div id="description"></div><br/>
-          <span class="ui-btn-inline" id="recommend" style="cursor: pointer"><i class="icon-smile"> tip</i></span>
-          <span class="ui-btn-inline" id="recommended" style="cursor: pointer"><i class="icon-smile"> tip</i></span>
+          <span class="ui-btn-inline" id="recommend" style="cursor: pointer"><i class="icon-smile"> <span class="fontawesome-corrected">tip</span></i></span>
+          <span class="ui-btn-inline" id="recommended" style="cursor: pointer"><i class="icon-smile"> <span class="fontawesome-corrected">tip</span></i></span>
           <!--<span class="ui-btn-inline" id="viewonweb" style="cursor: pointer"><i class="icon-share"> web</i></span>-->
           <span id="sharebytweet"></span>
           <div id="tweetClickHijacker"></div>
