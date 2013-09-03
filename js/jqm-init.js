@@ -7,5 +7,5 @@ $(document).bind("mobileinit", function(){
 //  $.event.special.swipe.horizontalDistanceThreshold = 120; // default is 30, but swipe is triggered too often for my taste
 //  $.event.special.swipe.verticalDistanceThreshold = 100; // default is 30, but swipe is triggered too often for my taste
   // remove any clicked states in header buttons
-//  $.mobile.activeBtnClass = "unused";
+  $.mobile.activeBtnClass = "unused";
 });
