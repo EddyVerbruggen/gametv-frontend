@@ -411,7 +411,7 @@ li.ui-btn {
   padding: 2px 6px;
   text-shadow: none;
   font-weight: normal;
-  top: 45%;
+  top: 46%;
   box-shadow: 0 0 3px rgba(0, 0, 0, 0.4);
 }
 
@@ -445,7 +445,8 @@ li.ui-btn {
 }
 
 #videosources .ui-li-has-count .ui-li-count {
-  padding-top: 3px;
+  padding: 3px 7px 1px 8px;
+  border-radius: 1em;
 }
 
 @media (min-width: 400px) {
