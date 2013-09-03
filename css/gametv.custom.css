@@ -415,6 +415,12 @@ li.ui-btn {
   box-shadow: 0 0 3px rgba(0, 0, 0, 0.4);
 }
 
+@media (max-width: 419px) {
+  .ui-li-has-count .ui-li-count {
+    border: 1px solid white;
+  }
+}
+
 #videoplayer #recommend, .ui-li-has-count .ui-li-count.recommendations {
   background: -moz-linear-gradient(center top , green, darkgreen) repeat scroll 0 0 padding-box transparent;
   background-image: -webkit-gradient(
