@@ -137,12 +137,13 @@
               '    <h3>' + videosource.name +'</h3>' +
               '    <p><img src="img/flags/' + videosource.country + '.png" width="11px"/>&nbsp;&nbsp;&nbsp;' + getDateString(videosource.videoList[0].date, lang) + '</p>';
           var nrOfNewVids = nrOfNewVideos(videosource.id);
+          nrOfNewVids = 45;
           if (nrOfNewVids > 0) {
             htmlVideosource += '<span class="ui-li-count">' + nrOfNewVids + '</span>';
           }
           var nrRec = nrOfRecommendedVideos(videosource.videoList);
           if (nrRec > 0) {
-            htmlVideosource += '<span class="ui-li-count recommendations"><i class="icon-smile"> <span class="fontawesome-corrected">' + nrRec + '</span></i></span>';
+            htmlVideosource += '<span class="ui-li-count recommendations"><i class="icon-star"> <span class="fontawesome-corrected">' + nrRec + '</span></i></span>';
           }
           htmlVideosource +=
               '  </a>' +
@@ -276,10 +277,10 @@
             htmlVideo += '>' + video.title + '</h3>';
             htmlVideo += '<p>';
             if (video.nrofviews > 0) {
-              htmlVideo += '<span class="nrOfViews">'+video.nrofviews+' view'+(video.nrofviews==1?'':'s')+'</span>';
+              htmlVideo += '<span class="nrOfViews"><i class="icon-eye-open"> '+video.nrofviews+'</i></span>';
             }
             if (video.nrofrecommendations > 0) {
-              htmlVideo += '<span class="ui-li-count recommendations"><i class="icon-smile"> ' + video.nrofrecommendations + '</i></span>';
+              htmlVideo += '<span class="ui-li-count recommendations"><i class="icon-star"> ' + video.nrofrecommendations + '</i></span>';
             }
             if (video.description !== undefined) {
               htmlVideo += video.description;
@@ -899,8 +900,8 @@
       	</div>
       	<div class="ui-block-b">
           <div id="description"></div><br/>
-          <span class="ui-btn-inline" id="recommend" style="cursor: pointer"><i class="icon-smile"> <span class="fontawesome-corrected">tip</span></i></span>
-          <span class="ui-btn-inline" id="recommended" style="cursor: pointer"><i class="icon-smile"> <span class="fontawesome-corrected">tip</span></i></span>
+          <span class="ui-btn-inline" id="recommend" style="cursor: pointer"><i class="icon-star-empty"> <span class="fontawesome-corrected">tip</span></i></span>
+          <span class="ui-btn-inline" id="recommended" style="cursor: pointer"><i class="icon-star"> <span class="fontawesome-corrected">tip</span></i></span>
           <!--<span class="ui-btn-inline" id="viewonweb" style="cursor: pointer"><i class="icon-share"> web</i></span>-->
           <span id="sharebytweet"></span>
           <div id="tweetClickHijacker"></div>

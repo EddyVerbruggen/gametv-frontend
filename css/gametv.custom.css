@@ -407,9 +407,19 @@ li.ui-btn {
   margin-right: 26px;
 }
 
-#videosources .ui-li-has-count .ui-li-count {
+.ui-li-has-count .ui-li-count {
   padding: 2px 7px 0 7px;
   border-radius: 1em;
+}
+
+@media (min-width: 360px) {
+  .ui-li-has-count .ui-li-count {
+    margin-right: 0;
+    right: 16px;
+  }
+  #videosources .ui-li-has-count .ui-li-count.recommendations {
+    margin-right: 36px;
+  }
 }
 
 @media (min-width: 400px) {
@@ -424,6 +434,10 @@ li.ui-btn {
 
 #videos .ui-li-has-count .ui-btn-inner a.ui-link-inherit {
   padding-right: 80px;
+}
+
+#videos .ui-listview .ui-li-has-count>.ui-btn-icon-right {
+  padding-right: 5.6em;
 }
 
 .ui-header .ui-btn-left {
