@@ -44,10 +44,14 @@ function getDateString(javaDateString) {
 }
 
 function getServiceURL(servicePath) {
-  if (true || isAndroid() || isIOS() || isFireFoxOS()) {
-    return "http://www.thumbrater.com:9008" + servicePath; // Mac Server
+  return getEndpoint() + servicePath;
+}
+
+function getEndpoint() {
+  if (true) { // only set to false for local debugging
+    return "http://www.thumbrater.com:9008"; // Mac Server
   } else {
-    return "http://127.0.0.1:9007" + servicePath;
+    return "http://127.0.0.1:9007";
   }
 }
 

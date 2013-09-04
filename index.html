@@ -133,9 +133,9 @@
           htmlVideosource += '' +
               '<li>' +
               '  <a href="#videos?videosourceid=' + videosource.id + '&videosourcename='+encodeURI(videosource.name.replace(".","_"))+'">' +
-              '    <img class="videosource-image" src="img/videosources/' + videosource.image + '" />' +
+              '    <img class="videosource-image" src="'+getEndpoint()+'/public/images/videosources/gametv/' + videosource.image + '" />' +
               '    <h3>' + videosource.name +'</h3>' +
-              '    <p><img src="img/flags/' + videosource.country + '.png" width="11px"/>&nbsp;&nbsp;&nbsp;' + getDateString(videosource.videoList[0].date, lang) + '</p>';
+              '    <p><img src="'+getEndpoint()+'/public/images/flags/' + videosource.country + '.png" width="11px"/>&nbsp;&nbsp;&nbsp;' + getDateString(videosource.videoList[0].date, lang) + '</p>';
           var nrOfNewVids = nrOfNewVideos(videosource.id);
           if (nrOfNewVids > 0) {
             htmlVideosource += '<span class="ui-li-count">' + nrOfNewVids + '</span>';
@@ -465,13 +465,13 @@
 
       // and now render the list
       $.each(sortedVideosources, function (i, videosourcesForCountry) {
-        htmlVideosource += '<li data-role="list-divider"><span><img src="img/flags/' + i + '.png" width="22px"/>&nbsp;&nbsp;&nbsp;<span class="country_name">' + i + '</span></span></li>';
+        htmlVideosource += '<li data-role="list-divider"><span><img src="'+getEndpoint()+'/public/images/flags/' + i + '.png" width="22px"/>&nbsp;&nbsp;&nbsp;<span class="country_name">' + i + '</span></span></li>';
 
         $.each(videosourcesForCountry, function (j, videosource) {
           if (videosource.videoList.length > 0) { // no empty channels
             htmlVideosource += '' +
                 '<li data-role="fieldcontain">' +
-                '  <img class="videosource-image" src="img/videosources/' + videosource.image + '" />' +
+                '  <img class="videosource-image" src="'+getEndpoint()+'/public/images/videosources/gametv/' + videosource.image + '" />' +
                 '  <div class="ui-grid-a">' +
                 '    <div class="ui-block-a">' +
                 '      <h3>' + videosource.name + '</h3>' +
