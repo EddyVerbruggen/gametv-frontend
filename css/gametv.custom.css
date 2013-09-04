@@ -399,8 +399,8 @@ li.ui-btn {
   	left bottom,
   	left top,
   	color-stop(0.14, #666),
-    color-stop(0.57, #666),
-  	color-stop(0.79, #ddd)
+    color-stop(0.57, #888),
+  	color-stop(0.79, #bbb)
   );
 }
 
