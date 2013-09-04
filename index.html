@@ -137,7 +137,6 @@
               '    <h3>' + videosource.name +'</h3>' +
               '    <p><img src="img/flags/' + videosource.country + '.png" width="11px"/>&nbsp;&nbsp;&nbsp;' + getDateString(videosource.videoList[0].date, lang) + '</p>';
           var nrOfNewVids = nrOfNewVideos(videosource.id);
-          nrOfNewVids = 45;
           if (nrOfNewVids > 0) {
             htmlVideosource += '<span class="ui-li-count">' + nrOfNewVids + '</span>';
           }
@@ -277,7 +276,7 @@
             htmlVideo += '>' + video.title + '</h3>';
             htmlVideo += '<p>';
             if (video.nrofviews > 0) {
-              htmlVideo += '<span class="nrOfViews"><i class="icon-play"> '+video.nrofviews+'</i></span>';
+              htmlVideo += '<span class="nrOfViews"><i class="icon-play"> <span class="fontawesome-corrected">'+video.nrofviews+'</span></i></span>';
             }
             if (video.nrofrecommendations > 0) {
               htmlVideo += '<span class="ui-li-count recommendations"><i class="icon-star"> ' + video.nrofrecommendations + '</i></span>';
