@@ -150,14 +150,11 @@ li.ui-btn {
   text-shadow: none;
 }
 
-.notificationItem .ui-btn {
-  -webkit-box-shadow: none;
-  box-shadow: none;
-  background: none;
+.notificationItem a, .notificationItem a:visited {
+  color: rgb(178, 216, 255);
 }
 
-.ui-body-c .notificationItem .ui-link {
-  color: rgb(178, 216, 255);
+.notificationItem a.close {
   font-size: 0.8em;
   float: right;
   padding: 8px;

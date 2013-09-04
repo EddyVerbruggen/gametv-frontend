@@ -11,7 +11,7 @@ function isFireFoxOS() {
 }
 
 function isAndroid() {
-  return navigator.userAgent.toLowerCase().indexOf("android") > -1;
+  return true || navigator.userAgent.toLowerCase().indexOf("android") > -1;
 }
 
 function isIOS() {
@@ -68,7 +68,7 @@ function getNotification(name) {
   if (hasSeenNotification(name)) {
     return '';
   } else {
-    return '<div class="notificationItem" id="notification_'+name+'">' + eval('notification_item_'+name) + '<br/><a href="#" onclick="hideNotification(\''+name+'\')">'+notification_hide+'</a></div>';
+    return '<div class="notificationItem" id="notification_'+name+'">' + eval('notification_item_'+name) + '<br/><a class="close" href="#" onclick="hideNotification(\''+name+'\')">'+notification_hide+'</a></div>';
   }
 }
 
@@ -91,6 +91,16 @@ function hasSeenNotification(name) {
     return notificationsSeen.indexOf(name) > -1;
   }
   return false;
+}
+
+function increaseNrOfAppStarts() {
+  var nr = getNrOfAppStarts();
+  localStorage.setItem("nrOfAppStarts", ++nr);
+}
+
+function getNrOfAppStarts() {
+  var nrOfAppStarts = localStorage.getItem("nrOfAppStarts");
+  return nrOfAppStarts == null ? 0 : parseInt(nrOfAppStarts);
 }
 
 function redirect(where) {

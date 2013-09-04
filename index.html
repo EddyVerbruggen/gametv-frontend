@@ -30,6 +30,7 @@
   <script type="text/javascript">
     "use strict";
     $(document).ready(function() {
+      increaseNrOfAppStarts();
       // init phonegap
       if (isMobileWithPhonegap()) {
         document.addEventListener('deviceready', onDeviceReady, false);
@@ -320,10 +321,12 @@
             // only show this notification if no pushes have been configured
             if (localStorage.getItem("disabledVideosourcesForPush") == null && isMobileWithPhonegap()) {
               $("#notification").html(getNotification('homepage_pushconfighint'));
+            } else if (getNrOfAppStarts() > 6 && isAndroid()) {
+              $("#notification").html(getNotification('homepage_begforreview_android'));
             }
             // for non-app visitors.. this may be interesting
             if (!isMobileWithPhonegap()) {
-              $("#notification").css({'text-align':'right'}).html('<br/><br/><a href="http://play.google.com/store/apps/details?id=nl.x_services.gametv"><img src="http://developer.android.com/images/brand/en_generic_rgb_wo_45.png" alt="Game TV Android app in the Play Store" />');
+//              $("#notification").css({'text-align':'right'}).html('<br/><br/><a href="http://play.google.com/store/apps/details?id=nl.x_services.gametv"><img src="http://developer.android.com/images/brand/en_generic_rgb_wo_45.png" alt="Game TV Android app in the Play Store" />');
             }
           }
         })
