@@ -42,4 +42,4 @@ page_share_button = 'Let\'s send it';
 
 notification_hide = 'Hide this message';
 notification_item_homepage_pushconfighint = 'Have favorite channels? Click &nbsp;<i class="icon-reorder"/>&nbsp; in the top-right corner to enable push notifications.';
-notification_item_homepage_begforreview_android = 'Like this app? <a href="https://play.google.com/store/apps/details?id=nl.x_services.gametv"><i class="icon-star"/> Please rate Game TV <i class="icon-star"/></a> and leave your suggestions in the comments. Thanks a lot!';
+notification_item_homepage_begforreview_android = 'Like this app? <a target="_system" href="https://play.google.com/store/apps/details?id=nl.x_services.gametv"><i class="icon-star"/> Please rate Game TV <i class="icon-star"/></a> and leave your suggestions in the comments. Thanks a lot!';
