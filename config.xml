@@ -2,7 +2,7 @@
 <widget xmlns="http://www.w3.org/ns/widgets"
         xmlns:gap="http://phonegap.com/ns/1.0"
         id="nl.x-services.gametv"
-        version="1.4.1.SNAPSHOT">
+        version="1.4.1">
 
   <name>Game TV</name><!-- is also the name of the icon on the device -->
 
@@ -26,7 +26,7 @@
 
   <feature name="http://api.phonegap.com/1.0/network"/>
 
-  <preference name="phonegap-version" value="2.7.0"/>
+  <preference name="phonegap-version" value="2.9.0"/>
   <preference name="target-device" value="universal"/>
   <preference name="webviewbounce" value="false"/>
   <preference name="ios-statusbarstyle" value="black-opaque"/>
