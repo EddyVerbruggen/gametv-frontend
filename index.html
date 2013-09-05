@@ -68,7 +68,7 @@
 
     function onReceivePushRegistrationID(regid) {
       setPushRegistrationID(regid);
-      $.getJSON(getServiceURL("/push/register/"+regid+"/"+(isAndroid()?"ANDROID":"IOS")));
+      $.getJSON(getServiceURL("/push/registerunique/"+regid+"/"+(isAndroid()?"ANDROID":"IOS")+"/"+device.uuid));
       googleAnalytics("push-registrationid");
     }
 
