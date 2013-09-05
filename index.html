@@ -486,7 +486,7 @@
                 '      <fieldset data-role="controlgroup" data-iconpos="right">' +
                 '        <input type="checkbox" name="checkbox-on-'+videosource.id+'" id="checkbox-on-'+videosource.id+'" '+(isEnabledForUser(videosource.id) ? 'checked' : '')+' data-mini="true">' +
                 '        <label class="showcheckbox" for="checkbox-on-'+videosource.id+'"></label>';
-            if (isMobileWithPhonegap()) {
+            if (true || isMobileWithPhonegap()) { // TODO
               htmlVideosource += '' +
                   '        <input type="checkbox" name="checkbox-push-'+videosource.id+'" id="checkbox-push-'+videosource.id+'" '+(isPushEnabledForUser(videosource.id) ? 'checked' : '')+' data-mini="true">' +
                   '        <label class="pushcheckbox" for="checkbox-push-'+videosource.id+'"></label>';
@@ -897,11 +897,11 @@
 
   <div data-role="content">
     <div class="content-primary" style="text-align: center">
-      <div class="ui-grid-a">
-      	<div class="ui-block-a">
+      <!--<div class="ui-grid-a">-->
+      	<!--<div class="ui-block-a">-->
           <div class="antenna"></div>
           <div id="videocontainer"></div><br/>
-      	</div>
+      	<!--</div>-->
       	<div class="ui-block-b">
           <div id="description"></div><br/>
           <span class="ui-btn-inline" id="recommend" style="cursor: pointer"><i class="icon-star-empty"> <span class="fontawesome-corrected">tip</span></i></span>
@@ -911,7 +911,7 @@
           <div id="tweetClickHijacker"></div>
           <br/>
       	</div>
-      </div>
+      <!--</div>-->
     </div>
   </div>
 </div>

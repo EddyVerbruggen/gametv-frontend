@@ -48,7 +48,7 @@ function getServiceURL(servicePath) {
 }
 
 function getEndpoint() {
-  if (true) { // only set to false for local debugging
+  if (isMobileWithPhonegap()) { // only set to false for local debugging
     return "http://www.thumbrater.com:9008"; // Mac Server
   } else {
     return "http://127.0.0.1:9007";
