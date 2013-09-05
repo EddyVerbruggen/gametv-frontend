@@ -26,7 +26,7 @@
 
   <feature name="http://api.phonegap.com/1.0/network"/>
 
-  <preference name="phonegap-version" value="2.9.0"/>
+  <preference name="phonegap-version" value="2.8.0"/>
   <preference name="target-device" value="universal"/>
   <preference name="webviewbounce" value="false"/>
   <preference name="ios-statusbarstyle" value="black-opaque"/>
