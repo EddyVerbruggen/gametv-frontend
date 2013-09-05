@@ -48,7 +48,7 @@ function getServiceURL(servicePath) {
 }
 
 function getEndpoint() {
-  if (isMobileWithPhonegap()) { // only set to false for local debugging
+  if (true) { // only set to false for local debugging
     return "http://www.thumbrater.com:9008"; // Mac Server
   } else {
     return "http://127.0.0.1:9007";
@@ -110,7 +110,7 @@ function redirect(where) {
 // TODO correct links for this app
 function redirectToAppStore() {
   if (isAndroid()) {
-    redirect("https://play.google.com/store/apps/details?id=nl.x_services.gametv");
+    redirect("market://details?id=nl.x_services.gametv");
   } else if (isIOS()) {
 //    redirect("itms://itunes.apple.com/nl/app/triodos-bankieren/id566268289");
   } else {

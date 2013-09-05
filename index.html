@@ -172,11 +172,6 @@
       return localStorageObjectContainsID("disabledVideosources", videosourceid);
     }
 
-    function isPushEnabledForUser(videosourceid) {
-      return localStorage.getItem("disabledVideosourcesForPush") != null &&
-          localStorageObjectContainsID("disabledVideosourcesForPush", videosourceid);
-    }
-
     function toggleRecommendationLocally(videosourceid, videoid, on) {
       var videosources = JSON.parse(localStorage.getItem("videosources"));
       $.each(videosources, function (i, videosource) {
@@ -230,7 +225,7 @@
       });
       localStorage.setItem("disabledVideosources", JSON.stringify(disabledVideosources));
       if (getPushRegistrationID() != null) {
-        localStorage.setItem("disabledVideosourcesForPush", JSON.stringify(disabledVideosourcesForPush));
+        localStorage.setItem("disabledVideosourcesForPush", JSON.stringify(disabledVideosourcesForPush)); // note: no longer used on the edit page (uses server), only for checking if the homepage notification should be shown
         $.getJSON(getServiceURL("/push/registersub/"+getPushRegistrationID()+"/"+JSON.stringify(enabledVideosourcesForPush)));
       }
       // re-render the list
@@ -436,14 +431,23 @@
     $('#editvideosources')
         .on('pageshow', function (e, data) {
           googleAnalytics("editvideosources");
-          renderEditVideoSourceList(JSON.parse(localStorage.getItem("videosources")));
-          // trigger everything inside this container to repaint
-          $('.ui-block-b').trigger("create");
+
+          if (getPushRegistrationID() == null) {
+            renderEditVideoSourceList(JSON.parse(localStorage.getItem("videosources")), []);
+          } else {
+            $.getJSON(getServiceURL("/push/getsubs/"+getPushRegistrationID()))
+                .success(function (videoSourcePushSubscriptions) {
+                  renderEditVideoSourceList(JSON.parse(localStorage.getItem("videosources")), videoSourcePushSubscriptions);
+                })
+                .error(function() {
+                  renderEditVideoSourceList(JSON.parse(localStorage.getItem("videosources")), []);
+                });
+          }
+
           $("#editvideosources h1").html(page_editvideosources_title);
           $("#page_editvideosources_button_cancel").html(page_editvideosources_button_cancel);
           $("#page_editvideosources_button_save").html(page_editvideosources_button_save);
-          $(".ui-block-b .showcheckbox").html(page_editvideosources_checkbox_channel);
-          $(".ui-block-b .pushcheckbox").html(page_editvideosources_checkbox_push);
+
           $("#editvideosources .country_name").each(function(index, elem) {
             var countryCode = $(elem).html();
             $(elem).html(eval("country_"+countryCode));
@@ -451,7 +455,7 @@
         });
 
 
-    function renderEditVideoSourceList(videosources) {
+    function renderEditVideoSourceList(videosources, videoSourcePushSubscriptions) {
       var htmlVideosource = '';
       var previousCountry = null;
 
@@ -486,9 +490,10 @@
                 '      <fieldset data-role="controlgroup" data-iconpos="right">' +
                 '        <input type="checkbox" name="checkbox-on-'+videosource.id+'" id="checkbox-on-'+videosource.id+'" '+(isEnabledForUser(videosource.id) ? 'checked' : '')+' data-mini="true">' +
                 '        <label class="showcheckbox" for="checkbox-on-'+videosource.id+'"></label>';
-            if (true || isMobileWithPhonegap()) { // TODO
+            if (isMobileWithPhonegap()) {
+              var hasPushSubscriptionForVideoSource = $.inArray(videosource.id, videoSourcePushSubscriptions) > -1;
               htmlVideosource += '' +
-                  '        <input type="checkbox" name="checkbox-push-'+videosource.id+'" id="checkbox-push-'+videosource.id+'" '+(isPushEnabledForUser(videosource.id) ? 'checked' : '')+' data-mini="true">' +
+                  '        <input type="checkbox" name="checkbox-push-'+videosource.id+'" id="checkbox-push-'+videosource.id+'" '+(hasPushSubscriptionForVideoSource ? 'checked' : '')+' data-mini="true">' +
                   '        <label class="pushcheckbox" for="checkbox-push-'+videosource.id+'"></label>';
             }
             htmlVideosource += '' +
@@ -503,6 +508,10 @@
       $("#videosourceListFull")
           .html(htmlVideosource)
           .listview('refresh');
+
+      $('.ui-block-b').trigger("create");
+      $(".ui-block-b .showcheckbox").html(page_editvideosources_checkbox_channel);
+      $(".ui-block-b .pushcheckbox").html(page_editvideosources_checkbox_push);
     }
   </script>
 
@@ -906,7 +915,7 @@
           <div id="description"></div><br/>
           <span class="ui-btn-inline" id="recommend" style="cursor: pointer"><i class="icon-star-empty"> <span class="fontawesome-corrected">tip</span></i></span>
           <span class="ui-btn-inline" id="recommended" style="cursor: pointer"><i class="icon-star"> <span class="fontawesome-corrected">tip</span></i></span>
-          <span class="ui-btn-inline" id="viewonweb" style="cursor: pointer"><i class="icon-share"> web</i></span>
+          <!--<span class="ui-btn-inline" id="viewonweb" style="cursor: pointer"><i class="icon-share"> web</i></span>-->
           <span id="sharebytweet"></span>
           <div id="tweetClickHijacker"></div>
           <br/>
