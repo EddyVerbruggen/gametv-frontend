@@ -38,7 +38,8 @@
   <preference name="splash-screen-duration" value="3200" />
   <preference name="detect-data-types" value="false" />
 
-  <preference name="webviewbounce" value="true"/>
+  <preference name="DisallowOverscroll" value="true" />
+  <!--<preference name="webviewbounce" value="true"/>-->
   <preference name="orientation" value="portrait" />
 
   <gap:plugin name="com.adobe.plugins.gaplugin" />
