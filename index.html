@@ -734,7 +734,6 @@
               </video>');
         }
 
-//        $("#videoplayer #mailbody").html('Check "'+video.title+'" @ ' + video.pageurl);
         if (video.description) {
           $("#videoplayer #description").html(video.description + (video.description.length == 420 ? ".." : "")); // TODO serverfix & remove any links and images!
         } else {
@@ -743,11 +742,7 @@
 
         showRecommendButtons(videosourceid, video.id);
 
-
-        // add dynamically updated tweet button
-        var shareButton = '<i class="icon-share" style="font-size: 1.6em" onclick="share(\''+video.title+' '+video.pageurl+'\', \''+video.title+'\', \''+video.imageurl+'\')"></i>';
-        shareButton += '&nbsp;&nbsp;<i class="icon-share" style="font-size: 1.8em" onclick="share(\''+video.title+' '+video.pageurl+'\')"></i>';
-        $('#videoplayer #sharebytweet').html(shareButton);
+        $('#videoplayer #share').html('<i class="icon-share-sign" style="font-size: 1.8em" onclick="share(\''+video.title+' '+video.pageurl+' (via Android GameTV app)\')"></i>');
       }
 
       function share(msg, subject, img) {
@@ -829,18 +824,6 @@
     <h1><!-- filled when loaded --></h1>
   </div>
 
-    <!--div data-role="popup" id="share" class="ui-corner-all">
-      <a data-role="button" data-icon="delete" data-iconpos="notext" onclick="$('#share').popup('close'); return false" class="ui-btn-right">Close</a>
-      <form>
-        <div style="padding:10px 20px;">
-          <h3></h3>
-          <label for="mailbody" class="ui-hidden-accessible">Tekst:</label>
-          <textarea name="mailbody" id="mailbody"></textarea>
-          <a data-icon="arrow-r" data-role="button" data-theme="b" data-iconpos="right" onclick="$('#share').popup('close'); googleAnalytics('mail'); redirect('mailto:?subject=Leuke video gezien op Game TV voor Android&body='+document.getElementById('mailbody').innerHTML); return false" id="page_share_button"></a>
-        </div>
-      </form>
-    </div-->
-
   <div data-role="content">
     <div class="content-primary" style="text-align: center">
       <div class="ui-grid-a">
@@ -852,8 +835,7 @@
           <div id="description"></div><br/>
           <span class="ui-btn-inline" id="recommend" style="cursor: pointer"><i class="icon-star-empty"> <span class="fontawesome-corrected">tip</span></i></span>
           <span class="ui-btn-inline" id="recommended" style="cursor: pointer"><i class="icon-star"> <span class="fontawesome-corrected">tip</span></i></span>
-          <!--<span class="ui-btn-inline" id="viewonweb" style="cursor: pointer"><i class="icon-share"> web</i></span>-->
-          <span id="sharebytweet"></span>
+          <span id="share"></span>
           <br/>
       	</div>
       </div>
