@@ -349,11 +349,6 @@ li.ui-btn {
   margin-right: 10px;
 }
 
-#videoplayer #share {
-  display: inline;
-  left: 20px;
-}
-
 .ui-li-has-count .ui-li-count {
   background: -moz-linear-gradient(center top , #DE939E, #A40717) repeat scroll 0 0 padding-box transparent;
   background-image: -webkit-gradient(

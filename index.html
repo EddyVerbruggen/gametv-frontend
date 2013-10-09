@@ -576,8 +576,8 @@
           .on('pageshow', function (e, data) {
             googleAnalytics("videoplayer");
             $(".button_back").html(button_back);
-            $("#share h3").html(page_share_title);
-            $("#share #page_share_button .ui-btn-text").html(page_share_button);
+//            $("#share h3").html(page_share_title);
+//            $("#share #page_share_button .ui-btn-text").html(page_share_button);
             var videosourceid = $.mobile.pageData.videosourceid;
             var videoid = $.mobile.pageData.videoid;
             var cachedVideos = localStorage.getItem("videosources");
@@ -742,7 +742,12 @@
 
         showRecommendButtons(videosourceid, video.id);
 
-        $('#videoplayer #share').html('<i class="icon-share-sign" onclick="share(\''+video.title+' '+video.pageurl+' - via GameTV for Android\', \''+video.title+'\')"><span class="fontawesome-corrected"> share</span></i>');
+        if (isMobileWithPhonegap()) {
+          $("#share").show();
+          $('#videoplayer #share').html('<i class="icon-share-sign" onclick="share(\''+video.title+' '+video.pageurl+' - via GameTV for Android\', \''+video.title+'\')"><span class="fontawesome-corrected"> share</span></i>');
+        } else {
+          $("#share").hide();
+        }
       }
 
       function share(msg, subject) {
