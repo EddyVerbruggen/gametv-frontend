@@ -9,8 +9,8 @@
   <description>De nieuwste video's van de interessantste gamingsites uit binnen- en buitenland</description>
 
   <author href="http://www.x-services.nl"
-          email="eddyverbruggen@gmail.com">
-    X-Services VOF
+          email="info@x-services.nl">
+    X-Services.nl
   </author>
 
   <icon src="icon.png" />
@@ -38,12 +38,9 @@
   <preference name="splash-screen-duration" value="3200" />
   <preference name="detect-data-types" value="false" />
 
-  <preference name="DisallowOverscroll" value="true" />
-  <!--<preference name="webviewbounce" value="true"/>-->
-  <preference name="orientation" value="portrait" />
-
   <gap:plugin name="com.adobe.plugins.gaplugin" />
   <gap:plugin name="com.adobe.plugins.pushplugin" />
+  <gap:plugin name="nl.x-services.plugins.socialsharing" version="2.1" />
 
   <access origin="*" /><!-- allow loading any url in the webview -->
 

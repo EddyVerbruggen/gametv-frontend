@@ -17,6 +17,7 @@ function PushClient(androidSenderID, receivePushRegistrationIDCallback, receiveM
   };
 
   this.onNotificationAPN = function(e) {
+    var receivedWhileUsingApp = e.foreground == "1"; // TODO pass to callback? See TFG
     if (e.badge) {
       pushNotification.setApplicationIconBadgeNumber(function(){}, e.badge);
     }

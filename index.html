@@ -19,14 +19,11 @@
   <script src="js/lib/jquery.mobile-1.4.0-alpha.2.min.js"></script>
   <script src="js/lib/jqm.page.params.js"></script>
   <script src="http://www.youtube.com/iframe_api"></script>
-  <!--link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Gudea:400,700,400italic" type="text/css"/-->
-  <script type="text/javascript" src="http://platform.twitter.com/widgets.js" defer="defer" async="async"></script>
-  <!-- Included pgbuild js libs here. NOTE: debugging in Android emulator is not possible for PG features,
-       BUT downloading the PG build APK on the emulator is! -->
   <script src="js/pushclient.js"></script>
   <script src="phonegap.js"></script>
   <script src="GAPlugin.js"></script>
   <script src="PushNotification.js"></script>
+  <script src="js/plugins/SocialSharing.js"></script>
   <script type="text/javascript">
     "use strict";
     $(document).ready(function() {
@@ -323,11 +320,6 @@
             loadVideos();
             forceLoad = false;
           }
-          $("#refresh_title").html(page_home_button_refresh);
-          $("#menu_title").html(page_home_button_menu);
-          $("#menu_option_editvideosources .ui-btn-text").html(menu_option_editvideosources);
-          $("#menu_option_about .ui-btn-text").html(menu_option_about);
-          $("#menu_option_close .ui-btn-text").html(menu_option_close);
         });
 
     function getNewVideoIDs(idContainerOldList, idContainerNewList) {
@@ -408,10 +400,9 @@
   </script>
 
   <div data-role="header" data-theme="b" data-tap-toggle="false" data-position="fixed">
-    <!--a id="downloadApp" data-icon="refresh" href="#">update app</a-->
-    <a data-icon="refresh" href="#" data-iconpos="notext" onclick="loadVideos()" id="refresh_title">refresh</a>
+    <a data-icon="refresh" href="#" data-iconpos="notext" onclick="loadVideos()"></a>
     <h1>Game TV</h1>
-    <a data-icon="bars" data-iconpos="notext" href="#" onclick="$.mobile.loading('show'); setTimeout(function(){$.mobile.changePage('#editvideosources', {})},400)" data-role="button" data-direction="reverse" class="ui-btn-right" id="menu_title"></a>
+    <a data-icon="bars" data-iconpos="notext" href="#" onclick="$.mobile.loading('show'); setTimeout(function(){$.mobile.changePage('#editvideosources', {})},400)" data-role="button" data-direction="reverse" class="ui-btn-right"></a>
   </div>
   <div data-role="content">
     <div class="content-primary">
@@ -572,51 +563,6 @@
   <div class="feedback"></div>
 
 </div>
-
-
-<!-- PAGE: about -->
-<div data-role="page" id="about">
-  <script type="text/javascript">
-    $('#about')
-        .on('pagebeforeshow', function (e, data) {
-          $(".button_back").html(button_back);
-        });
-  </script>
-  <div data-role="header" data-theme="b" data-tap-toggle="false" data-position="fixed">
-    <a href="#videosources" data-icon="arrow-l" data-transition="flip" data-direction="reverse" class="button_back"></a>
-    <h1>Over Game TV</h1>
-  </div>
-
-  <div data-role="content">
-    <div class="content-primary">
-      <div class="antenna"></div>
-      <ul data-role="listview" data-inset="true">
-        <li>
-          <h3>Wat is Game TV?</h3>
-          <p>Bekijk dagelijks de nieuwste video's van de interessantste gamingsites uit binnen- en buitenland.
-            De video's van de kanalen worden continu automatisch aangevuld.
-          <p>
-          <p>
-            Mis je een kanaal? geef het aan ons door via
-            <!--a href="https://twitter.com/intent/user?screen_name=_GameTV">@_GameTV</a-->
-            @_GameTV of de
-            <!--a href="#" onclick="redirectToAppStore()">appstore</a>.</p-->
-            appstore.</p>
-        </li>
-        <li>
-          <h3>Game TV is een product van X-Services.nl</h3>
-          <p>Gewoon voor de lol, gratis en vrij van advertenties. Enjoy!</p>
-        </li>
-        <!--li>
-          <a href="#" rel="external" onclick="redirectToAppStore()" data-icon="star">
-            <h3>Beoordeel deze app</h3>
-            <p>Geef je (on)gezoute mening in de appstore.</p>
-          </a>
-        </li-->
-      </ul>
-    </div>
-  </div>
-  </div>
 
 
 
@@ -797,25 +743,16 @@
 
         showRecommendButtons(videosourceid, video.id);
 
-        // add dynamically updated tweet button
-        var tweetButton = '';
-        tweetButton += '<a href="https://twitter.com/share" class="twitter-share-button" data-text="'+video.title+'" data-size="large" data-lang="en" data-via="_GameTV" data-url="'+video.pageurl+'">Tweet</a>';
-        $('#videoplayer #sharebytweet').html(tweetButton);
-        twttr.widgets.load();
 
-        // mask the tweet button, so we can intercept clicks and open a web intent
-        $('#videoplayer #tweetClickHijacker').click(function() {
-          googleAnalytics("tweet");
-          var twitterWebIntentUrl = encodeURI('https://twitter.com/intent/tweet?via=_GameTV&text='+video.title+'&url='+video.pageurl);
-//          if (isMobileWithPhonegap()) {
-            // open in InAppBrowser, so iOS users can navigate back to the app
-//            window.plugins.childBrowser.showWebPage(twitterWebIntentUrl);
-            window.open(twitterWebIntentUrl, '_blank', 'location=no,toolbar=yes,transitionstyle=fliphorizontal');
-//          } else {
-            // childbrowser is only available for iOS and Android
-//            window.open(twitterWebIntentUrl);
-//          }
-        });
+        // add dynamically updated tweet button
+        var shareButton = '<i class="icon-share" style="font-size: 1.6em" onclick="share(\''+video.title+' '+video.pageurl+'\', \''+video.title+'\', \''+video.imageurl+'\')"></i>';
+        shareButton += '&nbsp;&nbsp;<i class="icon-share" style="font-size: 1.8em" onclick="share(\''+video.title+' '+video.pageurl+'\')"></i>';
+        $('#videoplayer #sharebytweet').html(shareButton);
+      }
+
+      function share(msg, subject, img) {
+        googleAnalytics("share");
+        window.plugins.socialsharing.share(msg, subject, img, null, function(err){alert(err)});
       }
 
       function setVideoQualitySwitch(val) {
