@@ -742,12 +742,12 @@
 
         showRecommendButtons(videosourceid, video.id);
 
-        $('#videoplayer #share').html('<i class="icon-share-sign" style="font-size: 1.8em" onclick="share(\''+video.title+' '+video.pageurl+' (via Android GameTV app)\')"></i>');
+        $('#videoplayer #share').html('<i class="icon-share-sign" onclick="share(\''+video.title+' '+video.pageurl+' - via GameTV for Android\', \''+video.title+'\')"><span class="fontawesome-corrected"> share</span></i>');
       }
 
-      function share(msg, subject, img) {
+      function share(msg, subject) {
         googleAnalytics("share");
-        window.plugins.socialsharing.share(msg, subject, img, null, function(err){alert(err)});
+        window.plugins.socialsharing.share(msg, subject);
       }
 
       function setVideoQualitySwitch(val) {
@@ -835,7 +835,7 @@
           <div id="description"></div><br/>
           <span class="ui-btn-inline" id="recommend" style="cursor: pointer"><i class="icon-star-empty"> <span class="fontawesome-corrected">tip</span></i></span>
           <span class="ui-btn-inline" id="recommended" style="cursor: pointer"><i class="icon-star"> <span class="fontawesome-corrected">tip</span></i></span>
-          <span id="share"></span>
+          <span class="ui-btn-inline" id="share" style="cursor: pointer"></span>
           <br/>
       	</div>
       </div>

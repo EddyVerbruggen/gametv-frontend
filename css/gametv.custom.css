@@ -332,7 +332,8 @@ li.ui-btn {
 }
 
 #videoplayer #recommend,
-#videoplayer #recommended {
+#videoplayer #recommended,
+#videoplayer #share {
   display: none;
   position: relative;
   top: -10px;
@@ -346,6 +347,11 @@ li.ui-btn {
   font-size: 13px;
   margin-left: 3px;
   margin-right: 10px;
+}
+
+#videoplayer #share {
+  display: inline;
+  left: 20px;
 }
 
 .ui-li-has-count .ui-li-count {
@@ -368,6 +374,18 @@ li.ui-btn {
 }
 
 #videoplayer #recommend, .ui-li-has-count .ui-li-count.recommendations {
+  background: -moz-linear-gradient(center top , green, darkgreen) repeat scroll 0 0 padding-box transparent;
+  background-image: -webkit-gradient(
+  	linear,
+  	left bottom,
+  	left top,
+  	color-stop(0.14, darkgreen),
+    color-stop(0.57, darkgreen),
+  	color-stop(0.79, green)
+  );
+}
+
+#videoplayer #share, .ui-li-has-count .ui-li-count.recommendations {
   background: -moz-linear-gradient(center top , green, darkgreen) repeat scroll 0 0 padding-box transparent;
   background-image: -webkit-gradient(
   	linear,
