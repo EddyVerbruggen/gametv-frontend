@@ -313,15 +313,6 @@ li.ui-btn {
   width: 130px !important;
 }
 
-#videoplayer #tweetClickHijacker {
-  position: relative;
-  width:132px;
-  height: 30px;
-  margin-top:-34px;
-  margin-left: 58px;
-  cursor: pointer;
-}
-
 #videoplayer .ui-content {
   padding-right: 10px;
 }
