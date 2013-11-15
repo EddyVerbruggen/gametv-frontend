@@ -38,7 +38,7 @@
       $.mobile.defaultHomeScroll = 0;
     });
 
-    // Google Analytics
+    // Google Analytics: webprofiel is gamekings, plugin is gametv.. en op x-services is het het webprofiel van gametv
     var gaPlugin;
     var _gaq = _gaq || [];
 
@@ -49,7 +49,15 @@
         gaPlugin = window.plugins.gaPlugin;
         gaPlugin.init(gaInitSuccessHandler, gaInitErrorHandler, "UA-28850866-4", 8);
         new PushClient("44561589632", onReceivePushRegistrationID, onReceiveMessage);
-      } else if (location.hostname.indexOf("x-services.nl") > -1) {
+
+        // init GameKings profile
+        _gaq.push(['_setAccount', 'UA-1923358-6']);
+        (function() {
+          var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+          ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+          var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+      } else if (isDomainXServicesNL()) {
         // custom GA (for clients accessing www.x-services.nl/gametv)
         _gaq.push(['_setAccount', 'UA-28850866-4']);
         (function() {
@@ -91,10 +99,19 @@
     function googleAnalytics(page) {
       if (gaPlugin !== undefined && isMobileWithPhonegap()) {
         gaPlugin.trackPage(gaPluginResultHandler, gaPluginErrorHandler, page);
-      } else {
-        // not that googleanalytics lib is not loaded unless on x-services domain (see above)
+      } else if (isDomainXServicesNL()) {
         _gaq.push(['_trackPageview', page]);
       }
+    }
+
+    function googleAnalyticsGamekings(page) {
+      if (isMobileWithPhonegap()) {
+        _gaq.push(['_trackPageview', page]);
+      }
+    }
+
+    function isDomainXServicesNL() {
+      return location.hostname.indexOf("x-services.nl") > -1;
     }
 
     // The Android backbutton should just do the same as clicking the backbutton in the header
@@ -576,8 +593,6 @@
           .on('pageshow', function (e, data) {
             googleAnalytics("videoplayer");
             $(".button_back").html(button_back);
-//            $("#share h3").html(page_share_title);
-//            $("#share #page_share_button .ui-btn-text").html(page_share_button);
             var videosourceid = $.mobile.pageData.videosourceid;
             var videoid = $.mobile.pageData.videoid;
             var cachedVideos = localStorage.getItem("videosources");
@@ -603,6 +618,9 @@
                     increaseNrOfViewsLocally(videosourceid, videoid);
                     // re-render the previous page
                     renderVideoList(videosourceid);
+                    if (videosource.name == "Gamekings") {
+                      googleAnalyticsGamekings(video.pageurl);
+                    }
                     return false; // breaks the loop
                   }
                 })
