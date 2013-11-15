@@ -7,7 +7,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   <meta name="format-detection" content="telephone=no">
   <title>Game TV</title>
-  <link rel="stylesheet" href="css/themes/default/jquery.mobile-1.4.0-alpha.2.min.css" type="text/css"/>
+  <link rel="stylesheet" href="css/themes/default/jquery.mobile-1.4.0-rc.1.min.css" type="text/css"/>
   <link rel="stylesheet" href="css/gametv.custom.css" type="text/css"/>
   <link rel="stylesheet" href="font-awesome/css/font-awesome.min.css" type="text/css">
   <link rel="apple-touch-icon" href="icon.png"/><!-- for webapp usage (not intended btw, but is possible) -->
@@ -16,7 +16,7 @@
   <script src="js/gametv.custom.js"></script>
   <script src="js/jqm-init.js"></script>
   <script src="js/lib/jquery.localisation.min.js"></script>
-  <script src="js/lib/jquery.mobile-1.4.0-alpha.2.min.js"></script>
+  <script src="js/lib/jquery.mobile-1.4.0-rc.1.min.js"></script>
   <script src="js/lib/jqm.page.params.js"></script>
   <script src="http://www.youtube.com/iframe_api"></script>
   <script src="js/pushclient.js"></script>
@@ -25,6 +25,11 @@
   <script src="PushNotification.js"></script>
   <script src="js/plugins/SocialSharing.js"></script>
   <script type="text/javascript">
+
+
+    // TODO: http://view.jquerymobile.com/1.4.0-rc.1/dist/demos/toolbar-fixed-persistent/index.html
+
+
     "use strict";
     $(document).ready(function() {
       increaseNrOfAppStarts();
@@ -36,6 +41,7 @@
       }
       FastClick.attach(document.body);
       $.mobile.defaultHomeScroll = 0;
+      $("[data-role='header']").toolbar();
     });
 
     // Google Analytics: webprofiel is gamekings, plugin is gametv.. en op x-services is het het webprofiel van gametv
@@ -277,7 +283,7 @@
             }
             htmlVideo += '' +
                 '<li>' +
-                '  <a href="#videoplayer?videosourceid='+videosource.id+'&videoid='+video.id+'">' +
+                '  <a href="#videoplayer?videosourceid='+videosource.id+'&videoid='+video.id+'&videosourcename='+videosource.name+'">' +
                 '    <img class="video-image" src="' + video.imageurl + '" />' +
                 '    <h3';
             if (newVideoIDs != null && $.inArray(video.pageurl, newVideoIDs) > -1) {
@@ -318,6 +324,11 @@
 
 
 
+<!-- extracted header from the page templates, to make them truly persistent
+     (view-source:http://view.jquerymobile.com/1.4.0-rc.1/dist/demos/toolbar-fixed-persistent/) -->
+<div id="fixedToolbar" data-role="header" data-theme="b" data-tap-toggle="false" data-position="fixed"></div>
+
+
 
 <!-- PAGE: videosources -->
 <div data-role="page" id="videosources" class="videosourcespage">
@@ -325,6 +336,12 @@
     var forceLoad = true;
     $('#videosources')
         .on('pageshow', function(e, data) {
+          // adjust the fixedToolbar
+          $("#fixedToolbar").html('' +
+              '<a data-icon="refresh" class="ui-btn-left ui-nodisc-icon" href="#" data-iconpos="notext" onclick="loadVideos()"></a>' +
+              '<h1>Game TV</h1>' +
+              '<a data-icon="bars" data-iconpos="notext" href="#" onclick="$.mobile.loading(\'show\'); setTimeout(function(){$.mobile.changePage(\'#editvideosources\', {})},400)" data-role="button" data-direction="reverse" class="ui-btn-right ui-nodisc-icon"></a>');
+
           googleAnalytics("videosources");
           var fromVideosourceid = data.prevPage.attr('data-videosourceid');
           if (!isNaN(fromVideosourceid)) {
@@ -416,11 +433,6 @@
     }
   </script>
 
-  <div data-role="header" data-theme="b" data-tap-toggle="false" data-position="fixed">
-    <a data-icon="refresh" href="#" data-iconpos="notext" onclick="loadVideos()"></a>
-    <h1>Game TV</h1>
-    <a data-icon="bars" data-iconpos="notext" href="#" onclick="$.mobile.loading('show'); setTimeout(function(){$.mobile.changePage('#editvideosources', {})},400)" data-role="button" data-direction="reverse" class="ui-btn-right"></a>
-  </div>
   <div data-role="content">
     <div class="content-primary">
       <div class="antenna"></div>
@@ -438,6 +450,12 @@
   <script type="text/javascript">
     $('#editvideosources')
         .on('pageshow', function (e, data) {
+          // adjust the fixedToolbar
+          $("#fixedToolbar").html('' +
+              '<a data-theme="b" href="#videosources" data-role="button" data-icon="delete" id="page_editvideosources_button_cancel"></a>' +
+              '<h1>'+page_editvideosources_title+'</h1>' +
+              '<a data-icon="check" data-role="button" class="ui-btn-right"  data-iconpos="right" href="#" onclick="saveVideosources()" id="page_editvideosources_button_save"></a>');
+
           googleAnalytics("editvideosources");
 
           if (getPushRegistrationID() == null) {
@@ -452,7 +470,6 @@
                 });
           }
 
-          $("#editvideosources h1").html(page_editvideosources_title);
           $("#page_editvideosources_button_cancel").html(page_editvideosources_button_cancel);
           $("#page_editvideosources_button_save").html(page_editvideosources_button_save);
 
@@ -523,12 +540,6 @@
     }
   </script>
 
-  <div data-role="header" data-theme="b" data-tap-toggle="false" data-position="fixed">
-    <a data-theme="b" href="#videosources" data-role="button" data-icon="delete" id="page_editvideosources_button_cancel"></a>
-    <h1>Beheer kanalen</h1>
-    <a data-icon="check" data-role="button" class="ui-btn-right"  data-iconpos="right" href="#" onclick="saveVideosources()" id="page_editvideosources_button_save"></a>
-  </div>
-
   <div data-role="content">
     <div class="content-primary">
       <form id="editvideosourcesForm">
@@ -548,26 +559,22 @@
         .on('pageshow', function (e, data) {
           if ($.mobile.pageData != null) {
             var videosourceid = $.mobile.pageData.videosourceid;
+            var videosourcename = $.mobile.pageData.videosourcename;
             if (videosourceid != null) {
               // remember the videosource, used when going back to videosourcelist
               $('#videos').attr('data-videosourceid', videosourceid);
               renderVideoList(videosourceid);
             }
             var videosourcename = $.mobile.pageData.videosourcename;
-            if (videosourcename != null) {
-              googleAnalytics("videos/"+videosourcename);
-            } else {
-              googleAnalytics("videos");
-            }
+            googleAnalytics("videos/"+videosourcename);
+
+            // adjust the fixedToolbar
+            $("#fixedToolbar").html('' +
+                '<a href="#videosources" data-icon="arrow-l" data-direction="reverse" class="button_back">'+button_back+'</a>' +
+                '<h1>'+unescape(videosourcename)+'</h1>');
           }
-          $(".button_back").html(button_back);
         });
   </script>
-
-  <div data-role="header" data-theme="b" data-tap-toggle="false" data-position="fixed">
-    <a href="#videosources" data-icon="arrow-l" data-direction="reverse" class="button_back"></a>
-    <h1><!-- filled when loaded --></h1>
-  </div>
 
   <div data-role="content">
     <div class="content-primary">
@@ -576,9 +583,7 @@
     </div>
     <div id="website"></div>
   </div>
-
   <div class="feedback"></div>
-
 </div>
 
 
@@ -592,8 +597,8 @@
           })
           .on('pageshow', function (e, data) {
             googleAnalytics("videoplayer");
-            $(".button_back").html(button_back);
             var videosourceid = $.mobile.pageData.videosourceid;
+            var videosourcename = $.mobile.pageData.videosourcename;
             var videoid = $.mobile.pageData.videoid;
             var cachedVideos = localStorage.getItem("videosources");
             var videosources = JSON.parse(cachedVideos);
@@ -603,6 +608,12 @@
                // find the correct video in the cache
                 $.each(videosource.videoList, function (i, video) {
                   if (video.id == videoid) {
+
+                    // adjust the fixedToolbar
+                    $("#fixedToolbar").html('' +
+                        '<a href="#videos?videosourcename='+videosourcename+'" data-icon="arrow-l" data-direction="reverse" class="button_back">'+button_back+'</a>' +
+                        '<h1>'+unescape(video.title)+'</h1>');
+
                     renderVideoPlayer(videosourceid, video);
                     registerVideoShown(video.id);
                     // set video as seen if applicable
@@ -706,9 +717,6 @@
       }
 
       function renderVideoPlayer(videosourceid, video) {
-        // set the header
-        $("#videoplayer h1").html(video.title);
-
         // render the player
         $("#videoplayer video").attr("poster", video.imageurl);
 
@@ -841,11 +849,6 @@
       }
     }
     </script>
-
-  <div data-role="header" data-theme="b" data-tap-toggle="false" data-position="fixed">
-    <a href="#videos" data-icon="arrow-l" data-direction="reverse" class="button_back"></a>
-    <h1><!-- filled when loaded --></h1>
-  </div>
 
   <div data-role="content">
     <div class="content-primary" style="text-align: center">

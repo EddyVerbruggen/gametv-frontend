@@ -442,6 +442,10 @@ li.ui-btn {
   padding-right: 5.6em;
 }
 
+.ui-header a.ui-nodisc-icon {
+  background-color: #1d1d1d;
+}
+
 .ui-header .ui-btn-left {
   left: 14px;
 }
