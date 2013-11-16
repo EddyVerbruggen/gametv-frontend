@@ -340,7 +340,7 @@
           $("#fixedToolbar").html('' +
               '<a data-icon="refresh" class="ui-btn-left ui-nodisc-icon" href="#" data-iconpos="notext" onclick="loadVideos()"></a>' +
               '<h1>Game TV</h1>' +
-              '<a data-icon="bars" data-iconpos="notext" href="#" onclick="$.mobile.loading(\'show\'); setTimeout(function(){$.mobile.changePage(\'#editvideosources\', {})},400)" data-role="button" data-direction="reverse" class="ui-btn-right ui-nodisc-icon"></a>');
+              '<a data-icon="bars" data-iconpos="notext" href="#" onclick="$.mobile.loading(\'show\'); setTimeout(function(){$.mobile.changePage(\'#editvideosources\', {transition: \'flip\'})},300)" data-role="button" data-direction="reverse" class="ui-btn-right ui-nodisc-icon"></a>');
 
           googleAnalytics("videosources");
           var fromVideosourceid = data.prevPage.attr('data-videosourceid');
@@ -452,7 +452,7 @@
         .on('pageshow', function (e, data) {
           // adjust the fixedToolbar
           $("#fixedToolbar").html('' +
-              '<a data-theme="b" href="#videosources" data-role="button" data-icon="delete" id="page_editvideosources_button_cancel"></a>' +
+              '<a data-theme="b" href="#videosources" data-role="button" data-direction="reverse" data-transition="flip" data-icon="delete" id="page_editvideosources_button_cancel"></a>' +
               '<h1>'+page_editvideosources_title+'</h1>' +
               '<a data-icon="check" data-role="button" class="ui-btn-right"  data-iconpos="right" href="#" onclick="saveVideosources()" id="page_editvideosources_button_save"></a>');
 
@@ -548,7 +548,6 @@
       </form>
     </div>
   </div>
-  <div class="feedback"></div>
 </div>
 
 
@@ -563,7 +562,10 @@
             if (videosourceid != null) {
               // remember the videosource, used when going back to videosourcelist
               $('#videos').attr('data-videosourceid', videosourceid);
-              renderVideoList(videosourceid);
+              // does this help for a smoother pageload?
+              setTimeout(function() {
+                renderVideoList(videosourceid);
+              }, 200);
             }
             var videosourcename = $.mobile.pageData.videosourcename;
             googleAnalytics("videos/"+videosourcename);
@@ -572,6 +574,13 @@
             $("#fixedToolbar").html('' +
                 '<a href="#videosources" data-icon="arrow-l" data-direction="reverse" class="button_back">'+button_back+'</a>' +
                 '<h1>'+unescape(videosourcename)+'</h1>');
+          }
+        })
+        .on('pagebeforehide', function (e, data) {
+          // clear the page for the next visit, but only when navigating to the videosources page
+          if ($.mobile.pageData == null) {
+            $("#videos #videoList").html("");
+            $("#videos #website").html("");
           }
         });
   </script>
@@ -583,7 +592,6 @@
     </div>
     <div id="website"></div>
   </div>
-  <div class="feedback"></div>
 </div>
 
 
@@ -639,11 +647,8 @@
             })
           })
           .on('pagebeforehide', function (e, data) {
-            // unbind click functions (done here, because we also need to unbind when it was not clicked)
-            $('#videoplayer #tweetClickHijacker').unbind("click");
-
-            // force the video to stop playing
-            $("#videocontainer").html("");
+            // clear the page for the next visit. Also forces the video to stop playing
+            $("#videoplayer .ui-content").html("");
           });
 
       function showRecommendButtons(pvideosourceid, pvideoid) {
@@ -726,39 +731,43 @@
         var width = "100%";
 
         var videourl = video.videourl;
-        if (isYouTube(videourl)) {
-          // set the video quality
-//          var videoquality = "small"; // default
-//          var preferedVideoquality = localStorage.getItem("videoQuality");
-//          if (preferedVideoquality != null) {
-//            videoquality = preferedVideoquality;
-//          }
-          loadYoutubeVideoplayer(videourl, width, height);
-          /*
-          $("#videoqualitySwitch")
-              .show()
-              .find("input[type='radio']")
-              .bind("change", function(event, ui) {
-                var switchedTo = $(this).val();
-                $("#youtubeFrame").attr('src', videourl+'?autoplay=1&hd=1&vq='+switchedTo+'&autoplay=true&modestbranding=1&rel=0&showinfo=0');
-                setVideoQualitySwitch(switchedTo);
-                localStorage.setItem("videoQuality", switchedTo);
-              });
-          setVideoQualitySwitch(videoquality);
-          */
-        } else {
-//          $("#videoqualitySwitch").hide();
-          if (isIOS()) {
-//            width = "95%";
+
+        // making the page load more smoothly by delaying the rendering of the player
+        setTimeout(function() {
+          if (isYouTube(videourl)) {
+            // set the video quality
+  //          var videoquality = "small"; // default
+  //          var preferedVideoquality = localStorage.getItem("videoQuality");
+  //          if (preferedVideoquality != null) {
+  //            videoquality = preferedVideoquality;
+  //          }
+            loadYoutubeVideoplayer(videourl, width, height);
+            /*
+            $("#videoqualitySwitch")
+                .show()
+                .find("input[type='radio']")
+                .bind("change", function(event, ui) {
+                  var switchedTo = $(this).val();
+                  $("#youtubeFrame").attr('src', videourl+'?autoplay=1&hd=1&vq='+switchedTo+'&autoplay=true&modestbranding=1&rel=0&showinfo=0');
+                  setVideoQualitySwitch(switchedTo);
+                  localStorage.setItem("videoQuality", switchedTo);
+                });
+            setVideoQualitySwitch(videoquality);
+            */
+          } else {
+  //          $("#videoqualitySwitch").hide();
+  //          if (isIOS()) {
+  //            width = "95%";
+  //          }
+            $("#videocontainer").html('\
+                <video style="z-index:1008" width="'+width+'" height="'+height+'" src="'+videourl+'" type="video/mp4" preload="auto" controls poster="'+video.imageurl+'">\
+                  <object classid="clsid:02bf25d5-8c17-4b23-bc80-d3488abddc6b" width="'+width+'" height="'+height+'" codebase="http://www.apple.com/qtactivex/qtplugin.cab">\
+                    <param value="'+videourl+'" type="video/mp4">\
+                    <embed src="'+videourl+'" type="video/mp4" width="'+width+'" height="'+height+'" controller="false" pluginspage="http://www.apple.com/quicktime/download/"></embed>\
+                  </object>\
+                </video>');
           }
-          $("#videocontainer").html('\
-              <video style="z-index:1008" width="'+width+'" height="'+height+'" src="'+videourl+'" type="video/mp4" preload="auto" controls poster="'+video.imageurl+'">\
-                <object classid="clsid:02bf25d5-8c17-4b23-bc80-d3488abddc6b" width="'+width+'" height="'+height+'" codebase="http://www.apple.com/qtactivex/qtplugin.cab">\
-                  <param value="'+videourl+'" type="video/mp4">\
-                  <embed src="'+videourl+'" type="video/mp4" width="'+width+'" height="'+height+'" controller="false" pluginspage="http://www.apple.com/quicktime/download/"></embed>\
-                </object>\
-              </video>');
-        }
+        }, 300);
 
         if (video.description) {
           $("#videoplayer #description").html(video.description + (video.description.length == 420 ? ".." : "")); // TODO serverfix & remove any links and images!
