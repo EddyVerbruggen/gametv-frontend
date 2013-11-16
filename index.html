@@ -337,7 +337,7 @@
           $("#fixedToolbar").html('' +
               '<a data-icon="refresh" class="ui-btn-left ui-nodisc-icon" href="#" data-iconpos="notext" onclick="loadVideos()"></a>' +
               '<h1>Game TV</h1>' +
-              '<a data-icon="bars" data-iconpos="notext" href="#" onclick="$.mobile.loading(\'show\'); setTimeout(function(){$.mobile.changePage(\'#editvideosources\', {transition: \'flip\'})},300)" data-role="button" data-direction="reverse" class="ui-btn-right ui-nodisc-icon"></a>');
+              '<a data-icon="bars" data-iconpos="notext" href="#" onclick="$.mobile.loading(\'show\'); setTimeout(function(){$.mobile.changePage(\'#editvideosources\', {})},300)" data-role="button" data-direction="reverse" class="ui-btn-right ui-nodisc-icon"></a>');
 
           googleAnalytics("videosources");
           var fromVideosourceid = data.prevPage.attr('data-videosourceid');
@@ -449,7 +449,7 @@
         .on('pageshow', function (e, data) {
           // adjust the fixedToolbar
           $("#fixedToolbar").html('' +
-              '<a data-theme="b" href="#videosources" data-role="button" data-direction="reverse" data-transition="flip" data-icon="delete" id="page_editvideosources_button_cancel"></a>' +
+              '<a data-theme="b" href="#videosources" data-role="button" data-direction="reverse" data-icon="delete" id="page_editvideosources_button_cancel"></a>' +
               '<h1>'+page_editvideosources_title+'</h1>' +
               '<a data-icon="check" data-role="button" class="ui-btn-right"  data-iconpos="right" href="#" onclick="saveVideosources()" id="page_editvideosources_button_save"></a>');
 
