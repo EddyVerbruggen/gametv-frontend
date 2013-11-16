@@ -548,8 +548,13 @@
     $('#videos')
         .on('pageshow', function (e, data) {
           if ($.mobile.pageData != null) {
-            var videosourceid = $.mobile.pageData.videosourceid;
             var videosourcename = $.mobile.pageData.videosourcename;
+            // adjust the fixedToolbar
+            $("#fixedToolbar").html('' +
+                '<a href="#videosources" data-icon="arrow-l" data-direction="reverse" class="button_back">'+button_back+'</a>' +
+                '<h1>'+unescape(videosourcename)+'</h1>');
+
+            var videosourceid = $.mobile.pageData.videosourceid;
             if (videosourceid != null) {
               // remember the videosource, used when going back to videosourcelist
               $('#videos').attr('data-videosourceid', videosourceid);
@@ -560,11 +565,6 @@
               }, 250);
             }
             googleAnalytics("videos/"+videosourcename);
-
-            // adjust the fixedToolbar
-            $("#fixedToolbar").html('' +
-                '<a href="#videosources" data-icon="arrow-l" data-direction="reverse" class="button_back">'+button_back+'</a>' +
-                '<h1>'+unescape(videosourcename)+'</h1>');
           }
         })
         .on('pagebeforehide', function (e, data) {
@@ -593,6 +593,7 @@
     <script type="text/javascript">
       $('#videoplayer')
           .on('pagebeforeshow', function (e, data) {
+            $.mobile.loading('show');
             $('#videocontainer').html('<div id="player"></div>');
           })
           .on('pageshow', function (e, data) {
@@ -636,7 +637,8 @@
                   }
                 })
               }
-            })
+            });
+            $.mobile.loading('hide');
           })
           .on('pagebeforehide', function (e, data) {
             // clear the page for the next visit.. also forces the video to stop playing
