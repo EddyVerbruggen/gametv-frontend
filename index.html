@@ -18,7 +18,7 @@
   <script src="js/lib/jquery.localisation.min.js"></script>
   <script src="js/lib/jquery.mobile-1.4.0-rc.1.min.js"></script>
   <script src="js/lib/jqm.page.params.js"></script>
-  <script src="http://www.youtube.com/iframe_api"></script>
+  <script src="http://www.youtube.com/iframe_api" async="async" defer="defer"></script>
   <script src="js/pushclient.js"></script>
   <script src="phonegap.js"></script>
   <script src="GAPlugin.js"></script>
@@ -117,14 +117,10 @@
 
     // The Android backbutton should just do the same as clicking the backbutton in the header
     function onBackButtonPressed() {
-      var currentPage = $.mobile.activePage[0].id;
-      alert(currentPage);
-      alert($('#'+currentPage));
-      alert($('#'+currentPage).find('.ui-btn-left'));
-      if (currentPage == "videosources") {
+      if ($.mobile.activePage[0].id == "videosources") {
         navigator.app.exitApp();
       } else {
-        $('#'+currentPage)
+        $('#fixedToolbar')
             .find('.ui-btn-left') // the left button is always 'back' or 'cancel'
             .trigger('click');
       }
@@ -154,7 +150,7 @@
               '  <a href="#videos?videosourceid=' + videosource.id + '&videosourcename='+encodeURI(videosource.name.replace(".","_"))+'">' +
               '    <img class="videosource-image" src="'+getEndpoint()+'/public/images/videosources/gametv/' + videosource.image + '" />' +
               '    <h3>' + videosource.name +'</h3>' +
-              '    <p><img src="'+getEndpoint()+'/public/images/flags/' + videosource.country + '.png" width="11px"/>&nbsp;&nbsp;&nbsp;' + getDateString(videosource.videoList[0].date, lang) + '</p>';
+              '    <p><img src="'+getEndpoint()+'/public/images/flags/' + videosource.country + '.png" width="11px" height="7px"/>&nbsp;&nbsp;&nbsp;' + getDateString(videosource.videoList[0].date, lang) + '</p>';
           var nrOfNewVids = nrOfNewVideos(videosource.id);
           if (nrOfNewVids > 0) {
             htmlVideosource += '<span class="ui-li-count">' + nrOfNewVids + '</span>';
@@ -168,6 +164,7 @@
               '</li>';
         }
       });
+      $("#videosources .antenna").show();
       $("#videosourceList").html(htmlVideosource);
       $("#page_home_channellist_header").html(page_home_channellist_header);
       $("#videosourceList").listview('refresh');
@@ -305,10 +302,12 @@
             previousDateString = dateString;
           });
 
+          $("#videos .antenna").show();
           $("#videoList")
               .html(htmlVideo)
               .listview('refresh');
           $("#website").html("&copy; " + videosource.website);
+          $.mobile.loading('hide');
 
           //  break the loop
           return false;
@@ -470,17 +469,11 @@
 
           $("#page_editvideosources_button_cancel").html(page_editvideosources_button_cancel);
           $("#page_editvideosources_button_save").html(page_editvideosources_button_save);
-
-          $("#editvideosources .country_name").each(function(index, elem) {
-            var countryCode = $(elem).html();
-            $(elem).html(eval("country_"+countryCode));
-          });
         });
 
 
     function renderEditVideoSourceList(videosources, videoSourcePushSubscriptions) {
       var htmlVideosource = '';
-      var previousCountry = null;
 
       // first sort by country, done by creating an associative array of arrays
       var sortedVideosources = {};
@@ -497,7 +490,7 @@
 
       // and now render the list
       $.each(sortedVideosources, function (i, videosourcesForCountry) {
-        htmlVideosource += '<li data-role="list-divider"><span><img src="'+getEndpoint()+'/public/images/flags/' + i + '.png" width="22px"/>&nbsp;&nbsp;&nbsp;<span class="country_name">' + i + '</span></span></li>';
+        htmlVideosource += '<li data-role="list-divider"><span><img src="'+getEndpoint()+'/public/images/flags/' + i + '.png" width="22px" height="14px"/>&nbsp;&nbsp;&nbsp;<span class="country_name">' + eval("country_"+i) + '</span></span></li>';
 
         $.each(videosourcesForCountry, function (j, videosource) {
           if (videosource.videoList.length > 0) { // no empty channels
@@ -513,12 +506,12 @@
                 '      <fieldset data-role="controlgroup" data-iconpos="right">' +
                 '        <input type="checkbox" name="checkbox-on-'+videosource.id+'" id="checkbox-on-'+videosource.id+'" '+(isEnabledForUser(videosource.id) ? 'checked' : '')+' data-mini="true">' +
                 '        <label class="showcheckbox" for="checkbox-on-'+videosource.id+'"></label>';
-//            if (isMobileWithPhonegap()) {
+            if (isMobileWithPhonegap()) {
               var hasPushSubscriptionForVideoSource = $.inArray(videosource.id, videoSourcePushSubscriptions) > -1;
               htmlVideosource += '' +
                   '        <input type="checkbox" name="checkbox-push-'+videosource.id+'" id="checkbox-push-'+videosource.id+'" '+(hasPushSubscriptionForVideoSource ? 'checked' : '')+' data-mini="true">' +
                   '        <label class="pushcheckbox" for="checkbox-push-'+videosource.id+'"></label>';
-//            }
+            }
             htmlVideosource += '' +
                 '      </fieldset>' +
                 '    </div>' +
@@ -560,12 +553,12 @@
             if (videosourceid != null) {
               // remember the videosource, used when going back to videosourcelist
               $('#videos').attr('data-videosourceid', videosourceid);
-              // does this help for a smoother pageload?
+              // show a spinner while loading the content
+              $.mobile.loading('show');
               setTimeout(function() {
                 renderVideoList(videosourceid);
-              }, 200);
+              }, 250);
             }
-            var videosourcename = $.mobile.pageData.videosourcename;
             googleAnalytics("videos/"+videosourcename);
 
             // adjust the fixedToolbar
@@ -579,6 +572,7 @@
           if ($.mobile.pageData == null) {
             $("#videos #videoList").html("");
             $("#videos #website").html("");
+            $("#videos .antenna").hide();
           }
         });
   </script>
@@ -645,8 +639,12 @@
             })
           })
           .on('pagebeforehide', function (e, data) {
-            // clear the page for the next visit. Also forces the video to stop playing
-            $("#videoplayer .ui-content").html("");
+            // clear the page for the next visit.. also forces the video to stop playing
+            $("#videoplayer .videocontainer").html("");
+            $("#videoplayer #description").html("");
+            $("#videoplayer #recommended").hide();
+            $("#videoplayer #recommend").hide();
+            $("#videoplayer #share").hide();
           });
 
       function showRecommendButtons(pvideosourceid, pvideoid) {
@@ -731,41 +729,39 @@
         var videourl = video.videourl;
 
         // making the page load more smoothly by delaying the rendering of the player
-        setTimeout(function() {
-          if (isYouTube(videourl)) {
-            // set the video quality
-  //          var videoquality = "small"; // default
-  //          var preferedVideoquality = localStorage.getItem("videoQuality");
-  //          if (preferedVideoquality != null) {
-  //            videoquality = preferedVideoquality;
-  //          }
-            loadYoutubeVideoplayer(videourl, width, height);
-            /*
-            $("#videoqualitySwitch")
-                .show()
-                .find("input[type='radio']")
-                .bind("change", function(event, ui) {
-                  var switchedTo = $(this).val();
-                  $("#youtubeFrame").attr('src', videourl+'?autoplay=1&hd=1&vq='+switchedTo+'&autoplay=true&modestbranding=1&rel=0&showinfo=0');
-                  setVideoQualitySwitch(switchedTo);
-                  localStorage.setItem("videoQuality", switchedTo);
-                });
-            setVideoQualitySwitch(videoquality);
-            */
-          } else {
-  //          $("#videoqualitySwitch").hide();
-  //          if (isIOS()) {
-  //            width = "95%";
-  //          }
-            $("#videocontainer").html('\
-                <video style="z-index:1008" width="'+width+'" height="'+height+'" src="'+videourl+'" type="video/mp4" preload="auto" controls poster="'+video.imageurl+'">\
-                  <object classid="clsid:02bf25d5-8c17-4b23-bc80-d3488abddc6b" width="'+width+'" height="'+height+'" codebase="http://www.apple.com/qtactivex/qtplugin.cab">\
-                    <param value="'+videourl+'" type="video/mp4">\
-                    <embed src="'+videourl+'" type="video/mp4" width="'+width+'" height="'+height+'" controller="false" pluginspage="http://www.apple.com/quicktime/download/"></embed>\
-                  </object>\
-                </video>');
-          }
-        }, 300);
+        if (isYouTube(videourl)) {
+          // set the video quality
+//          var videoquality = "small"; // default
+//          var preferedVideoquality = localStorage.getItem("videoQuality");
+//          if (preferedVideoquality != null) {
+//            videoquality = preferedVideoquality;
+//          }
+          loadYoutubeVideoplayer(videourl, width, height);
+          /*
+          $("#videoqualitySwitch")
+              .show()
+              .find("input[type='radio']")
+              .bind("change", function(event, ui) {
+                var switchedTo = $(this).val();
+                $("#youtubeFrame").attr('src', videourl+'?autoplay=1&hd=1&vq='+switchedTo+'&autoplay=true&modestbranding=1&rel=0&showinfo=0');
+                setVideoQualitySwitch(switchedTo);
+                localStorage.setItem("videoQuality", switchedTo);
+              });
+          setVideoQualitySwitch(videoquality);
+          */
+        } else {
+//          $("#videoqualitySwitch").hide();
+//          if (isIOS()) {
+//            width = "95%";
+//          }
+          $("#videocontainer").html('\
+              <video style="z-index:1008" width="'+width+'" height="'+height+'" src="'+videourl+'" type="video/mp4" preload="auto" controls poster="'+video.imageurl+'">\
+                <object classid="clsid:02bf25d5-8c17-4b23-bc80-d3488abddc6b" width="'+width+'" height="'+height+'" codebase="http://www.apple.com/qtactivex/qtplugin.cab">\
+                  <param value="'+videourl+'" type="video/mp4">\
+                  <embed src="'+videourl+'" type="video/mp4" width="'+width+'" height="'+height+'" controller="false" pluginspage="http://www.apple.com/quicktime/download/"></embed>\
+                </object>\
+              </video>');
+        }
 
         if (video.description) {
           $("#videoplayer #description").html(video.description + (video.description.length == 420 ? ".." : "")); // TODO serverfix & remove any links and images!
@@ -778,8 +774,6 @@
         if (isMobileWithPhonegap()) {
           $("#share").show();
           $('#videoplayer #share').html('<i class="icon-share-sign" onclick="share(\''+video.title+' '+video.pageurl+' - via GameTV for Android\', \''+video.title+'\')"><span class="fontawesome-corrected"> share</span></i>');
-        } else {
-          $("#share").hide();
         }
       }
 
