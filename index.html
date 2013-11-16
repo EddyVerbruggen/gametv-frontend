@@ -593,7 +593,6 @@
     <script type="text/javascript">
       $('#videoplayer')
           .on('pagebeforeshow', function (e, data) {
-            $.mobile.loading('show');
             $('#videocontainer').html('<div id="player"></div>');
           })
           .on('pageshow', function (e, data) {
@@ -633,9 +632,10 @@
                     if (videosource.name == "Gamekings") {
                       googleAnalyticsGamekings(video.pageurl);
                     }
-                    return false; // breaks the loop
+                    return false; // breaks the inner loop
                   }
-                })
+                });
+                return false; // breaks the outer loop
               }
             });
             $.mobile.loading('hide');
