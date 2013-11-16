@@ -25,11 +25,6 @@
   <script src="PushNotification.js"></script>
   <script src="js/plugins/SocialSharing.js"></script>
   <script type="text/javascript">
-
-
-    // TODO: http://view.jquerymobile.com/1.4.0-rc.1/dist/demos/toolbar-fixed-persistent/index.html
-
-
     "use strict";
     $(document).ready(function() {
       increaseNrOfAppStarts();
@@ -123,6 +118,9 @@
     // The Android backbutton should just do the same as clicking the backbutton in the header
     function onBackButtonPressed() {
       var currentPage = $.mobile.activePage[0].id;
+      alert(currentPage);
+      alert($('#'+currentPage));
+      alert($('#'+currentPage).find('.ui-btn-left'));
       if (currentPage == "videosources") {
         navigator.app.exitApp();
       } else {
@@ -515,12 +513,12 @@
                 '      <fieldset data-role="controlgroup" data-iconpos="right">' +
                 '        <input type="checkbox" name="checkbox-on-'+videosource.id+'" id="checkbox-on-'+videosource.id+'" '+(isEnabledForUser(videosource.id) ? 'checked' : '')+' data-mini="true">' +
                 '        <label class="showcheckbox" for="checkbox-on-'+videosource.id+'"></label>';
-            if (isMobileWithPhonegap()) {
+//            if (isMobileWithPhonegap()) {
               var hasPushSubscriptionForVideoSource = $.inArray(videosource.id, videoSourcePushSubscriptions) > -1;
               htmlVideosource += '' +
                   '        <input type="checkbox" name="checkbox-push-'+videosource.id+'" id="checkbox-push-'+videosource.id+'" '+(hasPushSubscriptionForVideoSource ? 'checked' : '')+' data-mini="true">' +
                   '        <label class="pushcheckbox" for="checkbox-push-'+videosource.id+'"></label>';
-            }
+//            }
             htmlVideosource += '' +
                 '      </fieldset>' +
                 '    </div>' +

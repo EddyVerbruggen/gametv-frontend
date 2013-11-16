@@ -52,7 +52,7 @@
   top: 15px;
 }
 
-#editvideosources .pushcheckbox.ui-btn.ui-icon-checkbox-on:after {
+#editvideosources .pushcheckbox.ui-btn.ui-checkbox-on:after {
   background-color: red;
 }
 
