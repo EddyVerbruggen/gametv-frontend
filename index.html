@@ -337,7 +337,7 @@
           $("#fixedToolbar").html('' +
               '<a data-icon="refresh" class="ui-btn-left ui-nodisc-icon" href="#" data-iconpos="notext" onclick="loadVideos()"></a>' +
               '<h1>Game TV</h1>' +
-              '<a data-icon="bars" data-iconpos="notext" href="#" onclick="$.mobile.loading(\'show\'); setTimeout(function(){$.mobile.changePage(\'#editvideosources\', {})},300)" data-role="button" data-direction="reverse" class="ui-btn-right ui-nodisc-icon"></a>');
+              '<a data-icon="bars" data-iconpos="notext" href="#" onclick="$.mobile.changePage(\'#editvideosources\')" data-role="button" data-direction="reverse" class="ui-btn-right ui-nodisc-icon"></a>');
 
           googleAnalytics("videosources");
           var fromVideosourceid = data.prevPage.attr('data-videosourceid');
@@ -453,22 +453,25 @@
               '<h1>'+page_editvideosources_title+'</h1>' +
               '<a data-icon="check" data-role="button" class="ui-btn-right"  data-iconpos="right" href="#" onclick="saveVideosources()" id="page_editvideosources_button_save"></a>');
 
-          googleAnalytics("editvideosources");
+          $.mobile.loading('show');
+          setTimeout(function() {
+            googleAnalytics("editvideosources");
 
-          if (getPushRegistrationID() == null) {
-            renderEditVideoSourceList(JSON.parse(localStorage.getItem("videosources")), []);
-          } else {
-            $.getJSON(getServiceURL("/push/getsubs/"+getPushRegistrationID()))
-                .success(function (videoSourcePushSubscriptions) {
-                  renderEditVideoSourceList(JSON.parse(localStorage.getItem("videosources")), videoSourcePushSubscriptions);
-                })
-                .error(function() {
-                  renderEditVideoSourceList(JSON.parse(localStorage.getItem("videosources")), []);
-                });
-          }
+            if (getPushRegistrationID() == null) {
+              renderEditVideoSourceList(JSON.parse(localStorage.getItem("videosources")), []);
+            } else {
+              $.getJSON(getServiceURL("/push/getsubs/"+getPushRegistrationID()))
+                  .success(function (videoSourcePushSubscriptions) {
+                    renderEditVideoSourceList(JSON.parse(localStorage.getItem("videosources")), videoSourcePushSubscriptions);
+                  })
+                  .error(function() {
+                    renderEditVideoSourceList(JSON.parse(localStorage.getItem("videosources")), []);
+                  });
+            }
 
-          $("#page_editvideosources_button_cancel").html(page_editvideosources_button_cancel);
-          $("#page_editvideosources_button_save").html(page_editvideosources_button_save);
+            $("#page_editvideosources_button_cancel").html(page_editvideosources_button_cancel);
+            $("#page_editvideosources_button_save").html(page_editvideosources_button_save);
+          }, 200)
         });
 
 
@@ -528,6 +531,7 @@
       $('.ui-block-b').trigger("create");
       $(".ui-block-b .showcheckbox").html(page_editvideosources_checkbox_channel);
       $(".ui-block-b .pushcheckbox").html(page_editvideosources_checkbox_push);
+      $.mobile.loading('hide');
     }
   </script>
 
