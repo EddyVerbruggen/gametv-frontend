@@ -318,8 +318,16 @@
   function updateHeader(title, left, right) {
     var toolbar = $("#fixedToolbar");
     $(toolbar).find("h1").html(title);
-    $(toolbar).find(".ui-btn-left").replaceWith(left);
-    $(toolbar).find(".ui-btn-right").replaceWith(right);
+    if (left === undefined) {
+      $(toolbar).find(".ui-btn-left").hide();
+    } else {
+      $(toolbar).find(".ui-btn-left").replaceWith(left).show();
+    }
+    if (right === undefined) {
+      $(toolbar).find(".ui-btn-right").hide();
+    } else {
+      $(toolbar).find(".ui-btn-right").replaceWith(right).show();
+    }
   }
   </script>
 </head>
@@ -350,11 +358,6 @@
               '<a data-icon="bars" data-iconpos="notext" href="#" onclick="$.mobile.changePage(\'#editvideosources\')" data-role="button" data-direction="reverse" class="ui-btn-right ui-nodisc-icon"></a>');
         })
         .on('pageshow', function(e, data) {
-          updateHeader(
-              "Game TV",
-              '<a data-icon="refresh" class="ui-btn-left ui-nodisc-icon" href="#" data-iconpos="notext" onclick="loadVideos()"></a>',
-              '<a data-icon="bars" data-iconpos="notext" href="#" onclick="$.mobile.changePage(\'#editvideosources\')" data-role="button" data-direction="reverse" class="ui-btn-right ui-nodisc-icon"></a>');
-
           googleAnalytics("videosources");
           var fromVideosourceid = data.prevPage.attr('data-videosourceid');
           if (!isNaN(fromVideosourceid)) {
@@ -566,14 +569,13 @@
 <div data-role="page" id="videos" data-videosourceid="to-be-filled">
   <script type="text/javascript">
     $('#videos')
+        .on('pagebeforeshow', function (e, data) {
+          updateHeader(
+              unescape($.mobile.pageData.videosourcename),
+              '<a href="#videosources" class="ui-nodisc-icon" data-iconpos="notext" data-icon="arrow-l" data-direction="reverse" class="button_back"></a>');
+        })
         .on('pageshow', function (e, data) {
           if ($.mobile.pageData != null) {
-            var videosourcename = $.mobile.pageData.videosourcename;
-            // adjust the fixedToolbar
-            $("#fixedToolbar").html('' +
-                '<a href="#videosources" class="ui-nodisc-icon" data-iconpos="notext" data-icon="arrow-l" data-direction="reverse" class="button_back"></a>' +
-                '<h1>'+unescape(videosourcename)+'</h1>');
-
             var videosourceid = $.mobile.pageData.videosourceid;
             if (videosourceid != null) {
               // remember the videosource, used when going back to videosourcelist
@@ -584,6 +586,7 @@
                 renderVideoList(videosourceid);
               }, 250);
             }
+            var videosourcename = $.mobile.pageData.videosourcename;
             googleAnalytics("videos/"+videosourcename);
           }
         })
@@ -628,11 +631,9 @@
                // find the correct video in the cache
                 $.each(videosource.videoList, function (i, video) {
                   if (video.id == videoid) {
-
-                    // adjust the fixedToolbar
-                    $("#fixedToolbar").html('' +
-                        '<a href="#videos?videosourcename='+videosourcename+'" class="ui-nodisc-icon" data-iconpos="notext" data-icon="arrow-l" data-direction="reverse" class="button_back"></a>' +
-                        '<h1>'+unescape(video.title)+'</h1>');
+                    updateHeader(
+                        unescape(video.title),
+                        '<a href="#videos?videosourcename='+videosourcename+'" class="ui-nodisc-icon" data-iconpos="notext" data-icon="arrow-l" data-direction="reverse" class="button_back"></a>');
 
                     renderVideoPlayer(videosourceid, video);
                     registerVideoShown(video.id);

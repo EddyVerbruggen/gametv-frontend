@@ -450,6 +450,10 @@ li.ui-btn {
   background-color: #1d1d1d;
 }
 
+.ui-header a.ui-nodisc-icon:active {
+  box-shadow: none; /* attempt to remove blue glow around refreshbutton when pressed */
+}
+
 .ui-header a.ui-nodisc-icon {
   padding-top: 6px;
   padding-bottom: 6px;
