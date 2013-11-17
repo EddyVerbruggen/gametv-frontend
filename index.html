@@ -663,7 +663,7 @@
           })
           .on('pagebeforehide', function (e, data) {
             // clear the page for the next visit.. also forces the video to stop playing
-            $("#videoplayer .videocontainer").html("");
+            $("#videoplayer #videocontainer").html("");
             $("#videoplayer #description").html("");
             $("#videoplayer #recommended").hide();
             $("#videoplayer #recommend").hide();
