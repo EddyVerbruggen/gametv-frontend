@@ -314,6 +314,13 @@
         }
       })
     }
+
+  function updateHeader(title, left, right) {
+    var toolbar = $("#fixedToolbar");
+    $(toolbar).find("h1").html(title);
+    $(toolbar).find(".ui-btn-left").replaceWith(left);
+    $(toolbar).find(".ui-btn-right").replaceWith(right);
+  }
   </script>
 </head>
 <body>
@@ -323,7 +330,11 @@
 
 <!-- extracted header from the page templates, to make them truly persistent
      (view-source:http://view.jquerymobile.com/1.4.0-rc.1/dist/demos/toolbar-fixed-persistent/) -->
-<div id="fixedToolbar" data-role="header" data-theme="b" data-tap-toggle="false" data-position="fixed"></div>
+<div id="fixedToolbar" data-role="header" data-theme="b" data-tap-toggle="false" data-position="fixed">
+  <a data-icon="refresh" class="ui-btn-left ui-nodisc-icon ui-link ui-btn ui-icon-bars ui-btn-icon-notext ui-shadow ui-corner-all" href="#" data-iconpos="notext" onclick="loadVideos()" data-role="button" role="button"></a>
+  <h1>Game TV</h1>
+  <a data-icon="bars" data-iconpos="notext" href="#" onclick="$.mobile.changePage('#editvideosources')" data-role="button" data-direction="reverse" class="ui-btn-right ui-nodisc-icon ui-link ui-btn ui-icon-bars ui-btn-icon-notext ui-shadow ui-corner-all" role="button"></a>
+</div>
 
 
 
@@ -332,11 +343,16 @@
   <script type="text/javascript">
     var forceLoad = true;
     $('#videosources')
+        .on('pagebeforeshow', function(e, data) {
+          updateHeader(
+              "Game TV",
+              '<a data-icon="refresh" class="ui-btn-left ui-nodisc-icon" href="#" data-iconpos="notext" onclick="loadVideos()"></a>',
+              '<a data-icon="bars" data-iconpos="notext" href="#" onclick="$.mobile.changePage(\'#editvideosources\')" data-role="button" data-direction="reverse" class="ui-btn-right ui-nodisc-icon"></a>');
+        })
         .on('pageshow', function(e, data) {
-          // adjust the fixedToolbar
-          $("#fixedToolbar").html('' +
-              '<a data-icon="refresh" class="ui-btn-left ui-nodisc-icon" href="#" data-iconpos="notext" onclick="loadVideos()"></a>' +
-              '<h1>Game TV</h1>' +
+          updateHeader(
+              "Game TV",
+              '<a data-icon="refresh" class="ui-btn-left ui-nodisc-icon" href="#" data-iconpos="notext" onclick="loadVideos()"></a>',
               '<a data-icon="bars" data-iconpos="notext" href="#" onclick="$.mobile.changePage(\'#editvideosources\')" data-role="button" data-direction="reverse" class="ui-btn-right ui-nodisc-icon"></a>');
 
           googleAnalytics("videosources");
@@ -446,16 +462,13 @@
 <div data-role="page" id="editvideosources" class="videosourcespage">
   <script type="text/javascript">
     $('#editvideosources')
-//        .on('pagebeforeshow', function (e, data) {
-//          $("#fixedToolbar h1").html(page_editvideosources_title + ' loading..');
-//        })
+        .on('pagebeforeshow', function (e, data) {
+          updateHeader(
+              page_editvideosources_title,
+              '<a class="ui-nodisc-icon" href="#videosources" data-iconpos="notext" data-role="button" data-direction="reverse" data-icon="delete" id="page_editvideosources_button_cancel"></a>',
+              '<a data-icon="check" class="ui-nodisc-icon" data-role="button" data-iconpos="notext" class="ui-btn-right"  data-iconpos="right" href="#" onclick="saveVideosources()" id="page_editvideosources_button_save"></a>');
+        })
         .on('pageshow', function (e, data) {
-          // adjust the fixedToolbar
-          $("#fixedToolbar").html('' +
-              '<a data-theme="b" href="#videosources" data-role="button" data-direction="reverse" data-icon="delete" id="page_editvideosources_button_cancel"></a>' +
-              '<h1>'+page_editvideosources_title+'</h1>' +
-              '<a data-icon="check" data-role="button" class="ui-btn-right"  data-iconpos="right" href="#" onclick="saveVideosources()" id="page_editvideosources_button_save"></a>');
-
           $.mobile.loading('show');
           setTimeout(function() {
             googleAnalytics("editvideosources");
@@ -472,8 +485,8 @@
                   });
             }
 
-            $("#page_editvideosources_button_cancel").html(page_editvideosources_button_cancel);
-            $("#page_editvideosources_button_save").html(page_editvideosources_button_save);
+//            $("#page_editvideosources_button_cancel").html(page_editvideosources_button_cancel);
+//            $("#page_editvideosources_button_save").html(page_editvideosources_button_save);
           }, 200)
         });
 
@@ -558,7 +571,7 @@
             var videosourcename = $.mobile.pageData.videosourcename;
             // adjust the fixedToolbar
             $("#fixedToolbar").html('' +
-                '<a href="#videosources" data-icon="arrow-l" data-direction="reverse" class="button_back">'+button_back+'</a>' +
+                '<a href="#videosources" class="ui-nodisc-icon" data-iconpos="notext" data-icon="arrow-l" data-direction="reverse" class="button_back"></a>' +
                 '<h1>'+unescape(videosourcename)+'</h1>');
 
             var videosourceid = $.mobile.pageData.videosourceid;

@@ -446,14 +446,37 @@ li.ui-btn {
 
 .ui-header a.ui-nodisc-icon {
   background-color: #1d1d1d;
+  padding-top: 6px;
+  padding-bottom: 6px;
+  top: 0;
+}
+
+.ui-header a.ui-nodisc-icon.ui-btn-left {
+  padding-left: 6px;
+  padding-right: 16px;
+}
+
+.ui-header a.ui-nodisc-icon.ui-btn-right {
+  padding-left: 16px;
+  padding-right: 6px;
 }
 
 .ui-header .ui-btn-left {
-  left: 14px;
+  left: 0;
 }
 
 .ui-header .ui-btn-right {
-  right: 15px;
+  right: 0;
+}
+
+.ui-header .ui-btn-left.ui-btn-icon-notext:after {
+  margin-left: 14px;
+  left: 0;
+}
+
+.ui-header .ui-btn-right.ui-btn-icon-notext:after {
+  margin-right: 14px;
+  right: 0;
 }
 
 #website {
