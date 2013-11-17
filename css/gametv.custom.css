@@ -444,8 +444,13 @@ li.ui-btn {
   padding-right: 5.6em;
 }
 
-.ui-header a.ui-nodisc-icon {
+.ui-header a.ui-nodisc-icon,
+.ui-header a.ui-nodisc-icon:active,
+.ui-header a.ui-nodisc-icon:hover {
   background-color: #1d1d1d;
+}
+
+.ui-header a.ui-nodisc-icon {
   padding-top: 6px;
   padding-bottom: 6px;
   top: 0;
