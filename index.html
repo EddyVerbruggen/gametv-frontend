@@ -863,24 +863,25 @@
       }
 
     function getVideoQuality() {
-      if (navigator.connection == undefined /*desktop*/) {
-        return "hd720";
-      } else {
+      var quality = "hd720";
+      if (navigator.connection != undefined /*desktop*/) {
         var cnx = navigator.connection.type;
         if (cnx == Connection.WIFI || cnx == Connection.ETHERNET) {
           if ($("body").height() >= 720 || $("body").width() > 720) {
-            return "hd720";
+            quality = "hd720";
           } else {
-            return "large";
+            quality = "large";
           }
         } else if (cnx == Connection.CELL_4G) {
-          return "large";
+          quality = "large";
         } else if (cnx == Connection.CELL_2G) {
-          return "small";
+          quality = "small";
         } else {
-          return "medium";
+          quality = "medium";
         }
       }
+      alert(quality);
+      return quality;
     }
     </script>
 

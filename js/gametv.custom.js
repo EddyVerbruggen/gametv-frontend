@@ -16,6 +16,7 @@ function isAndroid() {
 
 function isAndroid44_orHigher() {
   var version = Number(navigator.userAgent.toLowerCase().replace(/.android ([0-9]+\.[0-9]+).*/g, '$1'));
+  alert(version);
   return isAndroid() && version >= 4.4;
 }
 
