@@ -857,9 +857,9 @@
       }
 
       function onPlayerStateChange(event) {
-        if (event.data == YT.PlayerState.BUFFERING) {
+//        if (event.data == YT.PlayerState.BUFFERING) {
           event.target.setPlaybackQuality(getVideoQuality());
-        }
+//        }
       }
 
     function getVideoQuality() {
@@ -880,7 +880,6 @@
           quality = "medium";
         }
       }
-      alert(quality);
       return quality;
     }
     </script>
