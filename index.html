@@ -788,7 +788,7 @@
 //            width = "95%";
 //          }
           $("#videocontainer").html('\
-              <video style="z-index:1008" width="'+width+'" height="'+height+'" src="'+videourl+'" type="video/mp4" preload="auto" controls poster="'+video.imageurl+'">\
+              <video style="z-index:1008" width="'+width+'" height="'+height+'" src="'+videourl+'" type="video/mp4" preload="none" controls poster="'+video.imageurl+'">\
                 <object classid="clsid:02bf25d5-8c17-4b23-bc80-d3488abddc6b" width="'+width+'" height="'+height+'" codebase="http://www.apple.com/qtactivex/qtplugin.cab">\
                   <param value="'+videourl+'" type="video/mp4">\
                   <embed src="'+videourl+'" type="video/mp4" width="'+width+'" height="'+height+'" controller="false" pluginspage="http://www.apple.com/quicktime/download/"></embed>\
@@ -836,6 +836,7 @@
 
       function loadYoutubeVideo() {
         player = new YT.Player('player', {
+          preload: none,
           height: playerheight,
           width: playerwidth,
           videoId: playervideourl,
