@@ -614,6 +614,11 @@
 <!-- PAGE: videoplayer -->
   <div data-role="page" id="videoplayer">
     <script type="text/javascript">
+
+      function isGamekings(videosource) {
+        return videosource.name == "Gamekings";
+      }
+
       $('#videoplayer')
           .on('pagebeforeshow', function (e, data) {
             $('#videocontainer').html('<div id="player"></div>');
@@ -650,7 +655,7 @@
                     increaseNrOfViewsLocally(videosourceid, videoid);
                     // re-render the previous page
                     renderVideoList(videosourceid);
-                    if (videosource.name == "Gamekings") {
+                    if (isGamekings(videosource)) {
                       googleAnalyticsGamekings(video.pageurl);
                     }
                     return false; // breaks the inner loop
@@ -749,7 +754,12 @@
         var height = (totalWidth / (totalWidth < totalHeight ? 2 : 3));
         var width = "100%";
 
-        var videourl = video.videourl;
+        var videourl;
+        if (isAndroid44_orHigher()) {
+          videourl = video.originalvideourl;
+        } else {
+          videourl = video.videourl;
+        }
 
         // making the page load more smoothly by delaying the rendering of the player
         if (isYouTube(videourl)) {

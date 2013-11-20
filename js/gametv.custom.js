@@ -14,6 +14,11 @@ function isAndroid() {
   return true || navigator.userAgent.toLowerCase().indexOf("android") > -1;
 }
 
+function isAndroid44_orHigher() {
+  var version = Number(navigator.userAgent.toLowerCase().replace(/.android ([0-9]+\.[0-9]+).*/g, '$1'));
+  return isAndroid() && version >= 4.4;
+}
+
 function isIOS() {
   return navigator.userAgent.match(/(iPad|iPhone|iPod)/i);
 }
