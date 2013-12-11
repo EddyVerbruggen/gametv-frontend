@@ -18,7 +18,7 @@
   <script src="js/lib/jquery.localisation.min.js"></script>
   <script src="js/lib/jquery.mobile-1.4.0-rc.1.min.js"></script>
   <script src="js/lib/jqm.page.params.js"></script>
-  <script src="http://www.youtube.com/iframe_api"></script>
+  <script src="http://www.youtube.com/iframe_api" class="youtube-player" type="text/html"></script>
   <script src="js/pushclient.js"></script>
   <script src="phonegap.js"></script>
   <script src="GAPlugin.js"></script>
@@ -809,14 +809,18 @@
         showRecommendButtons(videosourceid, video.id);
 
         if (isMobileWithPhonegap()) {
-          $("#share").show();
-          $('#videoplayer #share').html('<i class="icon-share-sign" onclick="share(\''+encodeURI(video.title)+' - via GameTV for Android\', \''+encodeURI(video.title)+'\', \''+video.pageurl+'\')"><span class="fontawesome-corrected"> share</span></i>');
+          // save here, so it can be used in the share() function
+          sessionStorage.setItem("currentVideo", JSON.stringify(video));
+          $('#videoplayer #share')
+              .html('<i class="icon-share-sign" onclick="share()"><span class="fontawesome-corrected"> share</span></i>')
+              .show();
         }
       }
 
-      function share(msg, subject, link) {
+      function share() {
         googleAnalytics("share");
-        window.plugins.socialsharing.share(msg, subject, null, link);
+        var video = JSON.parse(sessionStorage.getItem("currentVideo"));
+        window.plugins.socialsharing.share(video.title +' - via GameTV for Android', video.title, null, video.pageurl);
       }
 
       function setVideoQualitySwitch(val) {
@@ -858,11 +862,13 @@
       }
 
       function onPlayerReady(event) {
+        alert("setting quality in onPlayerReady: " + quality);
         event.target.setPlaybackQuality(getVideoQuality());
       }
 
       function onPlayerStateChange(event) {
 //        if (event.data == YT.PlayerState.BUFFERING) {
+          alert("setting quality in onPlayerStateChange: " + quality);
           event.target.setPlaybackQuality(getVideoQuality());
 //        }
       }
@@ -885,7 +891,6 @@
           quality = "medium";
         }
       }
-      alert("setting quality: " + quality);
       return quality;
     }
     </script>
