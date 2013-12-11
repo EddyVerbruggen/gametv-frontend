@@ -861,17 +861,17 @@
             'onError': function(){alert('onError')}
           }
         });
-        player.setPlaybackQuality(getVideoQuality());
+//        player.setPlaybackQuality(getVideoQuality());
       }
 
       function onPlayerReady(event) {
-        alert("setting quality in onPlayerReady: " + quality);
+        alert("onPlayerReady");
         event.target.setPlaybackQuality(getVideoQuality());
       }
 
       function onPlayerStateChange(event) {
 //        if (event.data == YT.PlayerState.BUFFERING) {
-          alert("setting quality in onPlayerStateChange: " + quality);
+          alert("onPlayerStateChange");
           event.target.setPlaybackQuality(getVideoQuality());
 //        }
       }
