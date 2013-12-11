@@ -810,13 +810,13 @@
 
         if (isMobileWithPhonegap()) {
           $("#share").show();
-          $('#videoplayer #share').html('<i class="icon-share-sign" onclick="share(\''+video.title+' '+video.pageurl+' - via GameTV for Android\', \''+video.title+'\')"><span class="fontawesome-corrected"> share</span></i>');
+          $('#videoplayer #share').html('<i class="icon-share-sign" onclick="share(\''+encodeURI(video.title)+' - via GameTV for Android\', \''+encodeURI(video.title)+'\', \''+video.pageurl+'\')"><span class="fontawesome-corrected"> share</span></i>');
         }
       }
 
-      function share(msg, subject) {
+      function share(msg, subject, link) {
         googleAnalytics("share");
-        window.plugins.socialsharing.share(msg, subject);
+        window.plugins.socialsharing.share(msg, subject, null, link);
       }
 
       function setVideoQualitySwitch(val) {
@@ -885,6 +885,7 @@
           quality = "medium";
         }
       }
+      alert("setting quality: " + quality);
       return quality;
     }
     </script>
