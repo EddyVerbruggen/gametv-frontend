@@ -856,9 +856,12 @@
           },
           events: {
             'onReady': onPlayerReady,
-            'onStateChange': onPlayerStateChange
+            'onStateChange': onPlayerStateChange,
+            'onPlaybackQualityChange': function(){alert('onPlaybackQualityChange')},
+            'onError': function(){alert('onError')}
           }
-        })
+        });
+        player.setPlaybackQuality(getVideoQuality());
       }
 
       function onPlayerReady(event) {
