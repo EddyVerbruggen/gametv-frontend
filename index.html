@@ -18,7 +18,7 @@
   <script src="js/lib/jquery.localisation.min.js"></script>
   <script src="js/lib/jquery.mobile-1.4.0-rc.1.min.js"></script>
   <script src="js/lib/jqm.page.params.js"></script>
-  <script src="http://www.youtube.com/iframe_api"></script>
+  <!--<script src="http://www.youtube.com/iframe_api"></script>-->
   <script src="js/pushclient.js"></script>
   <script src="phonegap.js"></script>
   <script src="GAPlugin.js"></script>
@@ -137,6 +137,13 @@
         forceLoad = true;
       }
     }
+
+    var tag = document.createElement('script');
+    tag.src = "http://www.youtube.com/iframe_api";
+    var firstScriptTag = document.getElementsByTagName('script')[0];
+    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+    var done = false;
+    var player;
 
     function onYouTubeIframeAPIReady() {
       alert("YT ready");
@@ -833,8 +840,7 @@
         $(switchContainer).find('#radio-videoquality-'+val+'-label').addClass("ui-btn-active");
       }
 
-      // TODO encapsulate in object
-      var player;
+//      var player;
       var playerwidth;
       var playerheight;
       var playervideourl;

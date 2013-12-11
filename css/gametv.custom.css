@@ -1,12 +1,10 @@
 .videosourcespage .ui-li-has-thumb img.videosource-image {
   width: 66px;
   height: 66px;
-  background: url('../img/videosources/_default.png');
 }
 
 @media (-webkit-min-device-pixel-ratio:2){
   .videosourcespage .ui-li-has-thumb img.videosource-image {
-    background: url('../img/videosources/_default@2x.png');
     background-size: 66px 66px;
   }
 }
