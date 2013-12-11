@@ -138,6 +138,10 @@
       }
     }
 
+    function onYouTubeIframeAPIReady() {
+      alert("YT ready");
+    }
+
     // kick off localisation
     var lang = $.localise.defaultLanguage;
     $.localise('js/localisation/messages', {language: lang, loadBase: true});
