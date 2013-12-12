@@ -873,16 +873,14 @@
       }
 
       function onPlayerReady(event) {
-        $("#quality").html(getVideoQuality() + " @ " + new Date().getTime() + ", was: " + event.target.getPlaybackQuality());
+//        $("#quality").html(getVideoQuality() + " @ " + new Date().getTime() + ", was: " + event.target.getPlaybackQuality());
         event.target.setPlaybackQuality(getVideoQuality());
         event.target.playVideo();
       }
 
       function onPlayerStateChange(event) {
-        $("#quality").html(getVideoQuality() + " @ " + new Date().getTime() + ", state: " + event.data + ", was: " + event.target.getPlaybackQuality());
-//        if (event.data == YT.PlayerState.BUFFERING) {
-          event.target.setPlaybackQuality(getVideoQuality());
-//        }
+//        $("#quality").html(getVideoQuality() + " @ " + new Date().getTime() + ", state: " + event.data + ", was: " + event.target.getPlaybackQuality());
+        event.target.setPlaybackQuality(getVideoQuality());
       }
 
     function getVideoQuality() {
@@ -920,7 +918,7 @@
           <span class="ui-btn-inline" id="recommended" style="cursor: pointer"><i class="icon-star"> <span class="fontawesome-corrected">tip</span></i></span>
           <span class="ui-btn-inline" id="share" style="cursor: pointer"></span>
           <br/>
-          <div id="quality"></div><!-- TODO remove -->
+          <!--<div id="quality"></div>-->
       	</div>
       </div>
     </div>
