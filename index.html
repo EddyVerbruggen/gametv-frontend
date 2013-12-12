@@ -875,11 +875,14 @@
       function onPlayerReady(event) {
         $("#quality").html(getVideoQuality() + " @ " + new Date().getTime() + ", was: " + event.target.getPlaybackQuality());
         event.target.setPlaybackQuality(getVideoQuality());
+        event.target.playVideo();
       }
 
       function onPlayerStateChange(event) {
         $("#quality").html(getVideoQuality() + " @ " + new Date().getTime() + ", was: " + event.target.getPlaybackQuality());
-        event.target.setPlaybackQuality(getVideoQuality());
+        if (event.data == YT.PlayerState.BUFFERING) {
+          event.target.setPlaybackQuality(getVideoQuality());
+        }
       }
 
     function getVideoQuality() {
