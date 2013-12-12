@@ -866,16 +866,19 @@
           },
           events: {
             'onReady': onPlayerReady,
-            'onStateChange': onPlayerStateChange
+            'onStateChange': onPlayerStateChange,
+            'onError': function(){alert('errrrrr')}
           }
         });
       }
 
       function onPlayerReady(event) {
+        alert("onPlayerReady: " + getVideoQuality());
         event.target.setPlaybackQuality(getVideoQuality());
       }
 
       function onPlayerStateChange(event) {
+        alert("onPlayerStateChange: " + event.data + "; " + getVideoQuality());
         if (event.data == YT.PlayerState.BUFFERING) {
           event.target.setPlaybackQuality(getVideoQuality());
         }
