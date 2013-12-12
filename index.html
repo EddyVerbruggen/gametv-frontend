@@ -872,13 +872,14 @@
       }
 
       function onPlayerReady(event) {
-        alert("onPlayerReady: " + getVideoQuality());
+        $("#quality").html(getVideoQuality() + " @ " + new Date().getTime());
         event.target.setPlaybackQuality(getVideoQuality());
-        player.setPlaybackQuality(getVideoQuality());
+//        player.setPlaybackQuality(getVideoQuality());
       }
 
       function onPlayerStateChange(event) {
-        alert("onPlayerStateChange: " + event.data + "; " + getVideoQuality());
+        $("#quality").html(getVideoQuality() + " @ " + new Date().getTime());
+//        alert("onPlayerStateChange: " + event.data + "; " + getVideoQuality());
 //        if (event.data == YT.PlayerState.BUFFERING) {
           event.target.setPlaybackQuality(getVideoQuality());
 //        }
@@ -919,6 +920,7 @@
           <span class="ui-btn-inline" id="recommended" style="cursor: pointer"><i class="icon-star"> <span class="fontawesome-corrected">tip</span></i></span>
           <span class="ui-btn-inline" id="share" style="cursor: pointer"></span>
           <br/>
+          <div id="quality"></div><!-- TODO remove -->
       	</div>
       </div>
     </div>
