@@ -875,13 +875,14 @@
       function onPlayerReady(event) {
         alert("onPlayerReady: " + getVideoQuality());
         event.target.setPlaybackQuality(getVideoQuality());
+        player.setPlaybackQuality(getVideoQuality());
       }
 
       function onPlayerStateChange(event) {
         alert("onPlayerStateChange: " + event.data + "; " + getVideoQuality());
-        if (event.data == YT.PlayerState.BUFFERING) {
+//        if (event.data == YT.PlayerState.BUFFERING) {
           event.target.setPlaybackQuality(getVideoQuality());
-        }
+//        }
       }
 
     function getVideoQuality() {
