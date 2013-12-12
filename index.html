@@ -879,10 +879,10 @@
       }
 
       function onPlayerStateChange(event) {
-        $("#quality").html(getVideoQuality() + " @ " + new Date().getTime() + ", was: " + event.target.getPlaybackQuality());
-        if (event.data == YT.PlayerState.BUFFERING) {
+        $("#quality").html(getVideoQuality() + " @ " + new Date().getTime() + ", state: " + event.data + ", was: " + event.target.getPlaybackQuality());
+//        if (event.data == YT.PlayerState.BUFFERING) {
           event.target.setPlaybackQuality(getVideoQuality());
-        }
+//        }
       }
 
     function getVideoQuality() {
