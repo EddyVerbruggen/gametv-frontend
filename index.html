@@ -771,7 +771,10 @@
 //          if (preferedVideoquality != null) {
 //            videoquality = preferedVideoquality;
 //          }
-          loadYoutubeVideoplayer(videourl, width, height);
+//          loadYoutubeVideoplayer(videourl, width, height);
+
+          $("#videocontainer").html('<img onclick="loadYoutubeVideoplayer(\''+videourl+'\')" width="'+width+'" src="'+video.imageurl+'">');
+
           /*
           $("#videoqualitySwitch")
               .show()
@@ -821,25 +824,26 @@
         window.plugins.socialsharing.share(video.title +' - via GameTV for Android', video.title, null, video.pageurl);
       }
 
-      function setVideoQualitySwitch(val) {
-        var switchContainer = $("#videoqualitySwitch");
-        $(switchContainer).find("label").removeClass("ui-btn-active");
-        $(switchContainer).find('#radio-videoquality-'+val+'-label').addClass("ui-btn-active");
-      }
+//      function setVideoQualitySwitch(val) {
+//        var switchContainer = $("#videoqualitySwitch");
+//        $(switchContainer).find("label").removeClass("ui-btn-active");
+//        $(switchContainer).find('#radio-videoquality-'+val+'-label').addClass("ui-btn-active");
+//      }
 
 //      var player;
-      var playerwidth;
-      var playerheight;
-      var playervideourl;
+//      var playerwidth;
+//      var playerheight;
+//      var playervideourl;
 
       function loadYoutubeVideoplayer(videourl, width, height) {
-        playerwidth = width;
-        playerheight = height;
-        $("#youtube-link").html(videourl);
-        playervideourl = videourl.substring(videourl.lastIndexOf('/')+1);
-        loadYoutubeVideo();
+//        playerwidth = width;
+//        playerheight = height;
+        var playervideourl = videourl.substring(videourl.lastIndexOf('/')+1);
+        window.open('http://www.youtube.com/watch?v='+playervideourl, '_system');
+//        loadYoutubeVideo();
       }
 
+      /*
       function loadYoutubeVideo() {
         if (player == null) {
           var tag = document.createElement('script');
@@ -886,7 +890,7 @@
 
     function getVideoQuality() {
       var quality = "hd720";
-      if (navigator.connection != undefined /*desktop*/) {
+      if (navigator.connection != undefined) { // desktop
         var cnx = navigator.connection.type;
         if (cnx == Connection.WIFI || cnx == Connection.ETHERNET) {
           if ($("body").height() >= 720 || $("body").width() > 720) {
@@ -904,6 +908,7 @@
       }
       return quality;
     }
+    */
     </script>
 
   <div data-role="content">
@@ -919,8 +924,6 @@
           <span class="ui-btn-inline" id="recommended" style="cursor: pointer"><i class="icon-star"> <span class="fontawesome-corrected">tip</span></i></span>
           <span class="ui-btn-inline" id="share" style="cursor: pointer"></span>
           <br/>
-          <div id="youtube-link"></div>
-          <div onclick="window.open('http://www.youtube.com/watch?v=zfvPPPc_UTs', '_system')">try this</div>
       	</div>
       </div>
     </div>
