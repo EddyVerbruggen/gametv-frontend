@@ -623,7 +623,7 @@
 
       $('#videoplayer')
           .on('pagebeforeshow', function (e, data) {
-            $('#videocontainer').html('<div id="player"></div>');
+            $('#videocontainer').html('<div id="player" style="z-index:1009"></div>');
           })
           .on('pageshow', function (e, data) {
             googleAnalytics("videoplayer");
