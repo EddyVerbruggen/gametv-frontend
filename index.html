@@ -623,7 +623,7 @@
 
       $('#videoplayer')
           .on('pagebeforeshow', function (e, data) {
-            $('#videocontainer').html('<div id="player" style="z-index:1009"></div>');
+            $('#videocontainer').html('<div id="player"></div>');
           })
           .on('pageshow', function (e, data) {
             googleAnalytics("videoplayer");
@@ -771,10 +771,7 @@
 //          if (preferedVideoquality != null) {
 //            videoquality = preferedVideoquality;
 //          }
-//          loadYoutubeVideoplayer(videourl, width, height);
-
-          $("#videocontainer").html('<img onclick="loadYoutubeVideoplayer(\''+videourl+'\')" width="'+width+'" src="'+video.imageurl+'">');
-
+          loadYoutubeVideoplayer(videourl, width, height);
           /*
           $("#videoqualitySwitch")
               .show()
@@ -824,26 +821,24 @@
         window.plugins.socialsharing.share(video.title +' - via GameTV for Android', video.title, null, video.pageurl);
       }
 
-//      function setVideoQualitySwitch(val) {
-//        var switchContainer = $("#videoqualitySwitch");
-//        $(switchContainer).find("label").removeClass("ui-btn-active");
-//        $(switchContainer).find('#radio-videoquality-'+val+'-label').addClass("ui-btn-active");
-//      }
-
-//      var player;
-//      var playerwidth;
-//      var playerheight;
-//      var playervideourl;
-
-      function loadYoutubeVideoplayer(videourl, width, height) {
-//        playerwidth = width;
-//        playerheight = height;
-        var playervideourl = videourl.substring(videourl.lastIndexOf('/')+1);
-        window.open('http://www.youtube.com/watch?v='+playervideourl, '_system');
-//        loadYoutubeVideo();
+      function setVideoQualitySwitch(val) {
+        var switchContainer = $("#videoqualitySwitch");
+        $(switchContainer).find("label").removeClass("ui-btn-active");
+        $(switchContainer).find('#radio-videoquality-'+val+'-label').addClass("ui-btn-active");
       }
 
-      /*
+//      var player;
+      var playerwidth;
+      var playerheight;
+      var playervideourl;
+
+      function loadYoutubeVideoplayer(videourl, width, height) {
+        playerwidth = width;
+        playerheight = height;
+        playervideourl = videourl.substring(videourl.lastIndexOf('/')+1);
+        loadYoutubeVideo();
+      }
+
       function loadYoutubeVideo() {
         if (player == null) {
           var tag = document.createElement('script');
@@ -880,7 +875,7 @@
       function onPlayerReady(event) {
 //        $("#quality").html(getVideoQuality() + " @ " + new Date().getTime() + ", was: " + event.target.getPlaybackQuality());
         event.target.setPlaybackQuality(getVideoQuality());
-        event.target.playVideo();
+//        event.target.playVideo();
       }
 
       function onPlayerStateChange(event) {
@@ -890,7 +885,7 @@
 
     function getVideoQuality() {
       var quality = "hd720";
-      if (navigator.connection != undefined) { // desktop
+      if (navigator.connection != undefined /*desktop*/) {
         var cnx = navigator.connection.type;
         if (cnx == Connection.WIFI || cnx == Connection.ETHERNET) {
           if ($("body").height() >= 720 || $("body").width() > 720) {
@@ -908,7 +903,6 @@
       }
       return quality;
     }
-    */
     </script>
 
   <div data-role="content">
@@ -924,6 +918,7 @@
           <span class="ui-btn-inline" id="recommended" style="cursor: pointer"><i class="icon-star"> <span class="fontawesome-corrected">tip</span></i></span>
           <span class="ui-btn-inline" id="share" style="cursor: pointer"></span>
           <br/>
+          <!--<div id="quality"></div>-->
       	</div>
       </div>
     </div>
