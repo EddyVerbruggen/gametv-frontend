@@ -835,13 +835,13 @@
       function loadYoutubeVideoplayer(videourl, width, height) {
         playerwidth = width;
         playerheight = height;
+        $("#youtube-link").html(videourl);
         playervideourl = videourl.substring(videourl.lastIndexOf('/')+1);
         loadYoutubeVideo();
       }
 
       function loadYoutubeVideo() {
         if (player == null) {
-          alert('player null, creating');
           var tag = document.createElement('script');
           tag.src = "https://www.youtube.com/iframe_api";
           var firstScriptTag = document.getElementsByTagName('script')[0];
@@ -854,7 +854,6 @@
       var player;
 
       function onYouTubeIframeAPIReady() {
-        alert('onYouTubeIframeAPIReady');
         player = new YT.Player('player', {
           height: playerheight,
           width: playerwidth,
@@ -920,6 +919,7 @@
           <span class="ui-btn-inline" id="recommended" style="cursor: pointer"><i class="icon-star"> <span class="fontawesome-corrected">tip</span></i></span>
           <span class="ui-btn-inline" id="share" style="cursor: pointer"></span>
           <br/>
+          <div id="youtube-link"></div>
           <!--<div id="quality"></div>-->
       	</div>
       </div>
