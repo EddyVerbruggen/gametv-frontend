@@ -841,6 +841,7 @@
 
       function loadYoutubeVideo() {
         if (player == null) {
+          alert('player null, creating');
           var tag = document.createElement('script');
           tag.src = "https://www.youtube.com/iframe_api";
           var firstScriptTag = document.getElementsByTagName('script')[0];
@@ -853,12 +854,13 @@
       var player;
 
       function onYouTubeIframeAPIReady() {
+        alert('onYouTubeIframeAPIReady');
         player = new YT.Player('player', {
           height: playerheight,
           width: playerwidth,
           videoId: playervideourl,
           playerVars: {
-            autoplay: 0,
+            autoplay: 1,
             fullscreen: 1,
             controls: 1,
             rel: 0,
