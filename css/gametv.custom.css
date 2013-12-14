@@ -256,7 +256,6 @@ li.ui-btn {
 #share {
   width: 300px;
   z-index: 2000;
-  display: none;
 }
 
 .antenna {
@@ -273,7 +272,6 @@ li.ui-btn {
     background-size: 36px 20px;
   }
 }
-
 
 #videocontainer {
   background-color: #000;
@@ -330,7 +328,6 @@ li.ui-btn {
 #videoplayer #recommended,
 #videoplayer #share,
 #videoplayer #original {
-  display: none;
   position: relative;
   top: -10px;
   border: 2px solid white;
@@ -480,6 +477,8 @@ li.ui-btn {
 
 .ui-btn-inline {
   white-space: nowrap;
+  display: inline-block;
+  max-width: 80px;
 }
 
 .fontawesome-corrected {
