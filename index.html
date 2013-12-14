@@ -624,6 +624,10 @@
       $('#videoplayer')
           .on('pagebeforeshow', function (e, data) {
             $('#videocontainer').html('<div id="player"></div>');
+            $("#videoplayer #recommended").hide();
+            $("#videoplayer #recommend").hide();
+            $("#videoplayer #share").hide();
+            $("#videoplayer #original").hide();
           })
           .on('pageshow', function (e, data) {
             googleAnalytics("videoplayer");
@@ -672,10 +676,6 @@
             // clear the page for the next visit.. also forces the video to stop playing
             $("#videoplayer #videocontainer").html("");
             $("#videoplayer #description").html("");
-            $("#videoplayer #recommended").hide();
-            $("#videoplayer #recommend").hide();
-            $("#videoplayer #share").hide();
-            $("#videoplayer #original").hide();
           });
 
       function showRecommendButtons(pvideosourceid, pvideoid) {
@@ -795,11 +795,11 @@
 
         if (isYouTube(videourl)) {
           $('#videoplayer #original')
-              .html('<i class="icon-youtube" onclick="window.open(\'http://m.youtube.com/watch?feature=g-high-rec&rel=0&v='+playervideourl+'\', \'_system\', \'_location=no\')"><span class="fontawesome-corrected"> '+page_videoplayer_orginal_youtube+'</span></i>')
+              .html('<i class="icon-youtube" onclick="window.open(\'http://m.youtube.com/watch?feature=g-high-rec&rel=0&v='+playervideourl+'\', \'_system\', \'_location=no\')"><span class="fontawesome-corrected">&nbsp;'+page_videoplayer_orginal_youtube+'</span></i>')
               .show();
         } else {
           $('#videoplayer #original')
-              .html('<i class="icon-play" onclick="window.open(\''+video.pageurl+'\', \'_blank\', \'_location=yes\')"><span class="fontawesome-corrected"> '+page_videoplayer_orginal_website+'</span></i>')
+              .html('<i class="icon-play" onclick="window.open(\''+video.pageurl+'\', \'_blank\', \'_location=yes\')"><span class="fontawesome-corrected">&nbsp;'+page_videoplayer_orginal_website+'</span></i>')
               .show();
         }
       }
