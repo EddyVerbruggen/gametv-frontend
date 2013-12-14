@@ -37,8 +37,8 @@ page_editvideosources_button_save = 'save';
 page_editvideosources_checkbox_channel = 'Show';
 page_editvideosources_checkbox_push = 'Push';
 
-page_share_title = 'Mail a friend';
-page_share_button = 'Let\'s send it';
+page_videoplayer_orginal_youtube = 'watch on youtube';
+page_videoplayer_orginal_website = 'watch on the web';
 
 notification_hide = 'Hide this message';
 notification_item_homepage_pushconfighint = 'Have favorite channels? Click &nbsp;<i class="icon-reorder"/>&nbsp; in the top-right corner to enable push notifications.';

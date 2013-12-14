@@ -675,6 +675,7 @@
             $("#videoplayer #recommended").hide();
             $("#videoplayer #recommend").hide();
             $("#videoplayer #share").hide();
+            $("#videoplayer #original").hide();
           });
 
       function showRecommendButtons(pvideosourceid, pvideoid) {
@@ -765,30 +766,8 @@
 
         // making the page load more smoothly by delaying the rendering of the player
         if (isYouTube(videourl)) {
-          // set the video quality
-//          var videoquality = "small"; // default
-//          var preferedVideoquality = localStorage.getItem("videoQuality");
-//          if (preferedVideoquality != null) {
-//            videoquality = preferedVideoquality;
-//          }
           loadYoutubeVideoplayer(videourl, width, height);
-          /*
-          $("#videoqualitySwitch")
-              .show()
-              .find("input[type='radio']")
-              .bind("change", function(event, ui) {
-                var switchedTo = $(this).val();
-                $("#youtubeFrame").attr('src', videourl+'?autoplay=1&hd=1&vq='+switchedTo+'&autoplay=true&modestbranding=1&rel=0&showinfo=0');
-                setVideoQualitySwitch(switchedTo);
-                localStorage.setItem("videoQuality", switchedTo);
-              });
-          setVideoQualitySwitch(videoquality);
-          */
         } else {
-//          $("#videoqualitySwitch").hide();
-//          if (isIOS()) {
-//            width = "95%";
-//          }
           $("#videocontainer").html('\
               <video style="z-index:1008" width="'+width+'" height="'+height+'" src="'+videourl+'" type="video/mp4" preload="none" controls poster="'+video.imageurl+'">\
                 <object classid="clsid:02bf25d5-8c17-4b23-bc80-d3488abddc6b" width="'+width+'" height="'+height+'" codebase="http://www.apple.com/qtactivex/qtplugin.cab">\
@@ -811,6 +790,18 @@
           sessionStorage.setItem("currentVideo", JSON.stringify(video));
           $('#videoplayer #share')
               .html('<i class="icon-share-sign" onclick="share()"><span class="fontawesome-corrected"> share</span></i>')
+              .show();
+        }
+
+        if (isYouTube(videourl)) {
+          $('#videoplayer #original')
+              .html('<i class="icon-youtube" onclick="window.open(\'http://m.youtube.com/watch?feature=g-high-rec&rel=0&v='+playervideourl+'\', \'_blank\', \'_location=no\')"><span class="fontawesome-corrected"> '+page_videoplayer_orginal_youtube+'</span></i><br/><br/>\
+                <i class="icon-youtube" onclick="window.open(\'http://m.youtube.com/watch?feature=g-high-rec&rel=0&v='+playervideourl+'\', \'_system\', \'_location=no\')"><span class="fontawesome-corrected"> '+page_videoplayer_orginal_youtube+' 2</span></i><br/><br/>\
+                <i class="icon-youtube" onclick="window.open(\'http://www.youtube.com/watch?rel=0&v='+playervideourl+'\', \'_system\', \'_location=no\')"><span class="fontawesome-corrected"> '+page_videoplayer_orginal_youtube+' 3</span></i>')
+              .show();
+        } else {
+          $('#videoplayer #original')
+              .html('<i class="icon-play" onclick="window.open(\''+video.pageurl+'\', \'_blank\', \'_location=no\')"><span class="fontawesome-corrected"> '+page_videoplayer_orginal_website+'</span></i>')
               .show();
         }
       }
@@ -873,13 +864,10 @@
       }
 
       function onPlayerReady(event) {
-//        $("#quality").html(getVideoQuality() + " @ " + new Date().getTime() + ", was: " + event.target.getPlaybackQuality());
         event.target.setPlaybackQuality(getVideoQuality());
-//        event.target.playVideo();
       }
 
       function onPlayerStateChange(event) {
-//        $("#quality").html(getVideoQuality() + " @ " + new Date().getTime() + ", state: " + event.data + ", was: " + event.target.getPlaybackQuality());
         event.target.setPlaybackQuality(getVideoQuality());
       }
 
@@ -917,8 +905,8 @@
           <span class="ui-btn-inline" id="recommend" style="cursor: pointer"><i class="icon-star-empty"> <span class="fontawesome-corrected">tip</span></i></span>
           <span class="ui-btn-inline" id="recommended" style="cursor: pointer"><i class="icon-star"> <span class="fontawesome-corrected">tip</span></i></span>
           <span class="ui-btn-inline" id="share" style="cursor: pointer"></span>
+          <span class="ui-btn-inline" id="original" style="cursor: pointer"></span>
           <br/>
-          <!--<div id="quality"></div>-->
       	</div>
       </div>
     </div>

@@ -302,17 +302,6 @@ li.ui-btn {
   font-size: 0.9em;
 }
 
-/*
-#videoplayer #sharebyemail {
-  margin-right: 10px;
-  margin-top: -17px;
-}
-*/
-
-.twitter-share-button {
-  width: 130px !important;
-}
-
 #videoplayer .ui-content {
   padding-right: 10px;
 }
@@ -333,7 +322,8 @@ li.ui-btn {
 
 #videoplayer #recommend,
 #videoplayer #recommended,
-#videoplayer #share {
+#videoplayer #share,
+#videoplayer #original {
   display: none;
   position: relative;
   top: -10px;
@@ -368,20 +358,10 @@ li.ui-btn {
   box-shadow: 0 0 3px rgba(0, 0, 0, 0.4);
 }
 
-#videoplayer #recommend, .ui-li-has-count .ui-li-count.recommendations {
-  background: -moz-linear-gradient(center top , green, darkgreen) repeat scroll 0 0 padding-box transparent;
-  background-image: -webkit-gradient(
-  	linear,
-  	left bottom,
-  	left top,
-  	color-stop(0.14, darkgreen),
-    color-stop(0.57, darkgreen),
-  	color-stop(0.79, green)
-  );
-}
-
-#videoplayer #share, .ui-li-has-count .ui-li-count.recommendations {
-  background: -moz-linear-gradient(center top , green, darkgreen) repeat scroll 0 0 padding-box transparent;
+#videoplayer #recommend,
+#videoplayer #share,
+#videoplayer #original,
+.ui-li-has-count .ui-li-count.recommendations {
   background-image: -webkit-gradient(
   	linear,
   	left bottom,
@@ -394,7 +374,6 @@ li.ui-btn {
 
 #videoplayer #recommended {
   box-shadow: 0 0 1px rgba(0, 0, 0, 0.6);
-  background: -moz-linear-gradient(center top, green, darkgreen) repeat scroll 0 0 padding-box transparent;
   background-image: -webkit-gradient(
   	linear,
   	left bottom,

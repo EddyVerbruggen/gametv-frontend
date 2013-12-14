@@ -24,8 +24,8 @@ page_editvideosources_button_cancel = 'annuleer';
 page_editvideosources_button_save = 'opslaan';
 page_editvideosources_checkbox_channel = 'Toon';
 
-page_share_title = 'Mail een vriend';
-page_share_button = 'Naar verzenden';
+page_videoplayer_orginal_youtube = 'bekijk op youtube';
+page_videoplayer_orginal_website = 'bekijk op \'t web';
 
 notification_hide = 'Dit bericht verbergen';
 notification_item_homepage_pushconfighint = 'Heb je favoriete kanalen? Klik rechtsboven op &nbsp;<i class="icon-reorder"/>&nbsp; om een pushbericht in te stellen.';
