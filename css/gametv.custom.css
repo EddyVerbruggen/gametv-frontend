@@ -183,6 +183,12 @@ li.ui-btn {
   font-size: 0.75em;
 }
 
+#videoplayer #buttons {
+  margin-top: 20px;
+  margin-bottom: 10px;
+  width: 100%;
+}
+
 @media (min-width: 400px) {
   .ui-li-heading {
     font-size: 13px;
@@ -472,7 +478,10 @@ li.ui-btn {
   font-size: 0.8em;
 }
 
+.ui-btn-inline {
+  white-space: nowrap;
+}
+
 .fontawesome-corrected {
   font-family: sans-serif;
-  white-space: nowrap;
 }
