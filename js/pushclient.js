@@ -58,12 +58,12 @@ function PushClient(androidSenderID, receivePushRegistrationIDCallback, receiveM
   };
 
   this.successHandler = function(result) {
-    alert('success: ' + result); // TODO disable
+//    alert('success: ' + result); // TODO disable
   };
 
   this.errorHandler = function(error) {
     // TODO don't alert when development is finished
-    alert("Unknown push error: " + error);
+//    alert("Unknown push error: " + error);
   };
 
   // call this 'private' method upon class construction
