@@ -474,4 +474,5 @@ li.ui-btn {
 
 .fontawesome-corrected {
   font-family: sans-serif;
+  white-space: nowrap;
 }
