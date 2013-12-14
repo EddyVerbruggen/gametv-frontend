@@ -24,7 +24,7 @@ page_editvideosources_button_cancel = 'annuleer';
 page_editvideosources_button_save = 'opslaan';
 page_editvideosources_checkbox_channel = 'Toon';
 
-page_videoplayer_orginal_youtube = 'op youtube';
+page_videoplayer_orginal_youtube = 'youtube';
 page_videoplayer_orginal_website = 'op \'t web';
 
 notification_hide = 'Dit bericht verbergen';
