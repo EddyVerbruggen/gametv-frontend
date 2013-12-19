@@ -375,6 +375,12 @@ li.ui-btn {
   );
 }
 
+#originalPrefix {
+  font-size: 0.8em;
+  color: #999;
+  line-height: 30px;
+}
+
 #videoplayer #recommended {
   box-shadow: 0 0 1px rgba(0, 0, 0, 0.6);
   background-image: -webkit-gradient(
