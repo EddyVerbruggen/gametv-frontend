@@ -44,9 +44,8 @@
   <gap:plugin name="com.phonegap.plugins.pushplugin" version="2.1.1" />
   <gap:plugin name="net.tunts.webintent" version="0.2.0" />
   <gap:plugin name="nl.x-services.plugins.socialsharing" version="3.5" />
-  <!-- screendim breaks compile -->
-  <!--<gap:plugin name="us.rcs.phonegap.plugins.screendim.screendim.plugin" version="1.0.0" />-->
-  <!--<gap:plugin name="nl.x-services.plugins.insomnia" version="2.0" />-->
+  <!-- TODO this one is pending review -->
+  <!--<gap:plugin name="nl.x-services.plugins.insomnia" version="3.0" />-->
 
   <access origin="*" /><!-- allow loading any url in the webview -->
 

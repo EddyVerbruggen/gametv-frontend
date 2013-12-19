@@ -25,7 +25,6 @@
   <script src="PushNotification.js"></script>
   <script src="js/plugins/SocialSharing.js"></script>
   <!--<script src="js/plugins/Insomnia.js"></script>-->
-  <script src="screendim.js"></script>
   <script type="text/javascript">
     "use strict";
     $(document).ready(function() {
@@ -51,7 +50,6 @@
       if (window.plugins != undefined) {
         // Don't allow the screen to dim
 //        window.plugins.insomnia.keepAwake();
-        cordova.screenDim.disable();
         // Google Analytics stuff
         gaPlugin = window.plugins.gaPlugin;
         gaPlugin.init(gaInitSuccessHandler, gaInitErrorHandler, "UA-28850866-4", 8);
@@ -763,13 +761,13 @@
 //        if (isAndroid44_orHigher()) {
           videourl = video.originalvideourl;
 //        } else {
-          videourl = video.videourl;
+//          videourl = video.videourl;
 //        }
 
         // making the page load more smoothly by delaying the rendering of the player
         if (isYouTube(videourl)) {
-          // TODO if no YT installed, use inline player (AppAvailablitlityftyyttyt plugin
-          alert(videourl.substring(videourl.lastIndexOf('/')+1));
+          // TODO if no YT installed, use inline player (AppAvailablitlityftyyttyt plugin)
+          /*
           window.plugins.webintent.startActivity({
                 action: window.plugins.webintent.ACTION_VIEW,
                 url: 'vnd.youtube:'+(videourl.substring(videourl.lastIndexOf('/')+1))
@@ -777,16 +775,10 @@
               function() {},
               function() {alert('Failed to open URL via Android Intent')}
           );
-//          loadYoutubeVideoplayer(videourl, width, height);
+          */
+          loadYoutubeVideoplayer(videourl, width, height);
         } else {
-          window.plugins.webintent.startActivity({
-                action: window.plugins.webintent.ACTION_VIEW,
-                type: 'video/*',
-                url: videourl
-              },
-              function() {},
-              function() {alert('Failed to open URL via Android Intent')}
-          );
+          $("#videocontainer").html('<img src="'+video.imageurl+'" width="'+width+'" onclick="launchNativeVideoPlayer(\''+videourl+'\')"/>');
 //          $("#videocontainer").html('\
 //              <video style="z-index:1008" width="'+width+'" height="'+height+'" src="'+videourl+'" type="video/mp4" preload="none" controls poster="'+video.imageurl+'">\
 //                <object classid="clsid:02bf25d5-8c17-4b23-bc80-d3488abddc6b" width="'+width+'" height="'+height+'" codebase="http://www.apple.com/qtactivex/qtplugin.cab">\
@@ -821,6 +813,17 @@
               .html('<i class="icon-play" onclick="window.open(\''+video.pageurl+'\', \'_blank\', \'_location=yes\')"><span class="fontawesome-corrected">&nbsp;'+page_videoplayer_orginal_website+'</span></i>')
               .show();
         }
+      }
+
+      function launchNativeVideoPlayer(videourl) {
+        window.plugins.webintent.startActivity({
+              action: window.plugins.webintent.ACTION_VIEW,
+              type: 'video/*',
+              url: videourl
+            },
+            function() {},
+            function() {alert('Failed to open URL via Android Intent')}
+        );
       }
 
       function share() {
