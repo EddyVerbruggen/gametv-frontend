@@ -2,7 +2,7 @@
 <widget xmlns="http://www.w3.org/ns/widgets"
         xmlns:gap="http://phonegap.com/ns/1.0"
         id="nl.x-services.gametv"
-        version="2.0">
+        version="2.1.SNAPSHOT">
 
   <name>Game TV</name><!-- is also the name of the icon on the device -->
 
