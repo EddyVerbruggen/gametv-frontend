@@ -766,22 +766,12 @@
 
         // making the page load more smoothly by delaying the rendering of the player
         if (isYouTube(videourl)) {
-          // TODO if no YT installed, use inline player (AppAvailablitlityftyyttyt plugin)
-          /*
-          window.plugins.webintent.startActivity({
-                action: window.plugins.webintent.ACTION_VIEW,
-                url: 'vnd.youtube:'+(videourl.substring(videourl.lastIndexOf('/')+1))
-              },
-              function() {},
-              function() {alert('Failed to open URL via Android Intent')}
-          );
-          */
           loadYoutubeVideoplayer(videourl, width, height);
         } else {
           if (isMobileWithPhonegap()) {
             $("#videocontainer").html('' +
-                '<div style="position: relative; width:'+width+' height: '+height+'">' +
-                '<img style="width: 100%; height: 100%" src="'+video.imageurl+'" onclick="launchNativeVideoPlayer(\''+videourl+'\')"/>' +
+                '<div style="position: relative; width:'+width+' height: '+height+'" onclick="launchNativeVideoPlayer(\''+videourl+'\')">' +
+                '<img style="width: 100%; height: 100%" src="'+video.imageurl+'"/>' +
                 '<i class="fa icon-play-circle" style="position: absolute; top:50%; color: #fff; text-shadow: 1px 1px #999; font-size: 70px; left:50%; margin-left: -35px; margin-top: -37px"></i>' +
                 '</div>');
           } else {
@@ -803,7 +793,7 @@
 
         showRecommendButtons(videosourceid, video.id);
 
-        if (true || isMobileWithPhonegap()) { //
+        if (isMobileWithPhonegap()) { //
           // save here, so it can be used in the share() function
           sessionStorage.setItem("currentVideo", JSON.stringify(video));
           $('#videoplayer #share')
@@ -813,7 +803,7 @@
 
         if (isYouTube(videourl)) {
           $('#videoplayer #original')
-              .html('<i class="icon-youtube" onclick="window.open(\'http://m.youtube.com/watch?feature=g-high-rec&rel=0&v='+playervideourl+'\', \'_system\', \'_location=no\')"><span class="fontawesome-corrected">&nbsp;'+page_videoplayer_orginal_youtube+'</span></i>')
+              .html('<i class="icon-youtube" onclick="launchYoutubeApp(\''+playervideourl+'\')"><span class="fontawesome-corrected">&nbsp;'+page_videoplayer_orginal_youtube+'</span></i>')
               .show();
         } else {
           $('#videoplayer #original')
@@ -829,7 +819,19 @@
               url: videourl
             },
             function() {},
-            function() {alert('Failed to open URL via Android Intent')}
+            function() {alert('Your device doesn\'t seem to have a videoplayer.. too bad :(')}
+        );
+      }
+
+      function launchYoutubeApp(videourl) {
+        window.plugins.webintent.startActivity({
+              action: window.plugins.webintent.ACTION_VIEW,
+              url: 'vnd.youtube:'+videourl
+            },
+            function() {},
+            function() {
+              window.open('http://m.youtube.com/watch?feature=g-high-rec&rel=0&v='+videourl, '_system', '_location=no');
+            }
         );
       }
 
@@ -876,7 +878,7 @@
           width: playerwidth,
           videoId: playervideourl,
           playerVars: {
-            autoplay: 1,
+            autoplay: 0,
             fullscreen: 1,
             controls: 1,
             rel: 0,
