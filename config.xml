@@ -32,8 +32,8 @@
   <preference name="ios-statusbarstyle" value="black-opaque"/>
   <preference name="show-splash-screen-spinner" value="false" />
   <preference name="prerendered-icon" value="true" />
-  <preference name="android-minSdkVersion" value="13" /><!-- TODO -->
-  <preference name="android-targetSdkVersion" value="18" /><!-- TODO -->
+  <preference name="android-minSdkVersion" value="13" /><!-- TODO lower with native vidplayer ? -->
+  <preference name="android-targetSdkVersion" value="18" />
   <preference name="android-installLocation" value="auto" />
   <preference name="exit-on-suspend" value="false" />
   <preference name="auto-hide-splash-screen" value="false" />
@@ -42,7 +42,7 @@
 
   <gap:plugin name="com.adobe.plugins.gaplugin" />
   <gap:plugin name="com.phonegap.plugins.pushplugin" version="1.3.7" />
-  <gap:plugin name="com.borismus.webintent" version="0.1.0" />
+  <gap:plugin name="net.tunts.webintent" version="0.1.0" />
   <gap:plugin name="nl.x-services.plugins.socialsharing" version="2.3" />
   <gap:plugin name="nl.x-services.plugins.insomnia" version="2.0" />
 
