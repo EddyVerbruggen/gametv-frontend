@@ -23,7 +23,7 @@
   <script src="phonegap.js"></script>
   <script src="GAPlugin.js"></script>
   <script src="PushNotification.js"></script>
-  <script src="js/plugins/SocialSharing.js"></script>
+  <!--<script src="js/plugins/SocialSharing.js"></script>-->
   <!--<script src="js/plugins/Insomnia.js"></script>-->
   <script type="text/javascript">
     "use strict";
@@ -807,7 +807,7 @@
               .show();
         } else {
           $('#videoplayer #original')
-              .html('<i class="icon-play" onclick="window.open(\''+video.pageurl+'\', \'_blank\', \'location=yes\')"><span class="fontawesome-corrected">&nbsp;'+page_videoplayer_orginal_website+'</span></i>')
+              .html('<i class="icon-play" onclick="window.open(\''+video.pageurl+'\', \'_blank\', \'location=no\')"><span class="fontawesome-corrected">&nbsp;'+page_videoplayer_orginal_website+'</span></i>')
               .show();
         }
       }
@@ -830,7 +830,7 @@
             },
             function() {},
             function() {
-              window.open('http://m.youtube.com/watch?feature=g-high-rec&rel=0&v='+videourl, '_system', 'location=no');
+              window.open('http://m.youtube.com/watch?feature=g-high-rec&rel=0&v='+videourl, '_blank', 'location=no');
             }
         );
       }
