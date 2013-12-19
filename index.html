@@ -759,9 +759,9 @@
 
         var videourl;
 //        if (isAndroid44_orHigher()) {
-          videourl = video.originalvideourl;
+//          videourl = video.originalvideourl;
 //        } else {
-//          videourl = video.videourl;
+          videourl = video.videourl;
 //        }
 
         // making the page load more smoothly by delaying the rendering of the player
@@ -807,7 +807,7 @@
               .show();
         } else {
           $('#videoplayer #original')
-              .html('<i class="icon-play" onclick="window.open(\''+video.pageurl+'\', \'_blank\', \'location=no\')"><span class="fontawesome-corrected">&nbsp;'+page_videoplayer_orginal_website+'</span></i>')
+              .html('<i class="icon-play" onclick="window.open(\''+video.pageurl+'\', \'_blank\', \'location=yes\')"><span class="fontawesome-corrected">&nbsp;'+page_videoplayer_orginal_website+'</span></i>')
               .show();
         }
       }
@@ -830,7 +830,7 @@
             },
             function() {},
             function() {
-              window.open('http://m.youtube.com/watch?feature=g-high-rec&rel=0&v='+videourl, '_blank', 'location=no');
+              window.open('http://m.youtube.com/watch?feature=g-high-rec&rel=0&v='+videourl, '_blank', 'location=yes');
             }
         );
       }
