@@ -329,7 +329,6 @@ li.ui-btn {
 #videoplayer #share,
 #videoplayer #original {
   position: relative;
-  top: -10px;
   border: 2px solid white;
   color: #FFFFFF;
   padding: 4px 6px;
@@ -375,10 +374,14 @@ li.ui-btn {
   );
 }
 
+#originalContainer {
+  display: inline;
+  float: right;
+}
+
 #originalPrefix {
   font-size: 0.8em;
   color: #999;
-  line-height: 30px;
 }
 
 #videoplayer #recommended {

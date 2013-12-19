@@ -24,7 +24,7 @@ page_editvideosources_button_cancel = 'annuleer';
 page_editvideosources_button_save = 'opslaan';
 page_editvideosources_checkbox_channel = 'Toon';
 
-page_videoplayer_orginal_youtube_prefix = 'Schokt het beeld? Probeer ';
+page_videoplayer_orginal_youtube_prefix = 'problemen? probeer ';
 page_videoplayer_orginal_youtube = 'youtube';
 page_videoplayer_orginal_website = 'op \'t web';
 

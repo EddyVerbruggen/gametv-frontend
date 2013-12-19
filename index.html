@@ -804,9 +804,9 @@
 
         if (isYouTube(videourl)) {
           $('#originalPrefix')
-              .html('<br/>'+page_videoplayer_orginal_youtube_prefix);
+              .html(page_videoplayer_orginal_youtube_prefix);
           $('#videoplayer #original')
-              .html('<i class="icon-youtube" onclick="launchYoutubeApp(\''+playervideourl+'\')"><span class="fontawesome-corrected">&nbsp;'+page_videoplayer_orginal_youtube+'</span></i>')
+              .html('<i class="icon-youtube" onclick="player.pauseVideo(); launchYoutubeApp(\''+playervideourl+'\')"><span class="fontawesome-corrected">&nbsp;'+page_videoplayer_orginal_youtube+'</span></i>')
               .show();
         } else {
           $('#videoplayer #original')
@@ -938,8 +938,10 @@
             <span class="ui-btn-inline" id="recommend" style="cursor: pointer"><i class="icon-star-empty"> <span class="fontawesome-corrected">tip</span></i></span>
             <span class="ui-btn-inline" id="recommended" style="cursor: pointer"><i class="icon-star"> <span class="fontawesome-corrected">tip</span></i></span>
             <span class="ui-btn-inline" id="share" style="cursor: pointer"></span>
-            <span id="originalPrefix"></span>
-            <span class="ui-btn-inline" id="original" style="cursor: pointer"></span>
+            <div id="originalContainer">
+              <span id="originalPrefix"></span>
+              <span class="ui-btn-inline" id="original" style="cursor: pointer"></span>
+            </div>
           </div>
       	</div>
       </div>
