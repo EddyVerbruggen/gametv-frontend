@@ -758,23 +758,40 @@
         var width = "100%";
 
         var videourl;
-        if (isAndroid44_orHigher()) {
+//        if (isAndroid44_orHigher()) {
           videourl = video.originalvideourl;
-        } else {
+//        } else {
           videourl = video.videourl;
-        }
+//        }
 
         // making the page load more smoothly by delaying the rendering of the player
         if (isYouTube(videourl)) {
-          loadYoutubeVideoplayer(videourl, width, height);
+          // TODO if no YT installed, use inline player (AppAvailablitlityftyyttyt plugin
+          alert(videourl.substring(videourl.lastIndexOf('/')+1));
+          window.plugins.webintent.startActivity({
+                action: window.plugins.webintent.ACTION_VIEW,
+                url: 'vnd.youtube:'+(videourl.substring(videourl.lastIndexOf('/')+1))
+              },
+              function() {},
+              function() {alert('Failed to open URL via Android Intent')}
+          );
+//          loadYoutubeVideoplayer(videourl, width, height);
         } else {
-          $("#videocontainer").html('\
-              <video style="z-index:1008" width="'+width+'" height="'+height+'" src="'+videourl+'" type="video/mp4" preload="none" controls poster="'+video.imageurl+'">\
-                <object classid="clsid:02bf25d5-8c17-4b23-bc80-d3488abddc6b" width="'+width+'" height="'+height+'" codebase="http://www.apple.com/qtactivex/qtplugin.cab">\
-                  <param value="'+videourl+'" type="video/mp4">\
-                  <embed src="'+videourl+'" type="video/mp4" width="'+width+'" height="'+height+'" controller="false" pluginspage="http://www.apple.com/quicktime/download/"></embed>\
-                </object>\
-              </video>');
+          window.plugins.webintent.startActivity({
+                action: window.plugins.webintent.ACTION_VIEW,
+                type: 'video/*',
+                url: videourl
+              },
+              function() {},
+              function() {alert('Failed to open URL via Android Intent')}
+          );
+//          $("#videocontainer").html('\
+//              <video style="z-index:1008" width="'+width+'" height="'+height+'" src="'+videourl+'" type="video/mp4" preload="none" controls poster="'+video.imageurl+'">\
+//                <object classid="clsid:02bf25d5-8c17-4b23-bc80-d3488abddc6b" width="'+width+'" height="'+height+'" codebase="http://www.apple.com/qtactivex/qtplugin.cab">\
+//                  <param value="'+videourl+'" type="video/mp4">\
+//                  <embed src="'+videourl+'" type="video/mp4" width="'+width+'" height="'+height+'" controller="false" pluginspage="http://www.apple.com/quicktime/download/"></embed>\
+//                </object>\
+//              </video>');
         }
 
         if (video.description) {
