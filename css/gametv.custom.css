@@ -377,6 +377,7 @@ li.ui-btn {
 #originalContainer {
   display: inline;
   float: right;
+  margin-bottom: 4px;
 }
 
 #originalPrefix {
