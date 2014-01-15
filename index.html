@@ -23,8 +23,6 @@
   <script src="phonegap.js"></script>
   <script src="GAPlugin.js"></script>
   <script src="PushNotification.js"></script>
-  <!--<script src="js/plugins/SocialSharing.js"></script>-->
-  <!--<script src="js/plugins/Insomnia.js"></script>-->
   <script type="text/javascript">
     "use strict";
     $(document).ready(function() {
@@ -49,7 +47,7 @@
       document.addEventListener("resume", onResume, false);
       if (window.plugins != undefined) {
         // Don't allow the screen to dim
-//        window.plugins.insomnia.keepAwake();
+        window.plugins.insomnia.keepAwake();
         // Google Analytics stuff
         gaPlugin = window.plugins.gaPlugin;
         gaPlugin.init(gaInitSuccessHandler, gaInitErrorHandler, "UA-28850866-4", 8);
