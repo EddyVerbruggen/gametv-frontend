@@ -767,10 +767,7 @@
         if (isYouTube(videourl)) {
           loadYoutubeVideoplayer(videourl, width, height);
         } else {
-          alert("hmm..");
           if (isMobileWithPhonegap()) {
-            alert("hi 1");
-            alert("hi 2: "+videourl);
             $("#videocontainer").html('' +
                 '<div style="position: relative; width:'+width+'; min-height: 120px" onclick="launchNativeVideoPlayer(\''+videourl+'\')">' +
                 '<img style="width: 100%" src="'+video.imageurl+'"/>' +
@@ -817,18 +814,7 @@
       }
 
       function launchNativeVideoPlayer(videourl) {
-        alert(videourl);
         VideoPlayer.play(videourl);
-        /*
-        window.plugins.webintent.startActivity({
-              action: window.plugins.webintent.ACTION_VIEW,
-              type: 'video/*',
-              url: videourl
-            },
-            function() {alert('ok')},
-            function() {alert('Your device doesn\'t seem to have a videoplayer.. too bad :(')}
-        );
-        */
       }
 
       function launchYoutubeApp(videourl) {
