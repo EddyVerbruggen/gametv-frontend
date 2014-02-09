@@ -46,7 +46,7 @@
   <gap:plugin name="com.adobe.plugins.gaplugin"/>
   <gap:plugin name="com.phonegap.plugins.pushplugin"/>
 
-  <gap:plugin name="net.tunts.webintent"/>
+  <gap:plugin name="com.dawsonloudon.videoplayer" />
 
   <gap:plugin name="nl.x-services.plugins.socialsharing"/>
   <gap:plugin name="nl.x-services.plugins.insomnia"/>
