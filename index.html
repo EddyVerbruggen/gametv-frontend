@@ -814,12 +814,13 @@
       }
 
       function launchNativeVideoPlayer(videourl) {
+        alert(videourl);
         window.plugins.webintent.startActivity({
               action: window.plugins.webintent.ACTION_VIEW,
               type: 'video/*',
               url: videourl
             },
-            function() {},
+            function() {alert('ok')},
             function() {alert('Your device doesn\'t seem to have a videoplayer.. too bad :(')}
         );
       }
